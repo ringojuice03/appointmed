@@ -1,0 +1,14 @@
+{% load static %}
+<link rel="stylesheet" href="{% static "css/patient_profile.css" %}">
+
+<div class="navbar">
+    <div class="brand">Appointmed</div>
+    <div class="menu">
+        <a href="{% url "patient home" %}">Home</a>
+        <a href="{% url "patient about" %}">About</a>
+        <a href="{% url "patient appointments" %}">Appointments</a>
+        <a href="{% url "patient profile" %}"><i>Hi, User</i></a>
+    </div>
+</div>
+
+<h1>profile page</h1>
