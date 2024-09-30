@@ -1,0 +1,41 @@
+.navbar {
+    width: 100%;
+    height: 60px;
+    background-color: #FFFFFF;
+    color:#003249;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 41px 400px;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    box-sizing: border-box;
+}
+
+.navbar .brand {
+    font-family: Helvetica;
+    font-size: 20px;
+    color: #003249;
+}
+
+.navbar .menu {
+    display: flex;
+    font-family: Helvetica;
+    font: bold;
+    color: #003249;
+}
+
+.navbar .menu a {
+    color:#003249;
+    font-family: Helvetica;
+    text-decoration: none;
+    padding: 10px;
+    margin-left: 10px;
+    transition: background 0.3s;
+}
+
+.navbar .menu a:hover {
+    background-color: #3e8e41;
+    color:#003249;
+}
