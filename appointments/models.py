@@ -10,6 +10,7 @@ class Doctor(models.Model):
         return self.doctor_name
 
 class Patient(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     patient_name = models.CharField(max_length=200, default="Patient placeholder")
     date_of_birth = models.DateField()
     # user = models.OneToOneField(User, on_delete=models.CASCADE)
