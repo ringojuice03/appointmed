@@ -1,0 +1,85 @@
+{% load static %}
+
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'css/user_signin.css' %}">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <div id="menu-container">
+            <!--select role menu-->
+            <div id="select-role" class="menu">
+                <button type="button" id="select-role-back-button">Back</button>
+    
+                <h1 id="select-role-message">How would you like to use AppointMed?</h1>
+    
+                <div id="select-role-buttons">
+                    <button type="button" id="select-role-patient-button" onclick="selectPatientRole()">As a patient</button>
+                    <button type="button" id="select-role-doctor-button" onclick="selectDoctorRole()">As a doctor</button>
+                </div>
+    
+                <button type="button" id="select-role-continue-button" onclick="continueRole()">Continue</button>
+            </div>
+    
+            <!--patient's sign in menu-->
+            <div id="patient-sign-in" class="signInFormMenu menu hideMenu">
+                <div class="leftSignInForm"> 
+                    <div class="signInHeader">
+                        <button type="button" class="signInBackButton" onclick="switchToSelectRole()">Back</button>
+                        <p>insert appointmed logo</p>
+                    </div>
+
+                    <h1 class="signInMessage">Welcome back!</h1>
+    
+                    <form class="signInFields">
+                        <input type="email" id="email-field" name="email" placeholder="Email">
+                        <input type="password" id="password-field" name="password" placeholder="Password">
+                        <input type="button" id="forgot-password-button" value="Forgot your password?">
+                        <input type="submit" id ="sign-in-button" value="Sign in">
+                    </form>
+    
+                    <p>*patient's login page</p>
+                </div>
+    
+                <div class="rightSignUpRedirect">
+                    <h1 class="signUpMessage">New to AppointMed?</h1>
+    
+                    <button type="button" class="signUpButton">Sign Up</button>
+                </div>
+            </div>
+    
+            <!--doctor's sign in menu-->
+            <div id="doctor-sign-in" class="signInFormMenu menu hideMenu">
+                <div class="leftSignInForm">
+                    <div class="signInHeader">
+                        <button type="button" class="signInBackButton" onclick="switchToSelectRole()">Back</button>
+                        <p>insert appointmed logo</p>
+                    </div>
+
+                    <h1 class="signInMessage">Welcome back!</h1>
+    
+                    <form class="signInFields">
+                        <input type="email" id="email-field" name="email" placeholder="Email">
+                        <input type="password" id="password-field" name="password" placeholder="Password">
+                        <input type="button" id="forgot-password-button" value="Forgot your password?">
+                        <input type="submit" id ="sign-in-button" value="Sign in">
+                    </form>
+    
+                    <p>*doctor's login page</p>
+                </div>
+    
+                <div class="rightSignUpRedirect">
+                    <h1 class="signUpMessage">New to AppointMed?</h1>
+    
+                    <button type="button" class="signUpButton">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    
+        <script src="{% static 'js/user_signin.js' %}" async></script>
+    </body>
+</html>
