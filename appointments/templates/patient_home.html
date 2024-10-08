@@ -37,7 +37,7 @@
             <a href="{% url "patient home" %}">Home</a>
             <a href="{% url "patient about" %}">About</a>
             <a href="{% url "patient appointments" %}">Appointments</a>
-            <a href="{% url "patient profile" %}"><i>Hi, User</i></a>
+            <a href="{% url "patient profile" %}"><i>Hi, {{ patient.user.first_name }}</i></a>
         </div>
     </div>
 

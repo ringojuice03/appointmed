@@ -10,13 +10,11 @@ class Doctor(models.Model):
         return self.doctor_name
 
 class Patient(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    patient_name = models.CharField(max_length=200, default="Patient placeholder")
-    date_of_birth = models.DateField()
-    # user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # illness description, etc.
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
+    # date_of_birth = models.DateField()
+
     def __str__(self):
-        return self.patient_name
+        return f'{self.user.last_name}, {self.user.first_name}'
     
 
 class Appointment(models.Model):
@@ -26,5 +24,5 @@ class Appointment(models.Model):
     status = models.CharField(max_length=20, choices=[('scheduled', 'Scheduled'), ('completed', 'Completed'), ('canceled', 'Canceled')])
     
     def __str__(self):
-        return self.patient.patient_name + " & " + self.doctor.doctor_name
+        return self.patient.user.last_name + " & " + self.doctor.doctor_name
     

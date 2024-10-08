@@ -1,18 +1,62 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib.auth import login, authenticate
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 
+from .forms import SignUpForm
 from .models import Patient, Doctor, Appointment
 
 def say_hello(request):
     return render(request, 'hello.html')
 
+def signin(request):
+    return render(request, 'user_signin.html')
 
-class PatientHomeView(generic.ListView):
-    template_name = 'patient_home.html'
-    context_object_name = 'doctor_list'
 
-    def get_queryset(self):
-        return Doctor.objects.all()
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return HttpResponseRedirect(reverse('signup'))
+    else:
+        form = SignUpForm()
+
+    return render(request, 'signup.html', {'form': form})
+
+
+def PatientHome(request):
+    patient = get_object_or_404(Patient, user=request.user)
+    return render(request, 'patient_home.html', {'patient': patient})
+
+
+def User_auth(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('patient home')
+        else:
+            messages.error(request, 'Invalid username or password')
+            return redirect('signin')
+        
+    return render(request, 'user_signin.html')
+
+
+# class PatientHomeView(generic.ListView):
+#     template_name = 'patient_home.html'
+#     context_object_name = 'doctor_list'
+
+#     def get_queryset(self):
+#         return Doctor.objects.all()
+    
     
 def patient_home(request):
     return render(request, 'patient_home.html')
