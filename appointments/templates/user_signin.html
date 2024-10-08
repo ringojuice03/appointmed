@@ -35,7 +35,8 @@
 
                     <h1 class="signInMessage">Welcome back!</h1>
     
-                    <form class="signInFields">
+                    <form class="signInFields" action='{% url "user auth" %}' method="post">
+                        {% csrf_token %}
                         <input type="email" id="email-field" name="email" placeholder="Email">
                         <input type="password" id="password-field" name="password" placeholder="Password">
                         <input type="button" id="forgot-password-button" value="Forgot your password?">
