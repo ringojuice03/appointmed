@@ -35,12 +35,21 @@
 
                     <h1 class="signInMessage">Welcome back!</h1>
     
-                    <form class="signInFields" action='{% url "user auth" %}' method="post">
+                    <form class="signInFields" action='{% url "login" %}' method="post">
                         {% csrf_token %}
+                        <input type="hidden" name="user_type" value="patient">
                         <input type="email" id="email-field" name="email" placeholder="Email">
                         <input type="password" id="password-field" name="password" placeholder="Password">
                         <input type="button" id="forgot-password-button" value="Forgot your password?">
                         <input type="submit" id ="sign-in-button" value="Sign in">
+
+                        <!--error message-->
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div>{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                        
                     </form>
     
                     <p>*patient's login page</p>
@@ -63,11 +72,21 @@
 
                     <h1 class="signInMessage">Welcome back!</h1>
     
-                    <form class="signInFields">
+                    <form class="signInFields" action='{% url "login" %}' method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="user_type" value="doctor">
                         <input type="email" id="email-field" name="email" placeholder="Email">
                         <input type="password" id="password-field" name="password" placeholder="Password">
                         <input type="button" id="forgot-password-button" value="Forgot your password?">
                         <input type="submit" id ="sign-in-button" value="Sign in">
+
+                        <!--error message-->
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div>{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+
                     </form>
     
                     <p>*doctor's login page</p>
@@ -75,7 +94,6 @@
     
                 <div class="rightSignUpRedirect">
                     <h1 class="signUpMessage">New to AppointMed?</h1>
-    
                     <button type="button" class="signUpButton">Sign Up</button>
                 </div>
             </div>
