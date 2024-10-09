@@ -1,4 +1,4 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.urls import reverse
@@ -11,17 +11,35 @@ from .models import Patient, Doctor, Appointment
 def say_hello(request):
     return render(request, 'hello.html')
 
-def signin(request):
-    return render(request, 'user_signin.html')
+def LogIn(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            login(request, user)
+            user_type = request.POST.get('user_type')
+            if user_type == 'patient' and Patient.objects.filter(user=user).exists():
+                return redirect('patient home')
+            elif user_type == 'doctor' and Doctor.objects.filter(user=user).exists():
+                return redirect('doctor home')
+            else:
+                messages.error(request, f'This user is not registered as a {user_type}')
+        else:
+            messages.error(request, 'Invalid username or password')
+            return redirect('login')
+        
+    return render(request, 'login.html')
 
 
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return HttpResponseRedirect(reverse('signup'))
+            form.save()
+            return HttpResponseRedirect(reverse('login'))
     else:
         form = SignUpForm()
 
@@ -31,23 +49,6 @@ def signup(request):
 def PatientHome(request):
     patient = get_object_or_404(Patient, user=request.user)
     return render(request, 'patient_home.html', {'patient': patient})
-
-
-def User_auth(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-
-        user = authenticate(request, username=email, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect('patient home')
-        else:
-            messages.error(request, 'Invalid username or password')
-            return redirect('signin')
-        
-    return render(request, 'user_signin.html')
 
 
 # class PatientHomeView(generic.ListView):
