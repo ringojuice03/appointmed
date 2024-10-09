@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
-from .forms import SignUpForm
+from .forms import PatientSignUpForm
 from .models import Patient, Doctor, Appointment
 
 def say_hello(request):
@@ -36,12 +36,12 @@ def LogIn(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        form = PatientSignUpForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('login'))
     else:
-        form = SignUpForm()
+        form = PatientSignUpForm()
 
     return render(request, 'signup.html', {'form': form})
 
