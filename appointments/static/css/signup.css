@@ -35,34 +35,8 @@ body
     visibility: hidden;
 }
 
-/*select role css*/
-#select-role
-{
-    background-color: 21769c;
-    padding: 25px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-#select-role-back-button
-{
-    margin: 0px auto 0px 0px;
-}
-
-#select-role-message, #select-role-buttons, #select-role-continue-button
-{
-    margin: 0px auto 0px auto;
-}
-
-#select-role-buttons
-{
-    display: flex;
-    flex-direction: row;
-}
-
-/*sign in form css*/
-.signInFormMenu
+/*sign up form css*/
+.signUpFormMenu
 {   
     display: flex;
     flex-direction: row;
@@ -70,52 +44,66 @@ body
 }
 
     /*left side*/
-    .leftSignInForm
-    {
-        width: 640px;
-        height: auto;
-        background-color: ffffff;
-        border-radius: 25px 0px 0px 25px;
-        padding: 25px;
-    
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .signInHeader
+    .signUpHeader
     {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
     }
 
-    .signInMessage, .signInFields
-    {
-        margin: 0px auto 0px auto;
-    }
-
-    .signInFields
-    {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    /*right side*/
-    .rightSignUpRedirect
+    .leftLogInRedirect
     {
         width: 384px;
         height: auto;
         background-color: 21769c;
-        border-radius: 0px 25px 25px 0px;
+        border-radius: 25px 0px 0px 25px;
         padding: 25px;
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
     
-    .signUpMessage, .signUpButton
+    .logInMessage, .logInButton
     {
         margin: 0px auto 0px auto;
+    }
+
+    /*right side*/
+    .rightSignUpForm
+    {
+        width: 640px;
+        height: auto;
+        background-color: ffffff;
+        border-radius: 0px 25px 25px 0px;
+        padding: 25px;
+    
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .signUpMessage, .signUpFields
+    {
+        margin: 0px auto 0px auto;
+    }
+
+    .signUpFields
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .fieldClusterX
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .fieldClusterY
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }

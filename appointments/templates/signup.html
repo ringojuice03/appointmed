@@ -1,17 +1,109 @@
-<!-- templates/signup.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-</head>
-<body>
-    <h2>Sign Up</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
-    </form>
-</body>
+{% load static %}
+
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <div id="menu-container">
+            <!--sign up menu-->
+            <div id="sign-up" class="signUpFormMenu menu">
+                <div class="leftLogInRedirect">
+                    <div class="signUpHeader">
+                        <p>insert appointmed logo</p>
+                    </div>
+
+                    <h1 class="logInMessage">Already using AppointMed?</h1>
+    
+                    <button type="button" class="logInButton">Log In</button>
+                </div>
+
+                <div class="rightSignUpForm">
+                    <h1 class="signUpMessage">Create account</h1>
+    
+                    <form class="signUpFields" action='{% url "signup" %}' method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="user_type" value="patient">
+
+                        <div class="fieldClusterX">
+                            <input id="first-name-field" name="first-name" placeholder="First name">
+                            <input id="last-name-field" name="last-name" placeholder="Last name">
+                        </div>
+
+                        <input type="email" id="email-field" name="email" placeholder="Email">
+                        <input type="password" id="password-field" name="password" placeholder="New password">
+
+                        <div class="fieldClusterX">
+                            <div class="fieldClusterY">
+                                <label for="date-field">Date of birth</label>
+                                <input type="date" id="date-field" name="date" placeholder="MM/DD/YYYY">
+                            </div>
+                            <div class="fieldClusterY">
+                                <label for="gender-field">Gender</label>
+                                <select id="gender-field" name="gender">
+                                    <option value="select">Select</option>
+                                    <option value="female">Female</option>
+                                    <option value="male">Male</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <input type="text" id="personal-address-field" name="personal-address" placeholder="Full personal address">
+
+                        <div class="fieldClusterX">
+                            <label for="role-check-field">Are you a doctor?</label>
+                            <input type="checkbox" id="role-check-field" name="role-check" value="doctor" onclick="showDoctorFields()">
+                        </div>
+                        
+                        <div class="fieldClusterX">
+                            <div id="medical-license-field-cluster" class="fieldClusterY hideMenu">
+                                <label for="medical-license-field">Medical license</label>
+                                <input type="file" id="medical-license-field" name="medical-license">
+                            </div>
+
+                            <div id="specialty-field-cluster" class="fieldClusterY hideMenu">
+                                <label for="specialty-field">Specialty</label>
+                                <select id="specialty-field" name="specialty">
+                                    <option value="select">Select</option>
+                                    <option value="a">a</option>
+                                    <option value="b">b</option>
+                                    <option value="c">c</option>
+                                    <option value="d">d</option>
+                                    <option value="e">e</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <input type="text" id="clinic-address-field" class="hideMenu" name="clinic-address" placeholder="Full clinic address">
+
+                        <input type="submit" id ="sign-up-button" value="Sign Up">
+
+                        <!--error message
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div>{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                        -->
+                        
+                    </form>
+
+                    <!--
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Sign Up</button>
+                    </form>
+                    -->
+                </div>
+            </div>
+        </div>
+    
+        <script src="{% static 'js/signup.js' %}" async></script>
+    </body>
 </html>
