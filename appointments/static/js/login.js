@@ -1,5 +1,5 @@
-const patient = document.getElementById("patient-sign-in");
-const doctor = document.getElementById("doctor-sign-in");
+const patient = document.getElementById("patient-log-in");
+const doctor = document.getElementById("doctor-log-in");
 const select = document.getElementById("select-role");
 var patientRole = false;
 var doctorRole = false;
@@ -20,11 +20,11 @@ function continueRole()
 {
     if (patientRole == true)
     {
-        switchToPatientSignIn();
+        switchToPatientLogIn();
     }
     else if (doctorRole == true)
     {
-        switchToDoctorSignIn();
+        switchToDoctorLogIn();
     }
     else
     {
@@ -34,14 +34,14 @@ function continueRole()
     }
 }
 
-function switchToPatientSignIn()
+function switchToPatientLogIn()
 {
     select.classList.add("hideMenu");
     doctor.classList.add("hideMenu");
     patient.classList.remove("hideMenu");
 }
 
-function switchToDoctorSignIn()
+function switchToDoctorLogIn()
 {
     select.classList.add("hideMenu");
     patient.classList.add("hideMenu");
