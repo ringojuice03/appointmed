@@ -60,10 +60,7 @@ def signup(request):
             profile.user = user
             profile.save()
 
-            if is_doctor:
-                return redirect('doctor home')
-            else:
-                return redirect('patient home')
+            return redirect('login')
             
         else:
             dictionary = {'user_form': user_form, 'profile_form': profile_form}
