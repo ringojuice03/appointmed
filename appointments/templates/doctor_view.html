@@ -1,13 +1,129 @@
 {% load static %}
-<link rel="stylesheet" href="{% static "css/doctor.css" %}">
+
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="practitioner_selection2.css">
-    <title>Appointmed</title>
-</head>
-<body>
-    <div class="box"><h1>asd</h1></div>
-</body>
+    <head>
+        <title>Appointmed</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+
+        <link rel="stylesheet" href="{% static 'css/doctor.css' %}">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+        <!--daypilot calendar library-->
+        <script src="{% static 'js/daypilot-all.min.js' %}" async></script>
+    </head>
+    
+    <body>
+        <div id="header-container">
+            <h1 id="header-message">Hello, <i>Dr. {{ doctor.user.first_name }}</i>!</h1>
+
+            <div id="icon-bar">
+                <div id="date-n-time">
+                    <p>{% now "F j, Y" %}</p>
+                    <p>{% now "g:i A" %}</p>
+                </div>
+
+                <button type="button" id="note-button">note</button>
+                <button type="button" id="notification-button">notification</button>
+                <button type="button" id="about-button">about</button>
+                <button type="button" id="user-menu-button">user</button>
+            </div>
+        </div>
+
+        <div id="body-container">
+            <!-- calendar from: https://code.daypilot.org/27988/html5-calendar-with-day-week-month-views-javascript-php -->
+            <div id="calendar-container">
+                <div class="main" style="display: flex; justify-content: flex-start;">
+                        <!--filter buttons and calendar-->
+                        <div style="flex-grow: 1;">
+                          <div class="toolbar buttons">
+                            <button id="buttonDay">Day</button>
+                            <button id="buttonWeek">Week</button>
+                            <button id="buttonMonth">Month</button>
+                          </div>
+                          <div id="dpDay"></div>
+                          <div id="dpWeek"></div>
+                          <div id="dpMonth"></div>
+                        </div>
+
+                        <!--3 side calendars-->
+                        <div style="visibility: hidden;">
+                            <div id="nav"></div>
+                        </div>
+                </div>
+
+                <div id="calendar-legends">
+                    <p>*icon* Accepted Request</p>
+                    <p>*icon* Pending Request</p>
+                    <p>*icon* Rejected Request</p>
+                </div>
+            </div>
+
+            <div id="appointments-container">
+                <h1>Appointments</h1>
+
+                <div id="appointments-filters">
+                    <button type="button" id="pending-filter">Pending ({x})</button>
+                    <button type="button" id="canceled-filter">Canceled ({x})</button>
+                </div>
+
+                <div id="appointments-list">
+                    <div class="appointmentItem">
+                        <div class="appointmentDetails">
+                            <div class="appointmentLeft">
+                                <h1>{Patient name}</h1>
+                                <p>{Appointment time}</p>
+                            </div>
+        
+                            <div class="appointmentRight">
+                                <button type="button" class="acceptButton">Accept</button>
+                                <button type="button" class="rejectButton">Reject</button>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                    </div>
+
+                    <div class="appointmentItem">
+                        <div class="appointmentDetails">
+                            <div class="appointmentLeft">
+                                <h1>{Patient name}</h1>
+                                <p>{Appointment time}</p>
+                            </div>
+        
+                            <div class="appointmentRight">
+                                <button type="button" class="acceptButton">Accept</button>
+                                <button type="button" class="rejectButton">Reject</button>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                    </div>
+
+                    <div class="appointmentItem">
+                        <div class="appointmentDetails">
+                            <div class="appointmentLeft">
+                                <h1>{Patient name}</h1>
+                                <p>{Appointment time}</p>
+                            </div>
+        
+                            <div class="appointmentRight">
+                                <button type="button" class="acceptButton">Accept</button>
+                                <button type="button" class="rejectButton">Reject</button>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                    </div>
+                </div>
+
+                <p>Slots available: <i>{x}</i></p>
+            </div>
+        </div>
+        
+        <script src="{% static 'js/doctor.js' %}" async></script>
+    </body>
 </html>
