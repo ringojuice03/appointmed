@@ -1,84 +1,141 @@
-
 body {
     margin: 0;
     font-family: Helvetica;
-    display: flex;
-    min-height: 100vh;
+    position: relative;
+}
+/* navbar */
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 100px;
+    background: #ffffff;
+    align-items: center;
+}
+.header .navbar{
+    width: 770px;
+    text-align: center;
+    font-size: 32px;
+    padding: 40px 1095px;
+}
+
+.navbar ul {
+    list-style-type: none; 
+    padding-left: 0; 
+    margin: 0; 
+    display: flex; 
+}
+
+.navbar li {
+    margin-right: 40px;
+    color: black; 
+}
+/* logo */
+.logo{
+    position: absolute;
+    width: 214px; 
+    height: 39px;
+    background-color: blue;
+    top: 45px; 
+    left: 372px; 
 }
 
 /* sidebar */
 .sidebar {
-    width: 250px;
+    position: relative;
+    width: 320px;  
+    height: 1080px;
     background-color: #21769C;
-    color: white;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    padding: 40px;
-    box-sizing: border-box;
 }
-
-.sidebar h2 {
+.sidebar .doctor{
+    position: absolute;
+    top: 46px;  
+    left: 54px; 
+    font-size: 32px; 
+    color: white;
     text-align: center;
-    font-size: 24px;
-    margin-bottom: 30px;
 }
 
-.sidebar a {
-    display: block;
-    color: white;
-    padding: 10px;
-    text-decoration: none;
-    margin-bottom: 10px;
-    transition: background 0.3s;
-}
-
-.sidebar a:hover {
-    background-color: #575757;
-}
-
-/* navbar*/
-.navbar {
-    width: 100%;
-    height: 60px;
-    background-color: #FFFFFF;
-    color:#003249;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 41px 400px;
-    position: fixed;
-    top: 0;
-    left: 250px;
-    box-sizing: border-box;
-}
-
-.navbar .brand {
-    font-family: Helvetica;
+.sidebar .bodyparts{
+    position: absolute;
+    top: 104px;  
+    left: 74px; 
     font-size: 20px;
-    color: #003249;
+    color: white;
+    text-align: left;
+}
+.bodyparts ul {
+    list-style-type: none; 
+    padding-left: 0; 
+    margin: 0; 
+    margin-left: 0px;
+}
+.bodyparts li {
+    margin-bottom: 7px; 
+}
+.sidebar .clinics{
+    position: absolute;
+    top: 569px;  
+    left: 54px; 
+    font-size: 32px; 
+    color: white;
+    text-align: center;
+}
+.sidebar .clinictype{
+    position: absolute;
+    top: 637px;  
+    left: 74px;
+    font-size: 20px;
+    color: white;
+    text-align: left;
+}
+.clinictype ul{
+    list-style-type: none; 
+    padding-left: 0; 
+    margin: 0; 
+    margin-left: 0px;
+}
+.clinictype li {
+    margin-bottom: 7px; 
+}
+.sidebar .appointmed2024{
+    position: absolute;
+    top: 1036px;  
+    left: 54px; 
+    font-size: 12px; 
+    color: white;
+    text-align: center;
+    line-height: 50px; 
+}
+.sidebar .about{
+    position: absolute;
+    top: 1036px;  
+    left: 246px; 
+    font-size: 12px; 
+    color: white;
+    text-align: center;
+    line-height: 50px; /* Vertically center text */
 }
 
-.navbar .menu {
-    display: flex;
-    font-family: Helvetica;
-    font: bold;
-    color: #003249;
+/* doctorlist */
+.doctorlist {
+    position: absolute;
+    top: 113px; 
+    left: 370px;
+    display: flex; /* Activate flexbox for this container */
+    flex-wrap: wrap;
+    gap: 23px; /* Set gap between items */
+    justify-content: flex-start; /* Align items to the start */
+    align-items: flex-start; 
+    width: 1505px; /* Set width as specified */
+    height: 980px; /* Set height as specified */
+    background-color: blue; /* Optional: Add a background color for visibility */
 }
 
-.navbar .menu a {
-    color:#003249;
-    font-family: Helvetica;
-    text-decoration: none;
-    padding: 10px;
-    margin-left: 10px;
-    transition: background 0.3s;
+.doctorprofile {
+    background-color: coral;
+    width: 359px; /* Set width as specified */
+    height: 474px; /* Set height as specified */
+    font-size: 24px;
+    color: white;
 }
-
-.navbar .menu a:hover {
-    background-color: #3e8e41;
-    color:#003249;
-}
-
-

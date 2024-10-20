@@ -133,6 +133,14 @@ STATICFILES_DIRS = [
     "appointments/static"
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media/'
+
+AUTHENTICATION_BACKENDS = [
+    'appointments.backends.EmailOrUsernameBackend',  # Custom backend
+    'django.contrib.auth.backends.ModelBackend',  # Default backend
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 

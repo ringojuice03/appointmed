@@ -1,48 +1,71 @@
+<!DOCTYPE html>
 {% load static %}
-<link rel="stylesheet" href="{% static "css/patient_home.css" %}">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <link rel="stylesheet" href=" {% static "css/patient_home.css" %} ">
     <title>Appointmed</title>
 </head>
 <body>
+    <header class="header">
+        <!-- navbar-->
+        <div class="navbar">
+        <ul>
+            <li><a style="color: black; text-decoration: none;" href="{% url "patient home" %}">Home</a></li>
+            <li><a style="color: black; text-decoration: none;" href="{% url "patient about" %}">About</a></li>
+            <li><a style="color: black; text-decoration: none;" href="{% url "patient appointments" %}">Appointments</a></li>
+            <li><a style="color: black; text-decoration: none;" href="{% url "patient profile" %}">Hi <i> {{ patient.user.first_name }} </i>!</a></li>
+        </ul>
+        </div>
 
+        <!-- logo -->
+    <div class="logo">logo</div>
+    </header>
     <!-- sidebar -->
     <div class="sidebar">
-        <h2>DOCTORS</h2>
-        <p href="#upperbody">Upper Body</p>
-        <p href="#middlebody">Middle Body</p>
-        <p href="#lowerbody">Lower Body</p>
-
-        <h2>CLINICS</h2>
-        <p href="#general_practice">General Practice</p>
-        <p href="#dental">Dental</p>
-        <p href="#eye">Eye</p>
-        <p href="#orthopedic">Orthopedic</p>
-        <p href="#cardiology">Cardiology</p>
-        <p href="#dermatology">Dermatology</p>
-        <p href="#neurology">Neurology</p>
-        <p href="#psychiatry">Psychiatry</p>
-        <p href="#oncology">Oncology</p>
-        <p href="#ob/gyn">OB/GYN</p>
-        <p href="#pediatric">Pediatric</p>
-    </div>
-
-    <!-- navbar -->
-    <div class="navbar">
-        <div class="brand">Appointmed</div>
-        <div class="menu">
-            <a href="{% url "patient home" %}">Home</a>
-            <a href="{% url "patient about" %}">About</a>
-            <a href="{% url "patient appointments" %}">Appointments</a>
-            <a href="{% url "patient profile" %}"><i>Hi, {{ patient.user.first_name }}</i></a>
+        <div class="doctor"><b>DOCTOR</b></div>
+        <div class="bodyparts">
+            <ul>
+                <ul>
+                    <li><a href="upper-body.html" style="color: white; text-decoration: none;">Upper Body</a></li>
+                    <li><a href="middle-body.html" style="color: white; text-decoration: none;">Middle Body</a></li>
+                    <li><a href="lower-body.html" style="color: white; text-decoration: none;">Lower Body</a></li>
+                </ul>
+        </div>
+        <div class="clinics"><b>CLINICS</b></div>
+        <div class="clinictype">
+            <ul>
+                <li><a href="general-practice.html" style="color: white; text-decoration: none;">General Practice</a></li>
+                <li><a href="dental.html" style="color: white; text-decoration: none;">Dental</a></li>
+                <li><a href="eye.html" style="color: white; text-decoration: none;">Eye</a></li>
+                <li><a href="orthopedic.html" style="color: white; text-decoration: none;">Orthopedic</a></li>
+                <li><a href="cardiology.html" style="color: white; text-decoration: none;">Cardiology</a></li>
+                <li><a href="dermatology.html" style="color: white; text-decoration: none;">Dermatology</a></li>
+                <li><a href="neurology.html" style="color: white; text-decoration: none;">Neurology</a></li>
+                <li><a href="psychiatry.html" style="color: white; text-decoration: none;">Psychiatry</a></li>
+                <li><a href="oncology.html" style="color: white; text-decoration: none;">Oncology</a></li>
+                <li><a href="obgyn.html" style="color: white; text-decoration: none;">OB/GYN</a></li>
+                <li><a href="pediatric.html" style="color: white; text-decoration: none;">Pediatric</a></li>
+            </ul>
+        </div>
+        
+        <div class ="appointmed2024">© AppointMed 2024</div>
+        <div class="about">About</div>
+        </div>
         </div>
     </div>
 
-    <!-- main content -->
-    <div class="content">
+    <!-- doctorlist -->
+    <div class="doctorlist">
+        <div class="doctorprofile">doc 1</div>
+        <div class="doctorprofile">doc 2</div>
+        <div class="doctorprofile">doc 2</div>
+        <div class="doctorprofile">doc 2</div>
+        <div class="doctorprofile">doc 1</div>
+        <div class="doctorprofile">doc 2</div>
+        <div class="doctorprofile">doc 2</div>
+        <div class="doctorprofile">doc 2</div>
     </div>
 
 </body>

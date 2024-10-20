@@ -25,23 +25,27 @@
 
                 <div class="rightSignUpForm">
                     <h1 class="signUpMessage">Create account</h1>
-    
-                    <form class="signUpFields" action='{% url "signup" %}' method="post">
+                    <form class="signUpFields" action='{% url "signup" %}' enctype="multipart/form-data" method="post">
                         {% csrf_token %}
-                        <input type="hidden" name="user_type" value="patient">
 
                         <div class="fieldClusterX">
-                            <input id="first-name-field" name="first-name" placeholder="First name">
-                            <input id="last-name-field" name="last-name" placeholder="Last name">
-                        </div>
+                            <input id="first-name-field" name="first_name" placeholder="First name">
+                            <p>{{ user_form.first_name.errors.0 }}</p>
 
-                        <input type="email" id="email-field" name="email" placeholder="Email">
-                        <input type="password" id="password-field" name="password" placeholder="New password">
+                            <input id="last-name-field" name="last_name" placeholder="Last name">
+                            {{ user_form.last_name.errors.0 }}
+                        </div>
+                        
+                        <input id="username" name="username" placeholder="username"> {{ user_form.username.errors.0 }}
+                        <input type="email" id="email-field" name="email" placeholder="Email"> {{ user_form.email.errors.0 }}
+                        <input type="password" id="password-field" name="password1" placeholder="Password"> {{ user_form.password1.errors.0 }}
+                        <input type="password" id="password-field" name="password2" placeholder="Confirm assword"> 
 
                         <div class="fieldClusterX">
                             <div class="fieldClusterY">
                                 <label for="date-field">Date of birth</label>
-                                <input type="date" id="date-field" name="date" placeholder="MM/DD/YYYY">
+                                <input type="date" id="date-field" name="date_of_birth" placeholder="DD/MM/YYYY"> 
+                                {{ profile_form.date_of_birth.errors.0 }}
                             </div>
                             <div class="fieldClusterY">
                                 <label for="gender-field">Gender</label>
@@ -50,20 +54,26 @@
                                     <option value="female">Female</option>
                                     <option value="male">Male</option>
                                 </select>
+                                {{ profile_form.gender.errors.0 }}
                             </div>
+                            
                         </div>
-                        
-                        <input type="text" id="personal-address-field" name="personal-address" placeholder="Full personal address">
 
+                        <input type="text" id="personal-address-field" name="address" placeholder="Full personal address">
+                        
+                        <!--patient or doctor-->
+                        {% comment %} <input type="hidden" name="user_type" value="patient"> {% endcomment %}
                         <div class="fieldClusterX">
                             <label for="role-check-field">Are you a doctor?</label>
-                            <input type="checkbox" id="role-check-field" name="role-check" value="doctor" onclick="showDoctorFields()">
+                            <input type="checkbox" id="role-check-field" name="role" value="doctor" onclick="showDoctorFields()">
                         </div>
                         
+                        <!--doctor additional-->
                         <div class="fieldClusterX">
                             <div id="medical-license-field-cluster" class="fieldClusterY hideMenu">
                                 <label for="medical-license-field">Medical license</label>
-                                <input type="file" id="medical-license-field" name="medical-license">
+                                <input type="file" id="medical-license-field" name="medical_license">
+
                             </div>
 
                             <div id="specialty-field-cluster" class="fieldClusterY hideMenu">
@@ -76,13 +86,13 @@
                                     <option value="d">d</option>
                                     <option value="e">e</option>
                                 </select>
+                                {{ profile_form.specialty.errors.0 }}
                             </div>
                         </div>
 
-                        <input type="text" id="clinic-address-field" class="hideMenu" name="clinic-address" placeholder="Full clinic address">
-
+                        <input type="text" id="clinic-address-field" class="hideMenu" name="clinic_address" placeholder="Full clinic address">
+                        {{ profile_form.clinic_address.errors.0 }}
                         <input type="submit" id ="sign-up-button" value="Sign Up">
-
                         <!--error message
                         {% if messages %}
                             {% for message in messages %}

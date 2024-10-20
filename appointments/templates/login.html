@@ -45,9 +45,7 @@
 
                         <!--error message-->
                         {% if messages %}
-                            {% for message in messages %}
-                                <div>{{ message }}</div>
-                            {% endfor %}
+                            <div>{{ messages }}</div>
                         {% endif %}
                         
                     </form>
@@ -75,7 +73,7 @@
                     <form class="logInFields" action='{% url "login" %}' method="post">
                         {% csrf_token %}
                         <input type="hidden" name="user_type" value="doctor">
-                        <input type="email" id="email-field" name="email" placeholder="Email">
+                        <input type="text" id="identifier-field" name="identifier" placeholder="Email or Username">
                         <input type="password" id="password-field" name="password" placeholder="Password">
                         <input type="button" id="forgot-password-button" value="Forgot your password?">
                         <input type="submit" id ="log-in-button" value="log in">
