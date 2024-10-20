@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="{% static 'css/user_signin.css' %}">
+        <link rel="stylesheet" href="{% static 'css/login.css' %}">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,23 +25,23 @@
                 <button type="button" id="select-role-continue-button" onclick="continueRole()">Continue</button>
             </div>
     
-            <!--patient's sign in menu-->
-            <div id="patient-sign-in" class="signInFormMenu menu hideMenu">
-                <div class="leftSignInForm"> 
-                    <div class="signInHeader">
-                        <button type="button" class="signInBackButton" onclick="switchToSelectRole()">Back</button>
+            <!--patient's log in menu-->
+            <div id="patient-log-in" class="logInFormMenu menu hideMenu">
+                <div class="leftLogInForm"> 
+                    <div class="logInHeader">
+                        <button type="button" class="logInBackButton" onclick="switchToSelectRole()">Back</button>
                         <p>insert appointmed logo</p>
                     </div>
 
-                    <h1 class="signInMessage">Welcome back!</h1>
+                    <h1 class="logInMessage">Welcome back!</h1>
     
-                    <form class="signInFields" action='{% url "login" %}' method="post">
+                    <form class="logInFields" action='{% url "login" %}' method="post">
                         {% csrf_token %}
                         <input type="hidden" name="user_type" value="patient">
                         <input type="email" id="email-field" name="email" placeholder="Email">
                         <input type="password" id="password-field" name="password" placeholder="Password">
                         <input type="button" id="forgot-password-button" value="Forgot your password?">
-                        <input type="submit" id ="sign-in-button" value="Sign in">
+                        <input type="submit" id ="log-in-button" value="Log in">
 
                         <!--error message-->
                         {% if messages %}
@@ -60,23 +60,23 @@
                 </div>
             </div>
     
-            <!--doctor's sign in menu-->
-            <div id="doctor-sign-in" class="signInFormMenu menu hideMenu">
-                <div class="leftSignInForm">
-                    <div class="signInHeader">
-                        <button type="button" class="signInBackButton" onclick="switchToSelectRole()">Back</button>
+            <!--doctor's log in menu-->
+            <div id="doctor-log-in" class="logInFormMenu menu hideMenu">
+                <div class="leftLogInForm">
+                    <div class="logInHeader">
+                        <button type="button" class="logInBackButton" onclick="switchToSelectRole()">Back</button>
                         <p>insert appointmed logo</p>
                     </div>
 
-                    <h1 class="signInMessage">Welcome back!</h1>
+                    <h1 class="logInMessage">Welcome back!</h1>
     
-                    <form class="signInFields" action='{% url "login" %}' method="post">
+                    <form class="logInFields" action='{% url "login" %}' method="post">
                         {% csrf_token %}
                         <input type="hidden" name="user_type" value="doctor">
                         <input type="text" id="identifier-field" name="identifier" placeholder="Email or Username">
                         <input type="password" id="password-field" name="password" placeholder="Password">
                         <input type="button" id="forgot-password-button" value="Forgot your password?">
-                        <input type="submit" id ="sign-in-button" value="Sign in">
+                        <input type="submit" id ="log-in-button" value="log in">
 
                         <!--error message-->
                         {% if messages %}
@@ -97,6 +97,6 @@
             </div>
         </div>
     
-        <script src="{% static 'js/user_signin.js' %}" async></script>
+        <script src="{% static 'js/login.js' %}" async></script>
     </body>
 </html>

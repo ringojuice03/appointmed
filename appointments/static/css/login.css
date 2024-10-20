@@ -1,0 +1,121 @@
+*
+{
+    font-family: "Montserrat", sans-serif;
+    /*
+    border-style: dashed;
+    border-color: gray;
+    */
+}
+
+body
+{
+    background-color: rgba(33, 118, 156, 0.025);
+}
+
+#menu-container, .menu
+{
+    border-radius: 25px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+#menu-container
+{
+    width: 1024px;
+    height: 768px;
+    box-shadow: -4px 4px 4px #aaaaaa;
+}
+
+.hideMenu
+{
+    visibility: hidden;
+}
+
+/*select role css*/
+#select-role
+{
+    background-color: 21769c;
+    padding: 25px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#select-role-back-button
+{
+    margin: 0px auto 0px 0px;
+}
+
+#select-role-message, #select-role-buttons, #select-role-continue-button
+{
+    margin: 0px auto 0px auto;
+}
+
+#select-role-buttons
+{
+    display: flex;
+    flex-direction: row;
+}
+
+/*log in form css*/
+.logInFormMenu
+{   
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+    /*left side*/
+    .leftLogInForm
+    {
+        width: 640px;
+        height: auto;
+        background-color: ffffff;
+        border-radius: 25px 0px 0px 25px;
+        padding: 25px;
+    
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .logInHeader
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .logInMessage, .logInFields
+    {
+        margin: 0px auto 0px auto;
+    }
+
+    .logInFields
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /*right side*/
+    .rightSignUpRedirect
+    {
+        width: 384px;
+        height: auto;
+        background-color: 21769c;
+        border-radius: 0px 25px 25px 0px;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .signUpMessage, .signUpButton
+    {
+        margin: 0px auto 0px auto;
+    }

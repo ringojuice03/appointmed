@@ -4,6 +4,7 @@ const clinicAddressField = document.getElementById("clinic-address-field");
 
 var roleCheckField = document.getElementById("role-check-field");
 
+
 function showDoctorFields(checkbox)
 {
     if (roleCheckField.checked == true)

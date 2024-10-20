@@ -25,7 +25,6 @@
 
                 <div class="rightSignUpForm">
                     <h1 class="signUpMessage">Create account</h1>
-    
                     <form class="signUpFields" action='{% url "signup" %}' enctype="multipart/form-data" method="post">
                         {% csrf_token %}
 
@@ -74,6 +73,7 @@
                             <div id="medical-license-field-cluster" class="fieldClusterY hideMenu">
                                 <label for="medical-license-field">Medical license</label>
                                 <input type="file" id="medical-license-field" name="medical_license">
+
                             </div>
 
                             <div id="specialty-field-cluster" class="fieldClusterY hideMenu">
@@ -93,7 +93,6 @@
                         <input type="text" id="clinic-address-field" class="hideMenu" name="clinic_address" placeholder="Full clinic address">
                         {{ profile_form.clinic_address.errors.0 }}
                         <input type="submit" id ="sign-up-button" value="Sign Up">
-                        
                         <!--error message
                         {% if messages %}
                             {% for message in messages %}
