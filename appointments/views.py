@@ -1,29 +1,36 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+import re
 
-from .forms import PatientSignUpForm
+from .forms import UserForm, PatientForm, DoctorForm
 from .models import Patient, Doctor, Appointment
 
 def say_hello(request):
     return render(request, 'hello.html')
 
+def LogOut(request):
+    logout(request)
+    return redirect('login')
+
 def LogIn(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        identifier = request.POST.get('identifier')
         password = request.POST.get('password')
+        user_type = request.POST.get('user_type')
 
-        user = authenticate(request, username=email, password=password)
+        user = authenticate(request, username=identifier, password=password)
 
         if user is not None:
-            login(request, user)
-            user_type = request.POST.get('user_type')
             if user_type == 'patient' and Patient.objects.filter(user=user).exists():
+                login(request, user)
                 return redirect('patient home')
             elif user_type == 'doctor' and Doctor.objects.filter(user=user).exists():
+                login(request, user)
                 return redirect('doctor home')
             else:
                 messages.error(request, f'This user is not registered as a {user_type}')
@@ -34,19 +41,42 @@ def LogIn(request):
     return render(request, 'login.html')
 
 
-def signup(request):
+def signup(request): 
     if request.method == 'POST':
-        form = PatientSignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('login'))
-    else:
-        form = PatientSignUpForm()
+        user_form = UserForm(request.POST)
+        is_doctor = (request.POST.get('role') == 'doctor')
 
-    return render(request, 'signup.html', {'form': form})
+        if is_doctor:
+            profile_form = DoctorForm(request.POST, request.FILES)
+        else:
+            profile_form = PatientForm(request.POST)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save(commit=False)
+            user.set_password(user_form.cleaned_data['password1'])
+            user.save()
+
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
+
+            return redirect('login')
+            
+        else:
+            dictionary = {'user_form': user_form, 'profile_form': profile_form}
+            return render(request, 'signup.html', dictionary)
+    else:
+        user_form = UserForm()
+        profile_form = PatientForm()
+    
+    dictionary = {'user_form': user_form, 'profile_form': profile_form}
+    return render(request, 'signup.html', dictionary)
 
 
 def PatientHome(request):
+    if isinstance(request.user, AnonymousUser):
+        return redirect('login')
+
     patient = get_object_or_404(Patient, user=request.user)
     return render(request, 'patient_home.html', {'patient': patient})
 
@@ -80,4 +110,8 @@ def patient_profile(request):
 
 
 def doctor_home(request):
-    return render(request, 'doctor_view.html')
+    if isinstance(request.user, AnonymousUser):
+        return redirect('login')
+
+    doctor = get_object_or_404(Doctor, user=request.user)
+    return render(request, 'doctor_home.html', {'doctor': doctor})
