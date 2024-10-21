@@ -1,0 +1,293 @@
+*
+{
+    font-family: "Montserrat", sans-serif;
+    
+    /*
+    border-style: dashed;
+    border-color: gray;
+    */
+}
+
+body
+{
+    padding: 40px 0px 0px 0px;
+}
+
+#header-container
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 1748px;
+    height: 50px;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+#header-message
+{
+    font-size: 32px;
+    font-weight: 600;
+}
+
+#icon-bar
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    height: 50px;
+}
+
+#icon-bar *
+{
+    margin-left: 30px;
+}
+
+#icon-bar > button
+{
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+
+    font-size: 5px;
+}
+
+#date-n-time
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50px;
+
+    font-size: 20px;
+    font-weight: 600;
+    text-align: right;
+}
+
+#date-n-time > p
+{
+    margin: 0;
+}
+
+#body-container
+{
+    display: flex;
+    flex-direction: row;
+    width: 1748px;
+    margin: auto;
+}
+
+#calendar-container
+{
+    width: 1030px;
+}
+
+#calendar-legends
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#calendar-legends > p
+{
+    padding-right: 53px;
+}
+
+#appointments-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: flex-start;
+    width: 519px;
+    margin: 50px 0px 0px 100px;
+}
+
+#appointments-container > h1
+{
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+    margin-bottom: 32px;
+}
+
+#appointments-container > p
+{
+    text-align: left;
+    font-size: 16;
+    font-weight: 500;
+    margin: 0;
+    margin-top: -20px;
+}
+
+#appointments-filters
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+}
+
+#pending-filter, #canceled-filter
+{
+    margin-right: 10px;
+    width: 140px;
+    height: 30px;
+    border-radius: 90px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+}
+
+#appointments-list
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.appointmentItem
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.appointmentDetails
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 56px;
+    margin: 0;
+}
+
+.appointmentLeft
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: auto;
+    height: 53px;
+}
+
+.appointmentLeft > h1
+{
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.appointmentLeft > p
+{
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.appointmentRight
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 158px;
+    height: 30px;
+}
+
+.appointmentItem > hr
+{
+    margin: 20px 0px;
+}
+
+.acceptButton, .rejectButton
+{
+    width: 73.5px;
+    height: 30px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* calendar css */
+
+    /* (not important)
+    p, body, td, input, select, button { font-family: -apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size: 14px; }
+    body { padding: 0px; margin: 0px; background-color: #ffffff; }
+    a { color: #1155a3; }
+    .space { margin: 10px 0px 10px 0px; }
+    .main { padding: 10px; margin-top: 10px; }
+    */
+
+    .buttons {
+        margin-bottom: 10px;
+        /*margin-top: 20px;*/
+        display: inline-flex;
+    }
+
+    .buttons button {
+        background-color: #f3f3f3;
+        color: #333333;
+        border: 1px solid #cccccc;
+        padding: .5rem 1rem;
+        width: 80px;
+        font-size: 14px;
+        cursor: pointer;
+        margin-right: 1px;
+        transition: all 0.2s;
+        box-sizing: border-box;
+    }
+
+    .buttons button.selected {
+        background-color: #e5e5e5;
+        border-color: #cccccc;
+    }
+
+    .buttons button:first-child {
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px;
+    }
+
+    .buttons button:last-child {
+        border-top-right-radius: 30px;
+        border-bottom-right-radius: 30px;
+    }
+
+    .buttons button:hover {
+        background-color: #ffe794dd;
+        border-color: #ffce18;
+    }
+
+    .buttons button:active {
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+
+    /* context menu icons */
+    .icon:before {
+        position: absolute;
+        margin-left: 0px;
+        margin-top: 3px;
+        width: 14px;
+        height: 14px;
+        content: '';
+    }
+
+    .icon-blue:before { background-color: #3d85c6; }
+    .icon-green:before { background-color: #6aa84f; }
+    .icon-orange:before { background-color: #e69138; }
+    .icon-red:before { background-color: #cc4125; }
+
+    body .calendar_default_event_inner {
+        border-radius: 10px;
+    }
+
+    body .month_default_event_inner {
+        border-radius: 10px;
+    }
