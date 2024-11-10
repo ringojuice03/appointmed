@@ -39,30 +39,85 @@ body
 #select-role
 {
     background-color: 21769c;
-    padding: 25px;
+    padding: 20px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
 }
 
 #select-role-back-button
 {
-    margin: 0px auto 0px 0px;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
 }
 
-#select-role-message, #select-role-buttons, #select-role-continue-button
+#select-role-message
 {
-    margin: 0px auto 0px auto;
+    margin: 100px auto 0px auto;
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
 }
 
 #select-role-buttons
 {
+    margin: 50px auto 0px auto;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    width: 657px;
+    height: 245px;
+}
+
+.roleButtonContainer
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 245px;
+    height: 245px;
+    border-style: none;
+    border-radius: 25px;
+}
+
+.roleButtons
+{
+    cursor: pointer;
+    margin: 0px auto 0px auto;
+    width: 100px;
+    height: 100px;
+}
+
+.roleButtons + h1
+{
+    margin: 30px auto 0px auto;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    color: #fff;
+}
+
+.roleButtonClicked
+{
+    background-color: #fff;
+}
+
+#select-role-continue-button
+{
+    cursor: pointer;
+    margin: 75px auto 0px auto;
+    width: 150px;
+    height: 50px;
+    border-style: none;
+    border-radius: 90px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #003249;
 }
 
 /*log in form css*/
-.logInFormMenu
+#log-in
 {   
     display: flex;
     flex-direction: row;
@@ -80,26 +135,80 @@ body
     
         display: flex;
         flex-direction: column;
-        justify-content: center;
-    }
-
-    .logInHeader
-    {
-        display: flex;
-        flex-direction: row;
         justify-content: flex-start;
     }
 
-    .logInMessage, .logInFields
+    #log-in-back-button
     {
-        margin: 0px auto 0px auto;
+        cursor: pointer;
+        width: 161px;
+        height: 29px;
+    }
+
+    .logInMessage
+    {
+        margin: 180px auto 0px auto;
+        font-size: 32px;
+        font-weight: 700;
+        color: #003249;
     }
 
     .logInFields
     {
+        margin: 30px auto 0px auto;
+        width: 400px;
+        height: auto;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
+    }
+
+    #identifier-field, #password-field
+    {
+        width: 400px;
+        height: 50px;
+        padding-left: 20px;
+        border-style: solid;
+        border-width: 1.5px;
+        border-radius: 10px;
+        border-color: #003249;
+
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    #password-field
+    {
+        margin-top: 10px;
+    }
+
+    #forgot-password-button
+    {
+        cursor: pointer;
+        margin: 30px auto 0px auto;
+        background-color: transparent;
+        border: none;
+        outline: none;
+
+        font-size: 16px;
+        font-weight: 500;
+        color: #003249;
+    }
+
+    #log-in-button
+    {
+        cursor: pointer;
+        margin: 30px auto 0px auto;
+        width: 150px;
+        height: 50px;
+        border-style: none;
+        border-radius: 90px;
+        background-color: #003249;
+        padding-top: 0;
+
+        font-size: 16px;
+        font-weight: 500;
+        color: #fff;
     }
 
     /*right side*/
@@ -115,7 +224,26 @@ body
         justify-content: center;
     }
     
-    .signUpMessage, .signUpButton
+    .signUpMessage
     {
         margin: 0px auto 0px auto;
+        font-size: 32;
+        font-weight: 700;
+        text-align: center;
+        color: #fff;
+    }
+
+    .signUpButton
+    {
+        cursor: pointer;
+        margin: 30px auto 0px auto;
+        width: 150px;
+        height: 50px;
+        border-style: none;
+        border-radius: 90px;
+        background-color: #fff;
+
+        font-size: 16px;
+        font-weight: 500;
+        color: #003249;
     }

@@ -14,9 +14,7 @@
             <!--sign up menu-->
             <div id="sign-up" class="signUpFormMenu menu">
                 <div class="leftLogInRedirect">
-                    <div class="signUpHeader">
-                        <p>insert appointmed logo</p>
-                    </div>
+                    <button type="button" id="sign-up-home-button" onclick="">appointmed logo</button>
 
                     <h1 class="logInMessage">Already using AppointMed?</h1>
     
@@ -28,88 +26,85 @@
                     <form class="signUpFields" action='{% url "signup" %}' enctype="multipart/form-data" method="post">
                         {% csrf_token %}
 
-                        <div class="fieldClusterX">
-                            <input id="first-name-field" name="first_name" placeholder="First name">
-                            <p>{{ user_form.first_name.errors.0 }}</p>
-
-                            <input id="last-name-field" name="last_name" placeholder="Last name">
-                            {{ user_form.last_name.errors.0 }}
+                        <div id="name-field-cluster" class="fieldClusterX">
+                            <div>
+                                <input id="first-name-field" class="doubleFields" name="first_name" placeholder="First name">
+                                {{ user_form.first_name.errors.0 }}
+                            </div>
+                            <div>
+                                <input id="last-name-field" class="doubleFields" name="last_name" placeholder="Last name">
+                                {{ user_form.last_name.errors.0 }}
+                            </div>
                         </div>
                         
-                        <input id="username" name="username" placeholder="username"> {{ user_form.username.errors.0 }}
-                        <input type="email" id="email-field" name="email" placeholder="Email"> {{ user_form.email.errors.0 }}
-                        <input type="password" id="password-field" name="password1" placeholder="Password"> {{ user_form.password1.errors.0 }}
-                        <input type="password" id="password-field" name="password2" placeholder="Confirm assword"> 
+                        <input id="username" class="singleFields" name="username" placeholder="Username"> {{ user_form.username.errors.0 }}
+                        <input type="email" id="email-field" class="singleFields" name="email" placeholder="Email"> {{ user_form.email.errors.0 }}
+                        <input type="password" id="password-field" class="singleFields" name="password1" placeholder="Password"> {{ user_form.password1.errors.0 }}
+                        <input type="password" id="password-field" class="singleFields" name="password2" placeholder="Confirm password"> 
 
                         <div class="fieldClusterX">
                             <div class="fieldClusterY">
                                 <label for="date-field">Date of birth</label>
-                                <input type="date" id="date-field" name="date_of_birth" placeholder="DD/MM/YYYY"> 
+                                <input type="date" id="date-field" class="doubleFields" name="date_of_birth" placeholder="DD/MM/YYYY"> 
                                 {{ profile_form.date_of_birth.errors.0 }}
                             </div>
                             <div class="fieldClusterY">
                                 <label for="gender-field">Gender</label>
-                                <select id="gender-field" name="gender">
+                                <select id="gender-field" class="doubleFields" name="gender">
                                     <option value="select">Select</option>
                                     <option value="female">Female</option>
                                     <option value="male">Male</option>
                                 </select>
                                 {{ profile_form.gender.errors.0 }}
                             </div>
-                            
                         </div>
 
-                        <input type="text" id="personal-address-field" name="address" placeholder="Full personal address">
+                        <input type="text" id="personal-address-field" class="singleFields" name="address" placeholder="Full personal address">
                         
                         <!--patient or doctor-->
                         {% comment %} <input type="hidden" name="user_type" value="patient"> {% endcomment %}
-                        <div class="fieldClusterX">
-                            <label for="role-check-field">Are you a doctor?</label>
-                            <input type="checkbox" id="role-check-field" name="role" value="doctor" onclick="showDoctorFields()">
+                        <div id="role-check-cluster" class="fieldClusterX">
+                            <input type="checkbox" id="role-checkbox" name="role" value="patient" onclick="showDoctorFields()">
+                            <label id="role-check-label" for="role-checkbox">Sign up as doctor</label>
                         </div>
                         
                         <!--doctor additional-->
-                        <div class="fieldClusterX">
-                            <div id="medical-license-field-cluster" class="fieldClusterY hideMenu">
-                                <label for="medical-license-field">Medical license</label>
-                                <input type="file" id="medical-license-field" name="medical_license">
-
+                        <div id="doctor-fields" class="hideMenu">
+                            <div class="fieldClusterX">
+                                <div id="medical-license-field-cluster" class="fieldClusterY">
+                                    <label for="medical-license-field">Medical license</label>
+                                    <label id="medical-license-button" for="medical-license-field">*icon* Attach file</label>
+                                    <input type="file" id="medical-license-field" name="medical_license">
+    
+                                </div>
+    
+                                <div id="specialty-field-cluster" class="fieldClusterY">
+                                    <label for="specialty-field">Specialty</label>
+                                    <select id="specialty-field" class="doubleFields" name="specialty">
+                                        <option value="select">Select</option>
+                                        <option value="a">a</option>
+                                        <option value="b">b</option>
+                                        <option value="c">c</option>
+                                        <option value="d">d</option>
+                                        <option value="e">e</option>
+                                    </select>
+                                    {{ profile_form.specialty.errors.0 }}
+                                </div>
                             </div>
-
-                            <div id="specialty-field-cluster" class="fieldClusterY hideMenu">
-                                <label for="specialty-field">Specialty</label>
-                                <select id="specialty-field" name="specialty">
-                                    <option value="select">Select</option>
-                                    <option value="a">a</option>
-                                    <option value="b">b</option>
-                                    <option value="c">c</option>
-                                    <option value="d">d</option>
-                                    <option value="e">e</option>
-                                </select>
-                                {{ profile_form.specialty.errors.0 }}
-                            </div>
+    
+                            <input type="text" id="clinic-address-field" class="singleFields" name="clinic_address" placeholder="Full clinic address">
+                            {{ profile_form.clinic_address.errors.0 }}
                         </div>
 
-                        <input type="text" id="clinic-address-field" class="hideMenu" name="clinic_address" placeholder="Full clinic address">
-                        {{ profile_form.clinic_address.errors.0 }}
                         <input type="submit" id ="sign-up-button" value="Sign Up">
-                        <!--error message
+
+                        <!--error message-->
                         {% if messages %}
                             {% for message in messages %}
                                 <div>{{ message }}</div>
                             {% endfor %}
                         {% endif %}
-                        -->
-                        
                     </form>
-
-                    <!--
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit">Sign Up</button>
-                    </form>
-                    -->
                 </div>
             </div>
         </div>
