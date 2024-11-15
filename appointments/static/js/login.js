@@ -1,106 +1,86 @@
-const logIn = document.getElementById("log-in");
+/*for login page functionality*/
 const userType = document.getElementById("user-type");
+const logIn = document.getElementById("log-in");
 const select = document.getElementById("select-role");
-const patientButton = document.getElementById("patient-button");
-const doctorButton = document.getElementById("doctor-button");
-const patientLabel = document.getElementById("patient-label");
-const doctorLabel = document.getElementById("doctor-label");
-var patientRole = false;
-var doctorRole = false;
+
+/*check if role select should be displayed; 
+role is stored in browser indefinitely*/
+if (localStorage.getItem("savedUserType") == "patient" || localStorage.getItem("savedUserType") == "doctor")
+{
+    userType.value = localStorage.getItem("savedUserType");
+    switchToLogIn();
+}
+else
+{
+    userType.value = "";
+    switchToSelectRole();
+}
 
 function selectPatientRole()
 {
-    if (patientButton.classList.contains("roleButtonClicked"))
-    {
-        patientRole = false;
-        doctorRole = false;
-
-        patientButton.classList.remove("roleButtonClicked");
-        doctorButton.classList.remove("roleButtonClicked");
-        patientLabel.style.color = "#ffffff";
-        doctorLabel.style.color = "#ffffff";
-    }
-    else
-    {
-        patientRole = true;
-        doctorRole = false;
-
-        patientButton.classList.add("roleButtonClicked");
-        doctorButton.classList.remove("roleButtonClicked");
-        patientLabel.style.color = "#21769c";
-        doctorLabel.style.color = "#ffffff";
-    }
+    savedUserType = localStorage.setItem("savedUserType", "patient");
+    userType.value = "patient";
+    switchToLogIn();
 }
 
 function selectDoctorRole()
 {
-    if (doctorButton.classList.contains("roleButtonClicked"))
-    {
-        doctorRole = false;
-        patientRole = false;
-
-        doctorButton.classList.remove("roleButtonClicked");
-        patientButton.classList.remove("roleButtonClicked");
-        doctorLabel.style.color = "#ffffff";
-        patientLabel.style.color = "#ffffff";
-    }
-    else
-    {
-        doctorRole = true;
-        patientRole = false;
-
-        doctorButton.classList.add("roleButtonClicked");
-        patientButton.classList.remove("roleButtonClicked");
-        doctorLabel.style.color = "#21769c";
-        patientLabel.style.color = "#ffffff";
-    }
-}
-
-function continueRole()
-{
-    if (patientRole == true)
-    {
-        userType.value = "patient";
-        switchToLogIn();
-    }
-    else if (doctorRole == true)
-    {
-        userType.value = "doctor";
-        switchToLogIn();
-    }
-    else
-    {
-        patientRole = false;
-        doctorRole = false;
-        switchToSelectRole();
-    }
+    savedUserType = localStorage.setItem("savedUserType", "doctor");
+    userType.value = "doctor";
+    switchToLogIn();
 }
 
 function switchToLogIn()
 {
     select.classList.add("hideMenu");
     logIn.classList.remove("hideMenu");
-
-    doctorButton.classList.remove("roleButtonClicked");
-    patientButton.classList.remove("roleButtonClicked");
-    doctorLabel.style.color = "#ffffff";
-    patientLabel.style.color = "#ffffff";
-
-    //check();
 }
 
 function switchToSelectRole()
 {
-    patientRole = false;
-    doctorRole = false;
-
     logIn.classList.add("hideMenu");
     select.classList.remove("hideMenu");
 }
 
-//check selected role
+/*for styling buttons when hovered*/
+const patientButtonContainer = document.getElementById("patient-button-container");
+const patientButton = document.getElementById("patient-button");
+const patientLabel = document.getElementById("patient-label");
+const doctorButtonContainer = document.getElementById("doctor-button-container");
+const doctorButton = document.getElementById("doctor-button");
+const doctorLabel = document.getElementById("doctor-label");
 
-/*function check()
+patientButton.onmouseover = function()
+{
+    patientButtonContainer.style.backgroundColor = "#fff";
+    patientButton.style.color = "#21769c"; /*change icon instead*/
+    patientLabel.style.color = "#21769c";
+};
+
+patientButton.onmouseout = function()
+{
+    patientButtonContainer.style.backgroundColor = "transparent";
+    patientButton.style.color = "black"; /*change icon instead*/
+    patientLabel.style.color = "#fff";
+};
+
+doctorButton.onmouseover = function()
+{
+    doctorButtonContainer.style.backgroundColor = "#fff";
+    doctorButton.style.color = "#21769c"; /*change icon instead*/
+    doctorLabel.style.color = "#21769c";
+};
+
+doctorButton.onmouseout = function()
+{
+    doctorButtonContainer.style.backgroundColor = "transparent";
+    doctorButton.style.color = "black"; /*change icon instead*/
+    doctorLabel.style.color = "#fff";
+};
+
+//check selected role (onclick on login button)
+/*
+function check()
 {
     if (userType.value == "patient")
         alert("login for patient");

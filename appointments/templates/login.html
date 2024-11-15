@@ -13,28 +13,28 @@
         <div id="menu-container">
             <!--select role menu-->
             <div id="select-role" class="menu">
+                <!--change to proper icon-->
                 <button type="button" id="select-role-back-button">:&lt;</button>
     
                 <h1 id="select-role-message">How would you like to use AppointMed?</h1>
     
                 <div id="select-role-buttons">
-                    <div id="patient-button" class="roleButtonContainer">
-                        <button type="button" class="roleButtons" onclick="selectPatientRole()">patient icon</button>
+                    <div id="patient-button-container" class="roleButtonContainer">
+                        <button type="button" id="patient-button" class="roleButtons" onclick="selectPatientRole()">patient icon</button>
                         <h1 id="patient-label">As a patient</h1>
                     </div>
-                    <div id="doctor-button" class="roleButtonContainer">
-                        <button type="button" class="roleButtons" onclick="selectDoctorRole()">doctor icon</button>
+                    <div id="doctor-button-container" class="roleButtonContainer">
+                        <button type="button" id="doctor-button" class="roleButtons" onclick="selectDoctorRole()">doctor icon</button>
                         <h1 id="doctor-label">As a doctor</h1>
                     </div>
                 </div>
-    
-                <button type="button" id="select-role-continue-button" onclick="continueRole()">Continue</button>
             </div>
     
             <!--log in menu-->
-            <div id="log-in" class="menu hideMenu">
+            <div id="log-in" class="menu">
                 <div class="leftLogInForm">
-                    <button type="button" id="log-in-back-button" onclick="switchToSelectRole()">appointmed logo</button>
+                    <!--change to proper logo-->
+                    <button type="button" id="log-in-back-button" onclick="switchToSelectRole()">AppointMed</button>
 
                     <h1 class="logInMessage">Welcome back!</h1>
     
@@ -43,14 +43,21 @@
                         <input type="hidden" id="user-type" name="user_type" value="">
                         <input type="text" id="identifier-field" name="identifier" placeholder="Email or Username">
                         <input type="password" id="password-field" name="password" placeholder="Password">
-                        <input type="button" id="forgot-password-button" value="Forgot your password?">
-                        <input type="submit" id ="log-in-button" value="Log In">
 
                         <!--error message-->
+                        <!--
                         {% if messages %}
                             <div>{{ messages }}</div>
                         {% endif %}
-                        
+                        -->
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div>{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <input type="button" id="forgot-password-button" value="Forgot your password?">
+                        <input type="submit" id ="log-in-button" value="Log In">
                     </form>
                 </div>
     
