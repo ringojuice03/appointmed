@@ -30,5 +30,5 @@ class Appointment(models.Model):
                               null=False, blank=False)
     
     def __str__(self):
-        return f'Patient {self.patient.user.last_name} & Doctor {self.doctor.doctor_name}'
+        return f'Patient {self.patient.user.last_name} & Doctor {self.doctor.user.first_name}'
     

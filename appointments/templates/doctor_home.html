@@ -71,6 +71,32 @@
                 </div>
 
                 <div id="appointments-list">
+
+                    {% if appointments|length == 0 %}
+                        <p>There are no pending appointments.</p>
+                    {% endif %}
+
+                    {% for appointment in appointments %}
+                        <div class="appointmentItem">
+                            <div class="appointmentDetails">
+                                <div class="appointmentLeft">
+                                    <h1>{{ appointment.patient.user.first_name }} {{ appointment.patient.user.last_name }}</h1>
+                                    <p>{{ appointment.appointment_date }}</p>
+                                </div>
+            
+                                <div class="appointmentRight">
+                                    <button type="button" class="acceptButton">Accept</button>
+                                    <button type="button" class="rejectButton">Reject</button>
+                                </div>
+                            </div>
+                            
+                            <hr>
+                        </div>
+                    {% endfor %}
+                    
+                    
+
+                    <!--
                     <div class="appointmentItem">
                         <div class="appointmentDetails">
                             <div class="appointmentLeft">
@@ -118,6 +144,7 @@
                         
                         <hr>
                     </div>
+                    -->
                 </div>
 
                 <p>Slots available: <i>{x}</i></p>

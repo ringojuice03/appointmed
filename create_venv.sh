@@ -7,7 +7,7 @@
 # run the command 'source env/Scripts/activate' (for Windows) in gitbash 
 # to activate the virtual environment named 'env'
 
-python -m venv env
+py -m venv env
 echo "Virtual environment 'env' created in the project directory"
 
 if [[ "$OSTYPE" == "linux-gnu"* || "$OSTYPE" == "darwin"* ]]; then
