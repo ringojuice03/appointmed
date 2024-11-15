@@ -114,4 +114,5 @@ def doctor_home(request):
         return redirect('login')
 
     doctor = get_object_or_404(Doctor, user=request.user)
-    return render(request, 'doctor_home.html', {'doctor': doctor})
+    appointments = Appointment.objects.filter(doctor=doctor).order_by('appointment_date')
+    return render(request, 'doctor_home.html', {'doctor': doctor, 'appointments': appointments})
