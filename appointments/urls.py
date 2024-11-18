@@ -15,4 +15,5 @@ urlpatterns = [
     path('patient/profile/', views.patient_profile, name="patient profile"),
 
     path('doctor/home/', views.doctor_home, name="doctor home"),
+    path('doctor/home/calendar/api', views.doctor_appointment_json_api, name="doctor appointment api")
 ]

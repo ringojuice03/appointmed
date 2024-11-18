@@ -1,14 +1,20 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AnonymousUser
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.http import JsonResponse
+from django.utils.timezone import make_aware
+import datetime
 import re
 
 from .forms import UserForm, PatientForm, DoctorForm
 from .models import Patient, Doctor, Appointment
+
 
 def say_hello(request):
     return render(request, 'hello.html')
@@ -116,3 +122,20 @@ def doctor_home(request):
     doctor = get_object_or_404(Doctor, user=request.user)
     appointments = Appointment.objects.filter(doctor=doctor).order_by('appointment_date')
     return render(request, 'doctor_home.html', {'doctor': doctor, 'appointments': appointments})
+
+
+@login_required
+def doctor_appointment_json_api(request):
+    doctor = get_object_or_404(Doctor, user=request.user)
+    appointments = Appointment.objects.filter(doctor=doctor).order_by('appointment_date')
+
+    events = []
+    for appointment in appointments:
+        events.append({
+            "id": appointment.id,
+            "text": f'{appointment.patient.user.first_name} {appointment.patient.user.last_name}',
+            "start": appointment.appointment_date.isoformat(),
+            "end": (appointment.appointment_date + datetime.timedelta(minutes=30)).isoformat(),
+        })
+    
+    return JsonResponse(events, safe=False)
