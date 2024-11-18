@@ -14,6 +14,61 @@
 
         <!--daypilot calendar library-->
         <script src="{% static 'js/daypilot-all.min.js' %}" async></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const dayView = new DayPilot.Calendar("dpDay", { viewType: "Day" });
+                const weekView = new DayPilot.Calendar("dpWeek", { viewType: "Week" });
+                const monthView = new DayPilot.Month("dpMonth", { eventHeight: 32 });
+
+                fetch("{% url 'doctor appointment api' %}")
+                    .then(response => response.json())
+                    .then(data => {
+                        dayView.events.list = data;
+                        weekView.events.list = data;
+                        monthView.events.list = data;
+        
+                        dayView.update();
+                        weekView.update();
+                        monthView.update();
+                    });
+        
+                weekView.init();
+        
+                function showView(view) {
+                    if (view === "Day") {
+                        dayView.init();
+                        dayView.style.display = "block";
+                        weekView.style.display = "none";
+                        monthView.style.display = "none";
+                    } else if (view === "Week") {
+                        dayView.style.display = "none";
+                        weekView.style.display = "block";
+                        monthView.style.display = "none";
+                    } else if (view === "Month") {
+                        monthView.init();
+                        dayView.style.display = "none";
+                        weekView.style.display = "none";
+                        monthView.style.display = "block";
+                    }
+                }
+        
+                document.getElementById("buttonDay").addEventListener("click", function () {
+                    showView("Day");
+                });
+        
+                document.getElementById("buttonWeek").addEventListener("click", function () {
+                    showView("Week");
+                });
+        
+                document.getElementById("buttonMonth").addEventListener("click", function () {
+                    showView("Month");
+                });
+
+                // initial view
+                showView("Week");
+            });
+        </script>
+        
     </head>
     
     <body>
@@ -93,58 +148,6 @@
                             <hr>
                         </div>
                     {% endfor %}
-                    
-                    
-
-                    <!--
-                    <div class="appointmentItem">
-                        <div class="appointmentDetails">
-                            <div class="appointmentLeft">
-                                <h1>{Patient name}</h1>
-                                <p>{Appointment time}</p>
-                            </div>
-        
-                            <div class="appointmentRight">
-                                <button type="button" class="acceptButton">Accept</button>
-                                <button type="button" class="rejectButton">Reject</button>
-                            </div>
-                        </div>
-                        
-                        <hr>
-                    </div>
-
-                    <div class="appointmentItem">
-                        <div class="appointmentDetails">
-                            <div class="appointmentLeft">
-                                <h1>{Patient name}</h1>
-                                <p>{Appointment time}</p>
-                            </div>
-        
-                            <div class="appointmentRight">
-                                <button type="button" class="acceptButton">Accept</button>
-                                <button type="button" class="rejectButton">Reject</button>
-                            </div>
-                        </div>
-                        
-                        <hr>
-                    </div>
-
-                    <div class="appointmentItem">
-                        <div class="appointmentDetails">
-                            <div class="appointmentLeft">
-                                <h1>{Patient name}</h1>
-                                <p>{Appointment time}</p>
-                            </div>
-        
-                            <div class="appointmentRight">
-                                <button type="button" class="acceptButton">Accept</button>
-                                <button type="button" class="rejectButton">Reject</button>
-                            </div>
-                        </div>
-                        
-                        <hr>
-                    </div>
-                    -->
                 </div>
 
                 <p>Slots available: <i>{x}</i></p>
