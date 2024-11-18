@@ -44,7 +44,6 @@ body
 }
 
     /*left side*/
-
     .leftLogInRedirect
     {
         width: 384px;
@@ -62,6 +61,17 @@ body
         cursor: pointer;
         width: 161px;
         height: 29px;
+
+        /*change*/
+        font-size: 24px;
+        font-weight: 900;
+        color: #fff;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        border: none;
+        overflow: hidden;
+        outline: none;
+        padding: 0px;
     }
     
     .logInMessage
@@ -95,11 +105,13 @@ body
         height: auto;
         background-color: ffffff;
         border-radius: 0px 25px 25px 0px;
-        padding: 25px;
+        padding: 92.5px 25px 90px 25px;
     
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
+
+        overflow: auto;
     }
 
     .signUpMessage
@@ -179,6 +191,13 @@ body
         justify-content: flex-start;
     }
 
+    /*
+    .dropDownMenu
+    {
+        *code*
+    }
+    */
+
     #role-check-cluster
     {
         margin-left: auto;
@@ -211,18 +230,45 @@ body
         background-color: #003249;
     }
 
+    #medical-license-field-cluster > .fieldClusterX
+    {
+        justify-content: flex-start;
+        width: 195px;
+        margin-top: 0px;
+
+        overflow: hidden;
+    }
+
     #medical-license-button
     {
+        padding-bottom: 0px;
+        margin-left: 10px;
         border-style: none;
         cursor: pointer;
         font-size: 16px;
         font-weight: 600;
         color: #003249;
+
+        text-overflow: ellipsis;
+        max-width: 165px;
+        white-space: nowrap;
+        overflow: hidden;
     }
 
     #medical-license-field
     {
         display: none;
+    }
+
+    #change-button
+    {
+        padding-bottom: 0px;
+        margin-left: 30px;
+        border-style: none;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        color: #003249;
     }
 
     #sign-up-button

@@ -14,7 +14,8 @@
             <!--sign up menu-->
             <div id="sign-up" class="signUpFormMenu menu">
                 <div class="leftLogInRedirect">
-                    <button type="button" id="sign-up-home-button" onclick="">appointmed logo</button>
+                    <!--change to proper logo-->
+                    <button type="button" id="sign-up-home-button" onclick="">AppointMed</button>
 
                     <h1 class="logInMessage">Already using AppointMed?</h1>
     
@@ -45,12 +46,12 @@
                         <div class="fieldClusterX">
                             <div class="fieldClusterY">
                                 <label for="date-field">Date of birth</label>
-                                <input type="date" id="date-field" class="doubleFields" name="date_of_birth" placeholder="DD/MM/YYYY"> 
+                                <input type="date" id="date-field" class="doubleFields" name="date_of_birth"> 
                                 {{ profile_form.date_of_birth.errors.0 }}
                             </div>
                             <div class="fieldClusterY">
                                 <label for="gender-field">Gender</label>
-                                <select id="gender-field" class="doubleFields" name="gender">
+                                <select id="gender-field" class="doubleFields dropDownMenu" name="gender">
                                     <option value="select">Select</option>
                                     <option value="female">Female</option>
                                     <option value="male">Male</option>
@@ -72,15 +73,18 @@
                         <div id="doctor-fields" class="hideMenu">
                             <div class="fieldClusterX">
                                 <div id="medical-license-field-cluster" class="fieldClusterY">
-                                    <label for="medical-license-field">Medical license</label>
-                                    <label id="medical-license-button" for="medical-license-field">*icon* Attach file</label>
+                                    <label>Medical license</label>
+                                    <div class="fieldClusterX">
+                                        <i>*+*</i>
+                                        <label id="medical-license-button" for="medical-license-field"><span id="file-upload">Attach file</span></label>
+                                    </div>
                                     <input type="file" id="medical-license-field" name="medical_license">
-    
+                                    <label id="change-button" class="hideMenu" for="medical-license-field">Change</label>
                                 </div>
     
                                 <div id="specialty-field-cluster" class="fieldClusterY">
                                     <label for="specialty-field">Specialty</label>
-                                    <select id="specialty-field" class="doubleFields" name="specialty">
+                                    <select id="specialty-field" class="doubleFields dropDownMenu" name="specialty">
                                         <option value="select">Select</option>
                                         <option value="a">a</option>
                                         <option value="b">b</option>
@@ -99,11 +103,13 @@
                         <input type="submit" id ="sign-up-button" value="Sign Up">
 
                         <!--error message-->
+                        <!--
                         {% if messages %}
                             {% for message in messages %}
                                 <div>{{ message }}</div>
                             {% endfor %}
                         {% endif %}
+                        -->
                     </form>
                 </div>
             </div>
