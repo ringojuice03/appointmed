@@ -136,6 +136,7 @@ def doctor_appointment_json_api(request):
             "text": f'{appointment.patient.user.first_name} {appointment.patient.user.last_name}',
             "start": appointment.appointment_date.isoformat(),
             "end": (appointment.appointment_date + datetime.timedelta(minutes=30)).isoformat(),
+            "status": appointment.status,
         })
     
     return JsonResponse(events, safe=False)

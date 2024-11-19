@@ -26,7 +26,7 @@ class Appointment(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     appointment_date = models.DateTimeField(null=False, blank=False)
     status = models.CharField(max_length=20, 
-                              choices=[('scheduled', 'Scheduled'), ('completed', 'Completed'), ('canceled', 'Canceled')],
+                              choices=[('pending', 'Pending'), ('scheduled', 'Scheduled'), ('completed', 'Completed'), ('canceled', 'Canceled')],
                               null=False, blank=False)
     
     def __str__(self):
