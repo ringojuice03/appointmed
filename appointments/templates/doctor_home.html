@@ -13,59 +13,135 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
         <!--daypilot calendar library-->
+        <style>
+            
+            .event-scheduled { 
+                background-color: lightblue;
+                color: darkblue;
+                border: 1px solid gray;
+                font-size: 12px;
+                font-family: "Verdana", sans-serif;
+                font-weight: bold; 
+            }
+            .event-scheduled .duration-bar {
+                background-color: orange; /* For the duration bar */
+            }
+            .event-canceled { background-color: red; }
+            .event-pending { background-color: yellow; }
+            .event-completed { background-color: transparent; }
+        </style>
+
         <script src="{% static 'js/daypilot-all.min.js' %}" async></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                const dayView = new DayPilot.Calendar("dpDay", { viewType: "Day" });
-                const weekView = new DayPilot.Calendar("dpWeek", { viewType: "Week" });
-                const monthView = new DayPilot.Month("dpMonth", { eventHeight: 32 });
+                let dayView, weekView, monthView;
+                let placeholder = [];
 
                 fetch("{% url 'doctor appointment api' %}")
-                    .then(response => response.json())
-                    .then(data => {
-                        dayView.events.list = data;
-                        weekView.events.list = data;
-                        monthView.events.list = data;
-        
-                        dayView.update();
-                        weekView.update();
-                        monthView.update();
-                    });
-        
-                weekView.init();
-        
-                function showView(view) {
-                    if (view === "Day") {
-                        dayView.init();
-                        dayView.style.display = "block";
-                        weekView.style.display = "none";
-                        monthView.style.display = "none";
-                    } else if (view === "Week") {
-                        dayView.style.display = "none";
-                        weekView.style.display = "block";
-                        monthView.style.display = "none";
-                    } else if (view === "Month") {
-                        monthView.init();
-                        dayView.style.display = "none";
-                        weekView.style.display = "none";
-                        monthView.style.display = "block";
+                .then((response) => response.json())
+                .then((data) => {
+                    placeholder = data.map(event => ({
+                        ...event,
+                        ...getEventStyles(event.status)
+                    }));
+
+                    showView("Week");
+                });
+
+                function getEventStyles(status) {
+                    switch (status) {
+                        case "scheduled": 
+                            return {
+                                backColor: "green",           
+                                fontColor: "white",
+                                
+                                barHidden: true,
+                                barColor: "#6aa84f",
+                                borderColor: "darkgreen",
+                                toolTip: "shy shy shy",
+                                // doesnt seem to work
+                                // fontSize: "20px",             
+                                // fontFamily: "Arial, sans-serif", 
+                                // toolTip: "Scheduled Appointment",
+                                
+                            };
+                        case "canceled": 
+                            return {
+                                backColor: "red",           
+                                fontColor: "white",           
+                                barHidden: false,
+                                barColor: "#6aa84f",
+                                borderColor: "darkgreen",
+                            };      
+                        case "pending": 
+                            return {
+                                backColor: "yellow",          
+                                fontColor: "black",           
+                                barHidden: false,
+                                barColor: "#6aa84f",
+                                borderColor: "darkgreen",
+                            };    
+                        case "completed": 
+                            return {
+                                backColor: "transparent",     
+                                fontColor: "black",          
+                                barHidden: false,
+                                barColor: "#6aa84f",
+                                borderColor: "darkgreen",
+                            };      
+                        default:
+                            return {
+                                backColor: "yellow",          
+                                fontColor: "black",           
+                                barHidden: false,
+                                barColor: "#6aa84f",
+                                borderColor: "darkgreen",
+                            };  
                     }
                 }
-        
+
+                function showView(view) {
+                    if (dayView) dayView.dispose();
+                    if (weekView) weekView.dispose();
+                    if (monthView) monthView.dispose();
+
+                    document.getElementById("dpDay").style.display = "none";
+                    document.getElementById("dpWeek").style.display = "none";
+                    document.getElementById("dpMonth").style.display = "none";
+
+                    // document.getElementById("dpDay").innerHTML = "";
+                    // document.getElementById("dpWeek").innerHTML = "";
+                    // document.getElementById("dpMonth").innerHTML = "";
+
+                    if (view === "Day") {
+                        dayView = new DayPilot.Calendar("dpDay", { viewType: "Day" });
+                        dayView.events.list = placeholder;
+                        dayView.init();
+                        document.getElementById("dpDay").style.display = "block";
+                    } else if (view === "Week") {
+                        weekView = new DayPilot.Calendar("dpWeek", { viewType: "Week" });
+                        weekView.events.list = placeholder;
+                        weekView.init();
+                        document.getElementById("dpWeek").style.display = "block";
+                    } else if (view === "Month") {
+                        monthView = new DayPilot.Month("dpMonth", { eventHeight: 32 });
+                        monthView.events.list = placeholder;
+                        monthView.init();
+                        document.getElementById("dpMonth").style.display = "block";
+                    }
+                }
+
                 document.getElementById("buttonDay").addEventListener("click", function () {
                     showView("Day");
                 });
-        
+
                 document.getElementById("buttonWeek").addEventListener("click", function () {
                     showView("Week");
                 });
-        
+
                 document.getElementById("buttonMonth").addEventListener("click", function () {
                     showView("Month");
                 });
-
-                // initial view
-                showView("Week");
             });
         </script>
         
@@ -154,6 +230,6 @@
             </div>
         </div>
         
-        <script src="{% static 'js/doctor_home.js' %}" async></script>
+        <!-- <script src="{% static 'js/doctor_home.js' %}" async></script> -->
     </body>
 </html>

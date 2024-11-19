@@ -291,3 +291,10 @@ body
     body .month_default_event_inner {
         border-radius: 10px;
     }
+
+
+    /* appointments in calendar */
+    .event-scheduled { background-color: green; }
+    .event-canceled { background-color: red; }
+    .event-pending { background-color: yellow; }
+    .event-completed { background-color: transparent; }
