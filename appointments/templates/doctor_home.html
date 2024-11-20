@@ -13,24 +13,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
         <!--daypilot calendar library-->
-        <style>
-            
-            .event-scheduled { 
-                background-color: lightblue;
-                color: darkblue;
-                border: 1px solid gray;
-                font-size: 12px;
-                font-family: "Verdana", sans-serif;
-                font-weight: bold; 
-            }
-            .event-scheduled .duration-bar {
-                background-color: orange; /* For the duration bar */
-            }
-            .event-canceled { background-color: red; }
-            .event-pending { background-color: yellow; }
-            .event-completed { background-color: transparent; }
-        </style>
-
         <script src="{% static 'js/daypilot-all.min.js' %}" async></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
@@ -58,8 +40,7 @@
                                 barHidden: true,
                                 barColor: "#6aa84f",
                                 borderColor: "darkgreen",
-                                toolTip: "shy shy shy",
-                                // doesnt seem to work
+                                toolTip: "shy shy shy", //works by hovering on an appointment
                                 // fontSize: "20px",             
                                 // fontFamily: "Arial, sans-serif", 
                                 // toolTip: "Scheduled Appointment",
@@ -214,10 +195,14 @@
                                     <h1>{{ appointment.patient.user.first_name }} {{ appointment.patient.user.last_name }}</h1>
                                     <p>{{ appointment.appointment_date }}</p>
                                 </div>
-            
+                                
                                 <div class="appointmentRight">
-                                    <button type="button" class="acceptButton">Accept</button>
-                                    <button type="button" class="rejectButton">Reject</button>
+                                    <form action="{% url 'process appointment' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="appointment-id" value="{{ appointment.id }}">
+                                        <button type="submit" class="acceptButton" name="action" value="accept">Accept</button>
+                                        <button type="submit" class="rejectButton" name="action" value="reject">Reject</button>
+                                    </form>
                                 </div>
                             </div>
                             
