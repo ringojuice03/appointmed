@@ -122,7 +122,10 @@ def doctor_home(request):
     doctor = get_object_or_404(Doctor, user=request.user)
     pending_appointments = Appointment.objects.filter(doctor=doctor, status='pending').order_by('appointment_date')
 
-    return render(request, 'doctor_home.html', {'doctor': doctor, 'appointments': pending_appointments})
+    calendar_view = request.session.get('calendar_view', 'Week')
+    request.session['calendar_view'] = ''
+
+    return render(request, 'doctor_home.html', {'doctor': doctor, 'appointments': pending_appointments, 'current_view': calendar_view})
 
 
 @login_required
@@ -148,6 +151,9 @@ def process_appointment(request):
     if request.method == "POST":
         appointment_id = request.POST.get('appointment-id')
         action = request.POST.get('action')
+        
+        calendar_view = request.POST.get('current-view')
+        request.session['calendar_view'] = calendar_view
         
         try:
             apt = Appointment.objects.get(id=appointment_id)

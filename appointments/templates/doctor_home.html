@@ -18,7 +18,18 @@
             document.addEventListener("DOMContentLoaded", function () {
                 let dayView, weekView, monthView;
                 let placeholder = [];
+                
+                const globalView = document.getElementById('global-current-view');
+                const currentViewList = document.querySelectorAll('.current-view-input');
 
+                function setView(view) {
+                    globalView.value = view;
+                    currentViewList.forEach( current_view => {
+                        current_view.value = view;
+                    });
+                    showView(view);
+                }
+                
                 fetch("{% url 'doctor appointment api' %}")
                 .then((response) => response.json())
                 .then((data) => {
@@ -26,8 +37,9 @@
                         ...event,
                         ...getEventStyles(event.status)
                     }));
-
-                    showView("Week");
+                    const initialView = "{{ current_view|default:'Week' }}";
+                    console.log("Initial value:", initialView);
+                    setView(initialView);
                 });
 
                 function getEventStyles(status) {
@@ -113,15 +125,15 @@
                 }
 
                 document.getElementById("buttonDay").addEventListener("click", function () {
-                    showView("Day");
+                    setView("Day");
                 });
 
                 document.getElementById("buttonWeek").addEventListener("click", function () {
-                    showView("Week");
+                    setView("Week");
                 });
 
                 document.getElementById("buttonMonth").addEventListener("click", function () {
-                    showView("Month");
+                    setView("Month");
                 });
             });
         </script>
@@ -187,6 +199,11 @@
                     {% if appointments|length == 0 %}
                         <p>There are no pending appointments.</p>
                     {% endif %}
+                    
+                    <form action="{% url 'process appointment' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="current-view" id="global-current-view" value="Week">
+                    </form>
 
                     {% for appointment in appointments %}
                         <div class="appointmentItem">
@@ -200,6 +217,7 @@
                                     <form action="{% url 'process appointment' %}" method="post">
                                         {% csrf_token %}
                                         <input type="hidden" name="appointment-id" value="{{ appointment.id }}">
+                                        <input type="hidden" name="current-view" class="current-view-input" value="">
                                         <button type="submit" class="acceptButton" name="action" value="accept">Accept</button>
                                         <button type="submit" class="rejectButton" name="action" value="reject">Reject</button>
                                     </form>
