@@ -120,8 +120,12 @@ def doctor_home(request):
         return redirect('login')
 
     doctor = get_object_or_404(Doctor, user=request.user)
-    appointments = Appointment.objects.filter(doctor=doctor).order_by('appointment_date')
-    return render(request, 'doctor_home.html', {'doctor': doctor, 'appointments': appointments})
+    pending_appointments = Appointment.objects.filter(doctor=doctor, status='pending').order_by('appointment_date')
+
+    calendar_view = request.session.get('calendar_view', 'Week')
+    request.session['calendar_view'] = ''
+
+    return render(request, 'doctor_home.html', {'doctor': doctor, 'appointments': pending_appointments, 'current_view': calendar_view})
 
 
 @login_required
@@ -131,6 +135,7 @@ def doctor_appointment_json_api(request):
 
     events = []
     for appointment in appointments:
+        if appointment.status == 'rejected': continue
         events.append({
             "id": appointment.id,
             "text": f'{appointment.patient.user.first_name} {appointment.patient.user.last_name}',
@@ -140,3 +145,29 @@ def doctor_appointment_json_api(request):
         })
     
     return JsonResponse(events, safe=False)
+
+
+def process_appointment(request):
+    if request.method == "POST":
+        appointment_id = request.POST.get('appointment-id')
+        action = request.POST.get('action')
+        
+        calendar_view = request.POST.get('current-view')
+        request.session['calendar_view'] = calendar_view
+        
+        try:
+            apt = Appointment.objects.get(id=appointment_id)
+
+            if action == 'accept':
+                apt.status = 'scheduled'
+            elif action == 'reject':
+                apt.status = 'rejected'
+
+            apt.save()
+
+            return redirect('doctor home')
+
+        except Appointment.DoesNotExist:
+            return redirect('doctor home')
+
+    return redirect('doctor home')
