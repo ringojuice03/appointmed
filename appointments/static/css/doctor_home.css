@@ -12,7 +12,7 @@
 
 body
 {
-    padding: 40px 0px 0px 0px;
+    padding: 40px 0px 40px 0px;
 }
 
 .hideMenu
@@ -541,8 +541,6 @@ body
 
 /*----------calendar css----------*/
 
-/*change calendar sizes to 150x150*/
-
 /*format indicator*/
 #buttonLabel
 {
@@ -602,6 +600,117 @@ body
     color: #fff;
 }
 
+/*month calendar*/
+.month_header
+{
+    border-top: 1px solid #e0e0e0;
+    font-size: 18px;
+    font-weight: 800;
+    text-align: right;
+    color: #002a3d;
+}
+
+.month_header_inner
+{
+    padding: 15px 5px 0px 0px;
+}
+
+.month_cell
+{
+    padding-bottom: 1px;
+    border: 1px solid #e0e0e0;
+    background-color: #e7e7e7;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: right;
+    color: #002a3d;
+}
+
+.month_cell_inner
+{
+    padding: 5px 5px 0px 0px;
+}
+
+.month_cell_business
+{
+    background-color: #fff;
+}
+
+.month_event_inner
+{
+    margin: 5px 0px 0px 1px;
+    padding: 5px 0px 5px 15px;
+    border: 1px solid #002a3d;
+    border-radius: 0px 100px 100px 0px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.month_shadow
+{
+    border-top: 1px solid #337af7;
+    background-color: #e6f4ff;
+    opacity: 0.5;
+}
+
+/*week calendar*/
+.week_corner
+{
+    border-top: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+}
+
+.week_colheader
+{
+    border-top: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+    text-align: center;
+    color: #002a3d;
+}
+
+.week_colheader_inner
+{
+    padding: 10px 0px;
+}
+
+.week_rowheader
+{
+    border-top: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+    text-align: center;
+    color: #002a3d;
+}
+
+.week_rowheader_inner
+{
+    padding: 10px 0px;
+}
+
+.week_cell
+{
+    border-top: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+    background-color: #fff;
+}
+
+.week_event_inner
+{
+    margin: 5px 0px 0px 1px;
+    padding: 5px 0px 5px 15px;
+    border: 1px solid #002a3d;
+    border-radius: 0px 100px 100px 0px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.week_shadow
+{
+    border-top: 1px solid #337af7;
+    background-color: #e6f4ff;
+    opacity: 0.5;
+}
+
+/*whatever*/
 /*
 .buttons button.selected {
     background-color: #e5e5e5;
@@ -614,6 +723,7 @@ body
 */
 
 /* context menu icons */
+/*
 .icon:before
 {
     position: absolute;
@@ -623,7 +733,9 @@ body
     height: 14px;
     content: '';
 }
+*/
 
+/*
 .icon-blue:before { background-color: #3d85c6; }
 .icon-green:before { background-color: #6aa84f; }
 .icon-orange:before { background-color: #e69138; }
@@ -644,9 +756,12 @@ body .month_default_event_inner
     padding-left: 15px;
     border-radius: 0px 100px 100px 0px;
 }
+*/
 
 /* appointments in calendar */
+/*
 .event-scheduled { background-color: green; }
 .event-canceled { background-color: red; }
 .event-pending { background-color: yellow; }
 .event-completed { background-color: transparent; }
+*/

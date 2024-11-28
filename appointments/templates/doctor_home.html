@@ -37,6 +37,9 @@
                         ...event,
                         ...getEventStyles(event.status)
                     }));
+
+                    //---------------------------------------------change this to week!!!!----------------------------------------//
+
                     const initialView = "{{ current_view|default:'Week' }}";
                     console.log("Initial value:", initialView);
                     setView(initialView);
@@ -209,6 +212,14 @@
                             })
                         };
 
+
+                        weekView.cssClassPrefix = "week";
+                        //101.25% ~= 150px
+                        weekView.width = "101.25%";
+                        //change to proper height
+                        weekView.cellHeight = 35;
+                        weekView.headerHeight = 35;
+
                         weekView.init();
                         document.getElementById("dpWeek").style.display = "block";
                         buttonLabel.innerHTML = "Weekly <i>*^*</i>";
@@ -220,6 +231,14 @@
                             args.preventDefault();
                             alert('Appointment rescheduling is only allowed in day/week calendar.')
                         };
+
+
+                        monthView.cssClassPrefix = "month";
+                        //101.25% ~= 150px
+                        monthView.width = "101.25%";
+                        //change to proper height
+                        monthView.cellHeight = 140;
+                        monthView.headerHeight = 50;
 
                         monthView.init();
                         document.getElementById("dpMonth").style.display = "block";
