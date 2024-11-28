@@ -17,5 +17,6 @@ urlpatterns = [
     path('doctor/home/', views.doctor_home, name="doctor home"),
 
     path('doctor/home/calendar/api', views.doctor_appointment_json_api, name="doctor appointment api"),
+    path("doctor/home/calendar/reschedule/api", views.doctor_reschedule_api, name="doctor reschedule api"),
     path('process-appoinment', views.process_appointment, name="process appointment"),
 ]
