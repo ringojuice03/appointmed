@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import AnonymousUser
 
 from django.shortcuts import render, get_object_or_404, redirect
@@ -8,12 +9,13 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.http import JsonResponse
-from django.utils.timezone import make_aware
+from django.utils.timezone import make_aware, now
 import datetime
 import re
+import json
 
 from .forms import UserForm, PatientForm, DoctorForm
-from .models import Patient, Doctor, Appointment
+from .models import Patient, Doctor, Appointment, Notification
 
 
 def say_hello(request):
@@ -146,6 +148,43 @@ def doctor_appointment_json_api(request):
     
     return JsonResponse(events, safe=False)
 
+@csrf_exempt
+@login_required
+def doctor_reschedule_api(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            apt_id = data.get('id')
+            new_start = data.get('newStart')
+            
+            appointment = Appointment.objects.get(id=apt_id)
+            
+            if Appointment.objects.filter(appointment_date=new_start).exists():
+                return JsonResponse({"success": False, "error": "Only one appointment per slot is allowed."})
+
+            if Notification.objects.filter(appointment=appointment).exists():
+                notification = Notification.objects.get(appointment=appointment)
+                appointment.appointment_date = new_start
+                appointment.save()
+                notification.appointment = appointment
+                notification.save()
+            else:
+                appointment.appointment_date = new_start
+                appointment.save()
+                Notification.objects.create(
+                    appointment = appointment,
+                    notification_type = 'rescheduled',
+                )
+
+            return JsonResponse({"success": True})
+
+        except Appointment.DoesNotExist:
+            return JsonResponse({"success": False, "error": "Appointment does not exist in database"})
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
+
+    return JsonResponse({"success": False, "error": "Request is not POST."})
+
 
 def process_appointment(request):
     if request.method == "POST":
@@ -159,11 +198,18 @@ def process_appointment(request):
             apt = Appointment.objects.get(id=appointment_id)
 
             if action == 'accept':
+                action = 'accepted'
                 apt.status = 'scheduled'
             elif action == 'reject':
+                action = 'rejected'
                 apt.status = 'rejected'
 
             apt.save()
+
+            Notification.objects.create(
+                appointment = apt,
+                notification_type = action
+            )
 
             return redirect('doctor home')
 

@@ -109,16 +109,114 @@
                     if (view === "Day") {
                         dayView = new DayPilot.Calendar("dpDay", { viewType: "Day" });
                         dayView.events.list = placeholder;
+
+                        dayView.onEventMove = function (args) {
+                            if (args.e.data.status !== "pending") {
+                                args.preventDefault();
+                                alert("Only pending appointments can be rescheduled.");
+                                return;
+                            }
+                        };
+                        
+                        dayView.onEventMoved = function (args) {
+                            const appointment = {
+                                id: args.e.data.id,
+                                newStart: args.newStart.toString(),
+                                newEnd: args.newEnd.toString()
+                            };
+                            
+                            fetch("{% url 'doctor reschedule api' %}", {
+                                method: "POST",
+                                headers: {
+                                    "Content-type": "application/json",
+                                    "X-CSRFToken": "{{ csrf_token }}",
+                                },
+                                body: JSON.stringify(appointment),
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    alert('Appointment rescheduled successfully.');
+                                    location.reload();
+                                } else {
+                                    alert(data.error);
+                                    args.e.start = args.e.data.start;
+                                    args.e.end = args.e.data.end;
+                                    dayView.update();
+                                    location.reload();
+                                }
+                            })
+                            .catch(error => {
+                                alert("Failed to reschedule appointment: ", error);
+                                args.e.start = args.e.data.start;
+                                args.e.end = args.e.data.end;
+                                dayView.update();
+                                location.reload();
+                            })
+                        };
+                        
                         dayView.init();
                         document.getElementById("dpDay").style.display = "block";
                     } else if (view === "Week") {
                         weekView = new DayPilot.Calendar("dpWeek", { viewType: "Week" });
                         weekView.events.list = placeholder;
+                        
+                        weekView.onEventMove = function (args) {
+                            if (args.e.data.status !== "pending") {
+                                args.preventDefault();
+                                alert("Only pending appointments can be rescheduled.");
+                                return;
+                            }
+                        };
+
+                        weekView.onEventMoved = function (args) {
+                            const appointment = {
+                                id: args.e.data.id,
+                                newStart: args.newStart.toString(),
+                                newEnd: args.newEnd.toString(),
+                            };
+
+                            fetch("{% url 'doctor reschedule api' %}", {
+                                method: "POST",
+                                headers: {
+                                    "Content-type": "application/json",
+                                    "X-CSRFToken": "{{ csrf_token }}"
+                                },
+                                body: JSON.stringify(appointment),
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    alert('Appointment rescheduled successfully.');
+                                    location.reload();
+                                } else {
+                                    alert(data.error);
+                                    args.e.start = args.e.data.start;
+                                    args.e.end = args.e.data.end;
+                                    weekView.update();
+                                    location.reload();
+                                }
+                            })
+                            .catch(error => {
+                                alert("Failed to reschedule appointment: ", error);
+                                args.e.start = args.e.data.start;
+                                args.e.end = args.e.data.end;
+                                weekView.update();
+                                location.reload();
+                            })
+                        };
+
                         weekView.init();
                         document.getElementById("dpWeek").style.display = "block";
                     } else if (view === "Month") {
                         monthView = new DayPilot.Month("dpMonth", { eventHeight: 32 });
                         monthView.events.list = placeholder;
+
+                        monthView.onEventMove = function (args) {
+                            args.preventDefault();
+                            alert('Appointment rescheduling is only allowed in day/week calendar.')
+                        };
+
                         monthView.init();
                         document.getElementById("dpMonth").style.display = "block";
                     }
