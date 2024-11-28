@@ -38,8 +38,6 @@
                         ...getEventStyles(event.status)
                     }));
 
-                    //---------------------------------------------change this to week!!!!----------------------------------------//
-
                     const initialView = "{{ current_view|default:'Week' }}";
                     console.log("Initial value:", initialView);
                     setView(initialView);
@@ -59,7 +57,6 @@
                                 // fontSize: "20px",             
                                 // fontFamily: "Arial, sans-serif", 
                                 // toolTip: "Scheduled Appointment",
-                                
                             };
                         case "canceled": 
                             return {
@@ -158,10 +155,14 @@
                                 location.reload();
                             })
                         };
+
+                        dayView.width = "101.25%";
+                        dayView.cellHeight = 35;
+                        dayView.headerHeight = 35;
                         
                         dayView.init();
                         document.getElementById("dpDay").style.display = "block";
-                        //maybe put div container inside innerHTML for label and icon
+                        //put div container inside for label and icon
                         buttonLabel.innerHTML = "Daily <i>*^*</i>";
                     } else if (view === "Week") {
                         weekView = new DayPilot.Calendar("dpWeek", { viewType: "Week" });
@@ -211,17 +212,14 @@
                                 location.reload();
                             })
                         };
-
-
-                        weekView.cssClassPrefix = "week";
-                        //101.25% ~= 150px
+                        
                         weekView.width = "101.25%";
-                        //change to proper height
                         weekView.cellHeight = 35;
                         weekView.headerHeight = 35;
 
                         weekView.init();
                         document.getElementById("dpWeek").style.display = "block";
+                        //put div container inside for label and icon
                         buttonLabel.innerHTML = "Weekly <i>*^*</i>";
                     } else if (view === "Month") {
                         monthView = new DayPilot.Month("dpMonth", { eventHeight: 32 });
@@ -232,16 +230,13 @@
                             alert('Appointment rescheduling is only allowed in day/week calendar.')
                         };
 
-
-                        monthView.cssClassPrefix = "month";
-                        //101.25% ~= 150px
                         monthView.width = "101.25%";
-                        //change to proper height
                         monthView.cellHeight = 140;
                         monthView.headerHeight = 50;
 
                         monthView.init();
                         document.getElementById("dpMonth").style.display = "block";
+                        //put div container inside for label and icon
                         buttonLabel.innerHTML = "Monthly <i>*^*</i>";
                     }
                 }
@@ -272,9 +267,10 @@
                     <p>{% now "g:i A" %}</p>
                 </div>
                 
-                <!--<button type="button" id="notification-button">notification</button>-->
+                <!--change to proper notif icon-->
+                <button type="button" id="notification-button" onclick="showNotificationMenu()"></button>
                 <!--change to proper user picture-->
-                <div id="user-menu-button" onclick="showUserMenu()"></div>
+                <button type="button" id="user-menu-button" onclick="showUserMenu()"></div>
                 </div>
             </div>
         </div>
@@ -315,8 +311,9 @@
             </div>
 
             <div id="appointments-container">
+                <!-- backup
                 <div id="user-menu" class="hideMenu">
-                    <!--change to proper logo-->
+                    //change to proper logo
                     <h1 id="user-menu-logo">AppointMed</h1>
         
                     <div id="user-menu-filter">
@@ -325,18 +322,59 @@
                     </div>
         
                     <div id="user-profile">
-                        <!--change to proper picture-->
+                        //change to proper picture
                         <div id="user-picture"></div>
                         <h1 id="user-name">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</h1>
                         <h1 id="doctor-specialty">{Specialty}</h1>
                         <i id="clinic-address">{Clinic Address}</i>
                         <p id="clinic-status">Status: <b>{Status}</b></p>
-                        <!--add log out icon-->
+                        //add log out icon
                         <button type="button" id="log-out-button">Log out</button>
                         <p id="appointmed-2024">© AppointMed 2024</p>
                     </div>
                     
                     <div id="user-notifications" class="hideFilter">
+                        <div class="notificationItem">
+                            <div class="notificationDetails">
+                                <div class="notificationLeft">
+                                    //change to proper picture
+                                    <div class="notificationPicture"></div>
+                                </div>
+
+                                <div class="notificationRight">
+                                    <h1><b>{Patient Name}</b> has sent an appointment request</h1>
+                                    <p>{Appointment Date}</p>
+                                </div>
+                            </div>
+        
+                            <hr>
+                        </div>
+
+                        <div class="notificationItem">
+                            <div class="notificationDetails">
+                                <div class="notificationLeft">
+                                    //change to proper picture
+                                    <div class="notificationPicture"></div>
+                                </div>
+
+                                <div class="notificationRight">
+                                    <h1><b>{Patient Name}</b> has cancelled an appointment request</h1>
+                                    <p>{Appointment Date}</p>
+                                </div>
+                            </div>
+        
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+                -->
+
+                <div id="notification-menu" class="hideMenu">
+                    <!--change to proper logo-->
+                    <h1 id="notification-menu-label">Notifications</h1>
+                    <hr>
+                    
+                    <div id="user-notifications">
                         <div class="notificationItem">
                             <div class="notificationDetails">
                                 <div class="notificationLeft">
@@ -368,6 +406,23 @@
         
                             <hr>
                         </div>
+                    </div>
+                </div>
+
+                <div id="user-menu" class="hideMenu">
+                    <!--change to proper logo-->
+                    <h1 id="user-menu-logo">AppointMed</h1>
+        
+                    <div id="user-profile">
+                        <!--change to proper picture-->
+                        <div id="user-picture"></div>
+                        <h1 id="user-name">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</h1>
+                        <h1 id="doctor-specialty">{Specialty}</h1>
+                        <i id="clinic-address">{Clinic Address}</i>
+                        <p id="clinic-status">Status: <b>{Status}</b></p>
+                        <!--add log out icon-->
+                        <button type="button" id="log-out-button">Log out</button>
+                        <p id="appointmed-2024">© AppointMed 2024</p>
                     </div>
                 </div>
 

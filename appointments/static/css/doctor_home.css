@@ -43,7 +43,7 @@ body
 {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-end;
     width: auto;
     height: 50px;
 }
@@ -53,15 +53,14 @@ body
     margin-left: 30px;
 }
 
-#user-menu-button
+#user-menu-button, #notification-button
 {
     cursor: pointer;
     width: 50px;
     height: 50px;
     border: solid 1px #003249;
     border-radius: 100px;
-
-    font-size: 5px;
+    background-color: transparent;
 }
 
 #date-n-time
@@ -83,17 +82,30 @@ body
 }
 
 /*user menu*/
-#user-menu, #user-profile, #user-notifications
+#notification-menu, #user-menu, #user-profile, #user-notifications
 {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
+#notification-menu
+{
+    width: 420px;
+    height: 545px;
+    border-style: none;
+    border-radius: 25px;
+    background-color: #21769c;
+
+    position: absolute;
+    margin-top: -60px;
+    margin-left: 118px;
+}
+
 #user-menu
 {
     width: 420px;
-    height: 610px;
+    height: 545px;
     border-style: none;
     border-radius: 25px;
     background-color: #21769c;
@@ -103,7 +115,7 @@ body
     margin-left: 198px;
 }
 
-#user-profile, #user-notifications
+#user-profile
 {
     margin-top: 20px;
 }
@@ -117,6 +129,22 @@ body
     color: #fff;
 }
 
+#notification-menu-label
+{
+    margin: 20px 0px 10px 35px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: left;
+    color: #fff;
+}
+
+#notification-menu > hr
+{
+    margin: 5px 35px;
+    border: 1px solid #fff;
+}
+
+/* backup
 #user-menu-filter
 {
     margin-top: 20px;
@@ -124,6 +152,7 @@ body
     flex-direction: row;
     justify-content: center;
 }
+
 
 #user-menu-filter button
 {
@@ -154,6 +183,12 @@ body
 {
     border-radius: 0px 25px 25px 0px;
 }
+
+.hideFilter
+{
+    display: none !important;
+}
+*/
 
 /*profile menu*/
 #user-picture
@@ -198,7 +233,7 @@ body
     cursor: pointer;
     width: 150px;
     height: 66px;
-    margin: 12px auto 0px auto;
+    margin: 18px auto 0px auto;
     border-style: none;
     border-radius: 90px;
     background-color: #fff;
@@ -220,7 +255,7 @@ body
 #appointmed-2024
 {
     margin: 20px 0px 0px 0px;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 400;
     text-align: center;
     color: #fff;
@@ -311,11 +346,6 @@ body
 {
     margin: 5px 0px;
     border: 1px solid #fff;
-}
-
-.hideFilter
-{
-    display: none !important;
 }
 
 /*page body*/
@@ -601,116 +631,140 @@ body
 }
 
 /*month calendar*/
-.month_header
+div.month_default_main
 {
+    border-color: transparent;
+    border-left: 1px solid #e0e0e0;
+}
+
+div.month_default_header_inner
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-right: 15px;
+    border: transparent;
     border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    background-color: #fff;
     font-size: 18px;
     font-weight: 800;
     text-align: right;
     color: #002a3d;
 }
 
-.month_header_inner
+div.month_default_cell_inner
 {
-    padding: 15px 5px 0px 0px;
-}
-
-.month_cell
-{
-    padding-bottom: 1px;
-    border: 1px solid #e0e0e0;
-    background-color: #e7e7e7;
+    background-color: #f3f3f3;
     font-size: 14px;
     font-weight: 400;
     text-align: right;
     color: #002a3d;
 }
 
-.month_cell_inner
+div.month_default_cell_header
 {
-    padding: 5px 5px 0px 0px;
+    padding: 5px;
 }
 
-.month_cell_business
+div.month_default_cell_business
 {
     background-color: #fff;
 }
 
-.month_event_inner
+div.month_default_event_inner
 {
-    margin: 5px 0px 0px 1px;
-    padding: 5px 0px 5px 15px;
+    padding: 5px 0px 5px 10px;
     border: 1px solid #002a3d;
     border-radius: 0px 100px 100px 0px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
-.month_shadow
+div.month_default_shadow
 {
     border-top: 1px solid #337af7;
     background-color: #e6f4ff;
     opacity: 0.5;
 }
 
-/*week calendar*/
-.week_corner
+/*week calendar and day calendar css*/
+div.calendar_default_main
 {
+    border-color: transparent;
     border-top: 1px solid #e0e0e0;
     border-left: 1px solid #e0e0e0;
 }
 
-.week_colheader
+div.calendar_default_corner_inner
 {
-    border-top: 1px solid #e0e0e0;
-    border-left: 1px solid #e0e0e0;
-    text-align: center;
+    background-color: transparent;
+    border-color: #e0e0e0;
+}
+
+div.calendar_default_cornerright_inner
+{
+    background-color: transparent;
+    border-bottom: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+}
+
+div.calendar_default_colheader_inner
+{
+    border-color: #e0e0e0;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #fff;
     color: #002a3d;
 }
 
-.week_colheader_inner
+div.calendar_default_rowheader_inner, span.calendar_default_rowheader_minutes
 {
-    padding: 10px 0px;
-}
-
-.week_rowheader
-{
-    border-top: 1px solid #e0e0e0;
-    border-left: 1px solid #e0e0e0;
-    text-align: center;
-    color: #002a3d;
-}
-
-.week_rowheader_inner
-{
-    padding: 10px 0px;
-}
-
-.week_cell
-{
-    border-top: 1px solid #e0e0e0;
-    border-left: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-color: #e0e0e0;
     background-color: #fff;
 }
 
-.week_event_inner
+div.calendar_default_rowheader_inner > div
 {
-    margin: 5px 0px 0px 1px;
-    padding: 5px 0px 5px 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    color: #002a3d;
+}
+
+div.calendar_default_cell_inner
+{
+    background-color: #f3f3f3;
+}
+
+div.calendar_default_cell_business
+{
+    background-color: #fff;
+}
+
+div.calendar_default_event_inner
+{
+    padding: 5px 0px 5px 10px;
     border: 1px solid #002a3d;
     border-radius: 0px 100px 100px 0px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
-.week_shadow
+div.calendar_default_shadow_inner
 {
     border-top: 1px solid #337af7;
     background-color: #e6f4ff;
     opacity: 0.5;
 }
 
-/*whatever*/
 /*
 .buttons button.selected {
     background-color: #e5e5e5;

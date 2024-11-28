@@ -1,19 +1,36 @@
 /*----------page js----------*/
 
 /*user menu*/
+const notificationMenu = document.getElementById("notification-menu");
 const userMenu = document.getElementById("user-menu");
-const userProfile = document.getElementById("user-profile");
-const userNotifications = document.getElementById("user-notifications");
-const profileFilter = document.getElementById("profile-filter");
-const notificationsFilter = document.getElementById("notifications-filter");
+
+function showNotificationMenu()
+{
+  if (notificationMenu.classList.contains('hideMenu'))
+  {
+    notificationMenu.classList.remove('hideMenu');
+    userMenu.classList.add('hideMenu');
+  }
+  else
+    notificationMenu.classList.add('hideMenu');
+}
 
 function showUserMenu()
 {
   if (userMenu.classList.contains('hideMenu'))
+  {
     userMenu.classList.remove('hideMenu');
+    notificationMenu.classList.add('hideMenu');
+  }
   else
     userMenu.classList.add('hideMenu');
 }
+
+/* backup
+const userProfile = document.getElementById("user-profile");
+const userNotifications = document.getElementById("user-notifications");
+const profileFilter = document.getElementById("profile-filter");
+const notificationsFilter = document.getElementById("notifications-filter");
 
 function showProfile()
 {
@@ -30,6 +47,7 @@ function showNotifications()
   notificationsFilter.classList.remove('filterUnselected');
   profileFilter.classList.add('filterUnselected');
 }
+*/
 
 /*appointments filter*/
 const pendingFilter = document.getElementById("pending-filter");
