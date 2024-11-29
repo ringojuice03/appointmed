@@ -9,9 +9,9 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.http import JsonResponse
-from django.utils.timezone import make_aware, now
+from django.utils.timezone import make_aware, now, get_current_timezone, localtime
+from datetime import timedelta, datetime as dt
 import datetime
-import re
 import json
 
 from .forms import UserForm, PatientForm, DoctorForm
@@ -115,6 +115,27 @@ def patient_about(request):
 def patient_profile(request):
     return render(request, 'patient_profile.html')
 
+def patient_reschedule_api(request):
+    if request.method == "POST":
+        action = request.POST.get('action')
+        notification_id = request.POST.get('notification_id')
+
+        notification = Notification.objects.get(id=notification_id)
+        appointment = Appointment.objects.get(id=notification.appointment.id)
+
+        if action == 'accept':
+            appointment = 'scheduled'
+            notification.notification_type = 'reschedule_accepted'
+            
+        elif action == 'reject':
+            appointment = 'rejected'
+            notification.notification_type = 'reschedule_rejected'
+
+        appointment.save()
+        notification.save()
+
+    return render(request, 'patient home')
+
 
 
 def doctor_home(request):
@@ -122,12 +143,37 @@ def doctor_home(request):
         return redirect('login')
 
     doctor = get_object_or_404(Doctor, user=request.user)
+    appointments = Appointment.objects.filter(doctor=doctor)
+
+    
+    for apt in appointments:
+        if apt.appointment_date >= now(): continue
+
+        # pending appointments in the past are treated as rejected appointments
+        if apt.status == 'pending':
+            apt.status = 'rejected'
+            apt.save()
+            Notification.objects.create(
+                appointment = apt,
+                notification_type = 'rejected',
+            )
+        # scheduled appt. completes when the appointment date is in the past
+        elif apt.status == 'scheduled':
+            apt.status = 'completed'
+            apt.save()
+
     pending_appointments = Appointment.objects.filter(doctor=doctor, status='pending').order_by('appointment_date')
+    notifications = Notification.objects.filter(appointment__doctor=doctor).order_by('-appointment__appointment_date')
 
     calendar_view = request.session.get('calendar_view', 'Week')
     request.session['calendar_view'] = ''
 
-    return render(request, 'doctor_home.html', {'doctor': doctor, 'appointments': pending_appointments, 'current_view': calendar_view})
+    return render(request, 'doctor_home.html', {
+            'doctor': doctor, 
+            'appointments': pending_appointments, 
+            'notifications': notifications,
+            'current_view': calendar_view,
+    })
 
 
 @login_required
@@ -137,12 +183,17 @@ def doctor_appointment_json_api(request):
 
     events = []
     for appointment in appointments:
-        if appointment.status == 'rejected': continue
+        if appointment.status == 'rejected': 
+            continue
+
+        local_start = localtime(appointment.appointment_date).replace(tzinfo=None)
+        local_end = (local_start + timedelta(minutes=30)).replace(tzinfo=None)
+
         events.append({
             "id": appointment.id,
             "text": f'{appointment.patient.user.first_name} {appointment.patient.user.last_name}',
-            "start": appointment.appointment_date.isoformat(),
-            "end": (appointment.appointment_date + datetime.timedelta(minutes=30)).isoformat(),
+            "start": local_start.isoformat(),
+            "end": local_end.isoformat(),
             "status": appointment.status,
         })
     
@@ -157,26 +208,33 @@ def doctor_reschedule_api(request):
             apt_id = data.get('id')
             new_start = data.get('newStart')
             
+            # dt is origin: from datetime import timedelta, datetime as dt
+            resched_datetime = dt.strptime(new_start, '%Y-%m-%dT%H:%M:%S')
+            resched_datetime = make_aware(resched_datetime)
+
             appointment = Appointment.objects.get(id=apt_id)
+
+            if resched_datetime < now():
+                return JsonResponse({"success": False, "error": "You cannot reschedule an appointment to the past.", })
             
             if Appointment.objects.filter(appointment_date=new_start).exists():
                 return JsonResponse({"success": False, "error": "Only one appointment per slot is allowed."})
 
             if Notification.objects.filter(appointment=appointment).exists():
                 notification = Notification.objects.get(appointment=appointment)
-                appointment.appointment_date = new_start
+                appointment.appointment_date = resched_datetime
                 appointment.save()
                 notification.appointment = appointment
                 notification.save()
             else:
-                appointment.appointment_date = new_start
+                appointment.appointment_date = resched_datetime
                 appointment.save()
                 Notification.objects.create(
                     appointment = appointment,
                     notification_type = 'rescheduled',
                 )
 
-            return JsonResponse({"success": True})
+            return JsonResponse({"success": True, "minjitime": (resched_datetime).isoformat()})
 
         except Appointment.DoesNotExist:
             return JsonResponse({"success": False, "error": "Appointment does not exist in database"})

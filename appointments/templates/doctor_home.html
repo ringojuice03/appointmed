@@ -33,6 +33,7 @@
                 fetch("{% url 'doctor appointment api' %}")
                 .then((response) => response.json())
                 .then((data) => {
+                    console.log("Received event data: ", data);
                     placeholder = data.map(event => ({
                         ...event,
                         ...getEventStyles(event.status)
@@ -103,9 +104,9 @@
                     document.getElementById("dpMonth").style.display = "none";
                     const buttonLabel = document.getElementById("buttonLabel");
 
-                    // document.getElementById("dpDay").innerHTML = "";
-                    // document.getElementById("dpWeek").innerHTML = "";
-                    // document.getElementById("dpMonth").innerHTML = "";
+                    document.getElementById("dpDay").innerHTML = "";
+                    document.getElementById("dpWeek").innerHTML = "";
+                    document.getElementById("dpMonth").innerHTML = "";
 
                     if (view === "Day") {
                         dayView = new DayPilot.Calendar("dpDay", { viewType: "Day" });
@@ -195,9 +196,12 @@
                             .then(data => {
                                 if (data.success) {
                                     alert('Appointment rescheduled successfully.');
+                                    console.log('New start: ', appointment.newStart);
                                     location.reload();
                                 } else {
                                     alert(data.error);
+                                    console.log(appointment.newStart);
+                                    console.log('Server time:', data.minjitime)
                                     args.e.start = args.e.data.start;
                                     args.e.end = args.e.data.end;
                                     weekView.update();
