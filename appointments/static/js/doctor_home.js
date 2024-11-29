@@ -1,27 +1,116 @@
-/*calendar js*/
+/*----------page js----------*/
 
-    /*daily view*/
+/*user menu*/
+const notificationMenu = document.getElementById("notification-menu");
+const userMenu = document.getElementById("user-menu");
+
+function showNotificationMenu()
+{
+  if (notificationMenu.classList.contains('hideMenu'))
+  {
+    notificationMenu.classList.remove('hideMenu');
+    userMenu.classList.add('hideMenu');
+  }
+  else
+    notificationMenu.classList.add('hideMenu');
+}
+
+function showUserMenu()
+{
+  if (userMenu.classList.contains('hideMenu'))
+  {
+    userMenu.classList.remove('hideMenu');
+    notificationMenu.classList.add('hideMenu');
+  }
+  else
+    userMenu.classList.add('hideMenu');
+}
+
+/* backup
+const userProfile = document.getElementById("user-profile");
+const userNotifications = document.getElementById("user-notifications");
+const profileFilter = document.getElementById("profile-filter");
+const notificationsFilter = document.getElementById("notifications-filter");
+
+function showProfile()
+{
+  userProfile.classList.remove('hideFilter');
+  userNotifications.classList.add('hideFilter');
+  profileFilter.classList.remove('filterUnselected');
+  notificationsFilter.classList.add('filterUnselected');
+}
+
+function showNotifications()
+{
+  userNotifications.classList.remove('hideFilter');
+  userProfile.classList.add('hideFilter');
+  notificationsFilter.classList.remove('filterUnselected');
+  profileFilter.classList.add('filterUnselected');
+}
+*/
+
+/*appointments filter*/
+const pendingFilter = document.getElementById("pending-filter");
+const rejectedFilter = document.getElementById("rejected-filter");
+
+function pendingSelected()
+{
+  pendingFilter.classList.remove('appointmentsFilterUnselected');
+  rejectedFilter.classList.add('appointmentsFilterUnselected');
+}
+
+function rejectedSelected()
+{
+  rejectedFilter.classList.remove('appointmentsFilterUnselected');
+  pendingFilter.classList.add('appointmentsFilterUnselected');
+}
+
+/*----------calendar js----------*/
+
+/*calendar format*/
+document.getElementById("buttonLabel").onmouseover = showFormatMenu;
+document.getElementById("buttonsMenu").onmouseover = showFormatMenu;
+document.getElementById("buttonLabel").onmouseout = hideFormatMenu;
+document.getElementById("buttonsMenu").onmouseout = hideFormatMenu;
+
+function showFormatMenu()
+{
+  document.getElementById("buttonsMenu").style.visibility = "visible";
+  document.getElementById("buttonsMenu").style.zIndex = "1";
+  document.getElementById("dpDay").style.zIndex = "-1";
+  document.getElementById("dpWeek").style.zIndex = "-1";
+  document.getElementById("dpMonth").style.zIndex = "-1";
+}
+
+function hideFormatMenu()
+{
+  document.getElementById("buttonsMenu").style.visibility = "hidden";
+  document.getElementById("buttonsMenu").style.zIndex = "-1";
+  document.getElementById("dpDay").style.zIndex = "1";
+  document.getElementById("dpWeek").style.zIndex = "1";
+  document.getElementById("dpMonth").style.zIndex = "1";
+}
+
+/*calendar js old*/
+/*
     const day = new DayPilot.Calendar("dpDay", {
       viewType: "Day"
     });
     configureCalendar(day);
     day.init();
     
-    /*weekly view*/
     const week = new DayPilot.Calendar("dpWeek", {
       viewType: "Week"
     });
     configureCalendar(week);
     week.init(); 
     
-    /*monthly view*/
     const month = new DayPilot.Month("dpMonth", {
       eventHeight: 32,
     });
     configureCalendar(month);
     month.init();
     
-    /*ewan ko lmaoo*/
     function configureCalendar(calendar) {
         calendar.visible = false;
     
@@ -189,3 +278,4 @@
       
       console.log("Color updated");
     }
+*/
