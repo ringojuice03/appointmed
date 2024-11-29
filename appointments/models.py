@@ -28,14 +28,10 @@ class Appointment(models.Model):
     appointment_date = models.DateTimeField(null=False, blank=False)
     status = models.CharField(max_length=20, 
                               choices=[
-                                  # Appt. status for patient
                                   ('scheduled', 'Scheduled'),
-                                  ('rejected', 'Rejected'),
-                                  
-                                  # Appt. status for doctor
                                   ('pending', 'Pending'),
-                                  ('canceled', 'Canceled'),
-                                  ('completed', 'Completed'), 
+                                  ('completed', 'Completed'),
+                                  ('rejected', 'Rejected'),
                                 ],
                               null=False, blank=False)
     
@@ -47,14 +43,20 @@ class Notification(models.Model):
     notification_type = models.CharField(
         max_length=20,
         choices=[
-            # Patient notification
+            # Notification for Patient
             ('accepted', 'Accepted'),
             ('rejected', 'Rejected'),
-            ('rescheduled', 'Rescheduled'),
 
-            # Doctor notification
+            # Rescheduling notification for Patient
+            ('rescheduled', 'Rescheduled'),
+            
+            # Notification for Doctor
             ('set', 'Set'),
-            ('canceled', 'Canceled')
+            ('canceled', 'Canceled'),
+
+            # Both doctor and patient
+            ('reschedule_accepted', 'Reschedule Accepted'),
+            ('reschedule_rejected', 'Reschedule Rejected'),
         ],
         default='set', blank=False)
     created_at = models.DateTimeField(default=now)
