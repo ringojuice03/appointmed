@@ -88,6 +88,10 @@ def PatientHome(request):
     patient = get_object_or_404(Patient, user=request.user)
     return render(request, 'patient_home.html', {'patient': patient})
 
+def PatientHome_DoctorDetails(request):
+    patient = get_object_or_404(Patient, user=request.user)
+    return render(request, 'patient_home_doctor_details.html', {'patient': patient})
+
 
 # class PatientHomeView(generic.ListView):
 #     template_name = 'patient_home.html'

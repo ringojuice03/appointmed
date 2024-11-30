@@ -9,7 +9,7 @@
     content="width=device-width, initial-scale=1.0">
     <title>Appointmed</title>
     <link rel="stylesheet" type="text/css"
-    href="{% static "css/patient_home1.css" %}">
+    href="{% static "css/patient_home2.css" %}">
 </head>
 <body>
     <div class="main">
@@ -62,63 +62,114 @@
             </div>
         </div>
     </header>
-        <main>         
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
+    
+    <div class="doctorcard">
+        <div class="left">
+            <img src="doctor-profile-image.jpg">
+            <div class="doctor-name">Dr. Jose Rizal</div>
+            <div class="doctor-title">Neurosurgeon</div>
+            <div class="doctor-address">
+                123 Mockingbird Lane, <br>
+                Anytown, USA 12345
+            </div>
+        </div>
+        <!-- Middle Section -->
+<div class="middle">
+    <!-- Doctor Name and Rating -->
+    <div class="title">
+        <span>Dr. Jose Rizal</span>
+        <div class="rating">
+            <span>99</span> ★
+        </div>
+    </div>
+
+    <!-- General Information -->
+    <div class="info">
+        <p><strong>Neurosurgeon</strong></p>
+        <p>123 Mockingbird Lane<br>Anytown, USA 12345</p>
+        <p>+63 912 345 6789</p>
+        <p>Over 15 years of experience in neurosurgery</p>
+        <p><strong>Doctor of Medicine</strong><br>University of ABC Medical School</p>
+        <p><strong>Residency Training in Neurosurgery</strong><br>ABC Teaching Hospital</p>
+        <p><strong>Board Certification in Neurosurgery</strong><br>ABC Board of Neurological Surgeons</p>
+        <p>Office hours: 9:00 AM - 4:30 PM</p>
+    </div>
+
+    <!-- Highlighted Quote -->
+    <div class="highlight">
+        "Stop screaming, I'm scared too."
+    </div>
+
+    <!-- Link to Reviews -->
+    <a href="#">View Patient Reviews</a>
+    </div>
+
+    <!-- Right Section -->
+    <div class="right">
+        <div class="Calendar">Calendar</div>
+    </div>
+    </div>
+    
+        <main> 
+            <a href="doctor-details.html" class="doctor-link">
                 <div class="doctorprofile">
                     <div class="doctorname">DR. JOSE RIZAL</div>
                     <div class="doctortitle">neurosurgeon</div>
                     <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
                 </div>
             </a>
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
+            <a href="doctor-details.html" class="doctor-link">
                 <div class="doctorprofile">
                     <div class="doctorname">DR. JOSE RIZAL</div>
                     <div class="doctortitle">neurosurgeon</div>
                     <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
                 </div>
             </a>
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
+            <a href="doctor-details.html" class="doctor-link">
                 <div class="doctorprofile">
                     <div class="doctorname">DR. JOSE RIZAL</div>
                     <div class="doctortitle">neurosurgeon</div>
                     <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
                 </div>
             </a>
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
+            <a href="doctor-details.html" class="doctor-link">
                 <div class="doctorprofile">
                     <div class="doctorname">DR. JOSE RIZAL</div>
                     <div class="doctortitle">neurosurgeon</div>
                     <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
                 </div>
             </a>
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
+            <a href="doctor-details.html" class="doctor-link">
                 <div class="doctorprofile">
                     <div class="doctorname">DR. JOSE RIZAL</div>
                     <div class="doctortitle">neurosurgeon</div>
                     <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
                 </div>
             </a>
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
+            <a href="doctor-details.html" class="doctor-link">
                 <div class="doctorprofile">
                     <div class="doctorname">DR. JOSE RIZAL</div>
                     <div class="doctortitle">neurosurgeon</div>
                     <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
                 </div>
             </a>
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
+            <a href="doctor-details.html" class="doctor-link">
                 <div class="doctorprofile">
                     <div class="doctorname">DR. JOSE RIZAL</div>
                     <div class="doctortitle">neurosurgeon</div>
                     <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
                 </div>
             </a>
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
+            <a href="doctor-details.html" class="doctor-link">
                 <div class="doctorprofile">
                     <div class="doctorname">DR. JOSE RIZAL</div>
                     <div class="doctortitle">neurosurgeon</div>
                     <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
                 </div>
-            </a>                                           
+            </a>
+                                                
+
+
         </main>
         </aside> 
     </div>
