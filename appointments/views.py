@@ -86,7 +86,15 @@ def PatientHome(request):
         return redirect('login')
 
     patient = get_object_or_404(Patient, user=request.user)
-    return render(request, 'patient_home.html', {'patient': patient})
+    doctors = Doctor.objects.all()
+
+    specializations = doctors.values_list('specialty' ,flat=True).distinct()
+
+    return render(request, 'patient_home.html', {
+        'patient': patient, 
+        'doctors': doctors,
+        'specializations': specializations,
+    })
 
 def PatientHome_DoctorDetails(request):
     patient = get_object_or_404(Patient, user=request.user)
