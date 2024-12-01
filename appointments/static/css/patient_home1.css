@@ -3,6 +3,8 @@
     box-sizing: border-box;
 }
 
+
+
 body {
     height: 95vh;
     background-color: white;
@@ -115,6 +117,25 @@ header {
 .bodyparts li {
     margin-bottom: 7px; 
 }
+
+
+
+.bodyparts a {
+    color: white;
+    text-decoration: none;
+}
+
+/* highlight of selected specialization */
+.selected {
+    color: yellow !important;
+    font-weight: bold;
+}
+
+.bodyparts a.active {
+    font-weight: bold;
+}
+
+
 .sidebar .clinics{
     position: absolute;
     top: 557px;  
@@ -158,6 +179,7 @@ header {
     text-align: center;
     line-height: 50px; /* Vertically center text */
 }
+
 /* --MAIN--*/
 main {
     display: grid; /* Use grid layout */
@@ -212,9 +234,166 @@ main {
 
 .doctor-link {
     text-decoration: none; /* Remove underline */
-    display: block; /* Make the anchor behave like a block container */
+    display: none; /* Make the anchor behave like a block container */
+    transition: transform 0.3s ease;
+}
+
+.doctor-link.expanded {
+    grid-column: span 4;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 16px;
+    transform: scale(1.05);
 }
 
 .doctorprofile {
     cursor: pointer; /* Show a pointer cursor on hover */
+}
+
+
+.doctorcard {
+    display: flex; 
+    background: #21769C; 
+    width: 1175px; 
+    margin: 20px auto; 
+    border-radius: 15px; 
+    color: white; 
+    font-family: Helvetica, sans-serif; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    margin-left: 23%;
+    margin-top: 3px;
+}
+
+.doctorcard.hidden {
+    display: none;
+}
+
+.doctorcard.visible {
+    display: flex;
+}
+
+/* LEFT */
+.doctorcard .left {
+    flex: 1; 
+    background: #21769C; 
+    border-radius: 15px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    color: white; 
+    font-family: Helvetica, sans-serif; 
+    text-align: center; 
+    box-sizing: border-box; 
+}
+
+.doctorcard .left .doctor-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.doctorcard .left .doctor-title {
+    font-size: 18px;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+
+.doctorcard .left .doctor-address {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.doctorcard .left img {
+    object-fit: cover; 
+    margin-top: 10px;
+}
+
+
+/* MIDDLE */
+.doctorcard .middle {
+    flex: 1; 
+    padding: 4px 23px ; 
+    color: white; 
+    font-family: Helvetica, sans-serif; 
+    font-size: 13px; 
+    text-align: left;
+    line-height: 1.6; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 35px;
+    margin-top: 10px;
+}
+
+
+.middle .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    color: #ffffff; 
+}
+
+.middle .info p,
+.middle .highlight,
+.middle a {
+    font-size: inherit; 
+}
+
+.middle .title .rating {
+    font-size: 20px; 
+    display: flex;
+    align-items: center;
+}
+
+.middle .title .rating span {
+    margin-left: 5px; 
+}
+
+.middle .info p {
+    margin: 0 0 10px; 
+    line-height: 1.6; 
+    color: #d1e7ef; 
+}
+
+
+.middle .highlight {
+    font-style: italic; 
+    font-size: 16px;
+    margin: 20px 0 0; 
+    color: #b0d9e7; 
+}
+
+
+.middle a {
+    color: #ffffff; 
+    text-decoration: underline; 
+    font-weight: bold;
+    font-size: 16px; 
+    margin-top: 15px; 
+    display: inline-block; 
+}
+
+
+/* RIGHT */
+.doctorcard .right {
+    flex: 1; 
+    background: #21769C; 
+    color: white; 
+    border-radius: 0 15px 15px 0; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 50px; 
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+
+/* CALENDAR */
+.doctorcard .right .Calendar {
+    font-size: 18px; 
+    font-weight: bold; 
+    text-align: center; 
+    color: #003249; 
 }

@@ -138,7 +138,7 @@
                             .then(response => response.json())
                             .then(data => {
                                 if (data.success) {
-                                    alert('Appointment rescheduled successfully.');
+                                    alert('Appointment rescheduled successfully. Waiting for patient approval.');
                                     location.reload();
                                 } else {
                                     alert(data.error);

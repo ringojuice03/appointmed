@@ -11,46 +11,60 @@
     <link rel="stylesheet" type="text/css"
     href="{% static "css/patient_home1.css" %}">
 </head>
+
 <body>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const specialtyList = document.querySelectorAll("#specialization-list li a");
+            const doctorList = document.querySelectorAll(".doctor-link");
+            
+            if (specialtyList.length > 0) {
+                specialtyList[0].classList.add("selected");
+                displaySpecialty(specialtyList[0].textContent.trim());
+            }
+
+            specialtyList.forEach(specialty => {
+                specialty.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    
+                    specialtyList.forEach(item => item.classList.remove("selected"));
+                    this.classList.add("selected");
+
+                    displaySpecialty(this.textContent.trim());
+
+                    console.log(this.textContent);
+                });
+            });
+
+            function displaySpecialty(selected_specialty) {
+                doctorList.forEach(card => {
+                    const specialty = card.getAttribute("doctor-specialty");
+                    if (specialty === selected_specialty) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+        });
+    </script>
+    
+
     <div class="main">
         <aside class="sidebar">
             <div class="doctor"><b>DOCTOR</b></div>
             <div class="bodyparts">
-                <ul>
-                    <ul>
-                        <li><a href="upper-body.html" style="color: white; text-decoration: none;">Head</a></li>
-                        <li><a href="middle-body.html" style="color: white; text-decoration: none;">Neck</a></li>
-                        <li><a href="lower-body.html" style="color: white; text-decoration: none;">Chest</a></li>
-                        <li><a href="upper-body.html" style="color: white; text-decoration: none;">Abdomen</a></li>
-                        <li><a href="upper-body.html" style="color: white; text-decoration: none;">Back</a></li>
-                        <li><a href="upper-body.html" style="color: white; text-decoration: none;">Arms</a></li>
-                        <li><a href="upper-body.html" style="color: white; text-decoration: none;">Legs</a></li>
-                        <li><a href="upper-body.html" style="color: white; text-decoration: none;">Hands</a></li>
-                        <li><a href="upper-body.html" style="color: white; text-decoration: none;">Feet</a></li>
-                        <li><a href="upper-body.html" style="color: white; text-decoration: none;">Skin</a></li>
-                        <li><a href="upper-body.html" style="color: white; text-decoration: none;">Eyes</a></li>
-                        <li><a href="upper-body.html" style="color: white; text-decoration: none;">Ears</a></li>
-                        <li><a href="upper-body.html" style="color: white; text-decoration: none;">Nose</a></li>
-                        <li><a href="upper-body.html" style="color: white; text-decoration: none;">Throat</a></li>
+                    <ul id="specialization-list">
+                        {% for specialization in specializations %}
+                            <li><a href="" style="color: white; text-decoration: none;">{{ specialization }}</a></li>
+                        {% endfor %}
                     </ul>
             </div>
-            <div class="clinics"><b>CLINICS</b></div>
-            <div class="clinictype">
-                <ul>
-                    <li><a href="general-practice.html" style="color: white; text-decoration: none;">General Practice</a></li>
-                    <li><a href="dental.html" style="color: white; text-decoration: none;">Dental</a></li>
-                    <li><a href="eye.html" style="color: white; text-decoration: none;">Eye</a></li>
-                    <li><a href="orthopedic.html" style="color: white; text-decoration: none;">Orthopedic</a></li>
-                    <li><a href="cardiology.html" style="color: white; text-decoration: none;">Cardiology</a></li>
-                    <li><a href="dermatology.html" style="color: white; text-decoration: none;">Dermatology</a></li>
-                    <li><a href="neurology.html" style="color: white; text-decoration: none;">Neurology</a></li>
-                    <li><a href="psychiatry.html" style="color: white; text-decoration: none;">Psychiatry</a></li>
-                    <li><a href="oncology.html" style="color: white; text-decoration: none;">Oncology</a></li>
-                    <li><a href="obgyn.html" style="color: white; text-decoration: none;">OB/GYN</a></li>
-                    <li><a href="pediatric.html" style="color: white; text-decoration: none;">Pediatric</a></li>
-                </ul>
-            </div>
+            
         </aside>
+    
     <header>
         <div class="navbar">
             <div class="logo">LOGO</div>
@@ -62,65 +76,72 @@
             </div>
         </div>
     </header>
-        <main>         
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
+
+
+    <main class="doctor-cards">
+        {% for doctor in doctors %}
+            <div class="doctor-link" doctor-specialty="{{doctor.specialty}}">
                 <div class="doctorprofile">
-                    <div class="doctorname">DR. JOSE RIZAL</div>
-                    <div class="doctortitle">neurosurgeon</div>
-                    <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
+                    <div class="doctorname">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</div>
+                    <div class="doctortitle">Specialization: {{ doctor.specialty }}</div>
+                    <div class="address">Address: {{ doctor.clinic_address }}</div>
                 </div>
-            </a>
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
-                <div class="doctorprofile">
-                    <div class="doctorname">DR. JOSE RIZAL</div>
-                    <div class="doctortitle">neurosurgeon</div>
-                    <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
+                
+                <!-- Upon clicking a doctor card, it should expand. May ginawa ng doctor details si Jorge,
+                 http://127.0.0.1:8000/patient/home/doctor/details/
+                 Yung gawa ni Jorge, lumilipat sa other pages upon clicking a doctor card.
+                 Gawin mo same page lang ang expansion with javascript.
+                 Lagyan mo narin calendar. Ako na sa functionalities.
+
+                <div class="doctorcard hidden">
+                    <div class="left">
+                        <img src="doctor-profile-image.jpg">
+                        <p><strong>Specialization:</strong> {{ doctor.specialty }}</p>
+                        <p><strong>Experience:</strong> 15+ years in neurosurgery</p>
+                        <p><strong>Education:</strong> University of ABC Medical School</p>
+                    </div>
+                    <div class="middle">
+                        <p>"Stop screaming, I'm scared too."</p>
+                        <a href="#">View Patient Reviews</a>
+                    </div>
+                    <div class="right">
+                        <p>Office Hours: 9:00 AM - 4:30 PM</p>
+                    </div>
                 </div>
-            </a>
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
-                <div class="doctorprofile">
-                    <div class="doctorname">DR. JOSE RIZAL</div>
-                    <div class="doctortitle">neurosurgeon</div>
-                    <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
-                </div>
-            </a>
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
-                <div class="doctorprofile">
-                    <div class="doctorname">DR. JOSE RIZAL</div>
-                    <div class="doctortitle">neurosurgeon</div>
-                    <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
-                </div>
-            </a>
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
-                <div class="doctorprofile">
-                    <div class="doctorname">DR. JOSE RIZAL</div>
-                    <div class="doctortitle">neurosurgeon</div>
-                    <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
-                </div>
-            </a>
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
-                <div class="doctorprofile">
-                    <div class="doctorname">DR. JOSE RIZAL</div>
-                    <div class="doctortitle">neurosurgeon</div>
-                    <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
-                </div>
-            </a>
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
-                <div class="doctorprofile">
-                    <div class="doctorname">DR. JOSE RIZAL</div>
-                    <div class="doctortitle">neurosurgeon</div>
-                    <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
-                </div>
-            </a>
-            <a href="{% url "patient home doctor details" %}" class="doctor-link">
-                <div class="doctorprofile">
-                    <div class="doctorname">DR. JOSE RIZAL</div>
-                    <div class="doctortitle">neurosurgeon</div>
-                    <div class="address">123 Mockingbird Lane, Anytown, USA 12345</div>
-                </div>
-            </a>                                           
-        </main>
+                -->
+            </div>
+        {% endfor %}
+    </main>
+
+        {% comment %} <main class="doctor-cards">
+                {% for doctor in doctors %}
+                    <div class="doctor-link" data-doctor-id="{{ doctor.id }}">
+                        <div class="doctorprofile" onclick="expandCard('{{ doctor.id }}')">
+                            <div class="doctorname">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</div>
+                            <div class="doctortitle">Specialization: {{ doctor.specialty }}</div>
+                            <div class="address">Address: {{ doctor.clinic_address }}</div>
+                        </div>
+                        <div class="doctorcard hidden">
+                            <div class="left">
+                                <img src="doctor-profile-image.jpg">
+                                <p><strong>Specialization:</strong> {{ doctor.specialty }}</p>
+                                <p><strong>Experience:</strong> 15+ years in neurosurgery</p>
+                                <p><strong>Education:</strong> University of ABC Medical School</p>
+                            </div>
+                            <div class="middle">
+                                <p>"Stop screaming, I'm scared too."</p>
+                                <a href="#">View Patient Reviews</a>
+                            </div>
+                            <div class="right">
+                                <p>Office Hours: 9:00 AM - 4:30 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+        </main> {% endcomment %}
+        
         </aside> 
     </div>
 </body>
+            
 </html>
