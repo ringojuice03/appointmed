@@ -112,33 +112,6 @@
             </div>
         {% endfor %}
     </main>
-
-        {% comment %} <main class="doctor-cards">
-                {% for doctor in doctors %}
-                    <div class="doctor-link" data-doctor-id="{{ doctor.id }}">
-                        <div class="doctorprofile" onclick="expandCard('{{ doctor.id }}')">
-                            <div class="doctorname">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</div>
-                            <div class="doctortitle">Specialization: {{ doctor.specialty }}</div>
-                            <div class="address">Address: {{ doctor.clinic_address }}</div>
-                        </div>
-                        <div class="doctorcard hidden">
-                            <div class="left">
-                                <img src="doctor-profile-image.jpg">
-                                <p><strong>Specialization:</strong> {{ doctor.specialty }}</p>
-                                <p><strong>Experience:</strong> 15+ years in neurosurgery</p>
-                                <p><strong>Education:</strong> University of ABC Medical School</p>
-                            </div>
-                            <div class="middle">
-                                <p>"Stop screaming, I'm scared too."</p>
-                                <a href="#">View Patient Reviews</a>
-                            </div>
-                            <div class="right">
-                                <p>Office Hours: 9:00 AM - 4:30 PM</p>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-        </main> {% endcomment %}
         
         </aside> 
     </div>

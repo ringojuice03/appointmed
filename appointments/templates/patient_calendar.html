@@ -1,5 +1,6 @@
 {% load static %}
 <html lang="en">
+    <link rel="stylesheet" href="{% static 'css/patient_home.css' %}">
     <script src="{% static 'js/daypilot-all.min.js' %}" async></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -9,53 +10,17 @@
             });
             
             const schedule_btn = document.getElementById("set-schedule-btn");
-            
+
             function getStartOfWeek(date) {
                 const startOfWeek = new Date(date);
                 const day = startOfWeek.getDay(); 
-                
-                console.log("startOfWeek: ", startOfWeek);
-                console.log(new DayPilot.Date(startOfWeek));
 
                 startOfWeek.setDate(startOfWeek.getDate() - day);
                 startOfWeek.setHours(0, 0, 0, 0); 
                 startOfWeek.setHours(startOfWeek.getHours() + 8);
 
-                console.log("startOfWeek: ", startOfWeek);
-                console.log(new DayPilot.Date(startOfWeek));
-
                 return new DayPilot.Date(startOfWeek);
             }
-
-            // modify to send selected doctor-id to api
-            fetch("{% url 'patient calendar api' %}")
-            .then(response => response.json())
-            .then(taken_slot => {
-
-                past_slot = [];
-                const now = new DayPilot.Date();
-                const startOfWeek = DayPilot.Date(weekView.startDate);
-                current = startOfWeek;
-
-                while (current < now) {
-                    past_slot.push({
-                        start: current.toString(),
-                        end: current.addMinutes(30).toString(),
-                    });
-                    current = current.addMinutes(30);
-                } 
-                
-                unavailable_slot = [...past_slot, ...taken_slot].map(event => ({
-                    ...event,
-                    backColor: "#f8d7da",       
-                    barHidden: true,           
-                    borderColor: "#f5c6cb",     
-                    toolTip: "Unavailable time slot.",
-                }));
-                
-                weekView.events.list = unavailable_slot;
-                weekView.init();
-            });
 
             weekView.onEventMove = function (args) {
                 args.preventDefault();
@@ -85,13 +50,82 @@
                 schedule_btn.style.color = "white";            
                 schedule_btn.style.cursor = "pointer";   
             };
+
+            document.querySelectorAll(".doctor-link").forEach(function (element) {
+                element.addEventListener("click", function () {
+                    console.log("Minji so yeppuda");
+                    doctor_id = this.getAttribute("doctor-id");
+                    
+                    console.log(doctor_id);
+
+                    fetch("{% url 'patient calendar api' %}", {
+                        method: "POST",
+                        headers: {
+                            "Content-type": "application/json",
+                            "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        body: JSON.stringify({ doctorID: doctor_id }),
+                    })
+                    .then(response => response.json())
+                    .then(taken_slot => {
+                        console.log()
+                        past_slot = [];
+                        const now = new DayPilot.Date();
+                        const startOfWeek = DayPilot.Date(weekView.startDate);
+                        current = startOfWeek;
+
+                        while (current < now) {
+                            past_slot.push({
+                                start: current.toString(),
+                                end: current.addMinutes(30).toString(),
+                                backColor: "#808080",       
+                                barHidden: true,           
+                                borderColor: "#808080",     
+                                toolTip: "Past time slot.",
+                            });
+                            current = current.addMinutes(30);
+                        } 
+                        
+                        unavailable_slot = taken_slot.map(event => ({
+                            ...event,
+                            backColor: "#f8d7da",       
+                            barHidden: true,           
+                            borderColor: "#f5c6cb",     
+                            toolTip: "Unavailable time slot.",
+                        }));
+                        
+                        unavailable_slot = [...unavailable_slot, ...past_slot];
+
+                        weekView.events.list = unavailable_slot;
+                        weekView.init();
+                    });
+                });
+            });
+
+          
         });
     </script>
 
-    <div id="dpWeek"></div>
-    <button id="set-schedule-btn" disabled=true style="background-color: gray; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: not-allowed;">
-        Set schedule
-    </button>
+    <div>
+        <div id="dpWeek"></div>
+        <button id="set-schedule-btn" disabled=true style="background-color: gray; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: not-allowed;">
+            Set schedule
+        </button>
+    </div>
 
+    <main class="doctor-cards">
+        {% for doctor in doctors %}
+            <div class="doctor-link" doctor-id="{{doctor.id}}">
+                <div class="doctorprofile">
+                    <div class="doctorname">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</div>
+                    <div class="doctortitle">Specialization: {{ doctor.specialty }}</div>
+                    <div class="address">Address: {{ doctor.clinic_address }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </main>
+
+    
+    
 
 </html>
