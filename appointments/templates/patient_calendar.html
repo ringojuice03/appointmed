@@ -1,0 +1,97 @@
+{% load static %}
+<html lang="en">
+    <script src="{% static 'js/daypilot-all.min.js' %}" async></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let weekView = new DayPilot.Calendar("dpWeek", { 
+                viewType: "Week",
+                startDate: getStartOfWeek(new Date()),
+            });
+            
+            const schedule_btn = document.getElementById("set-schedule-btn");
+            
+            function getStartOfWeek(date) {
+                const startOfWeek = new Date(date);
+                const day = startOfWeek.getDay(); 
+                
+                console.log("startOfWeek: ", startOfWeek);
+                console.log(new DayPilot.Date(startOfWeek));
+
+                startOfWeek.setDate(startOfWeek.getDate() - day);
+                startOfWeek.setHours(0, 0, 0, 0); 
+                startOfWeek.setHours(startOfWeek.getHours() + 8);
+
+                console.log("startOfWeek: ", startOfWeek);
+                console.log(new DayPilot.Date(startOfWeek));
+
+                return new DayPilot.Date(startOfWeek);
+            }
+
+            // modify to send selected doctor-id to api
+            fetch("{% url 'patient calendar api' %}")
+            .then(response => response.json())
+            .then(taken_slot => {
+
+                past_slot = [];
+                const now = new DayPilot.Date();
+                const startOfWeek = DayPilot.Date(weekView.startDate);
+                current = startOfWeek;
+
+                while (current < now) {
+                    past_slot.push({
+                        start: current.toString(),
+                        end: current.addMinutes(30).toString(),
+                    });
+                    current = current.addMinutes(30);
+                } 
+                
+                unavailable_slot = [...past_slot, ...taken_slot].map(event => ({
+                    ...event,
+                    backColor: "#f8d7da",       
+                    barHidden: true,           
+                    borderColor: "#f5c6cb",     
+                    toolTip: "Unavailable time slot.",
+                }));
+                
+                weekView.events.list = unavailable_slot;
+                weekView.init();
+            });
+
+            weekView.onEventMove = function (args) {
+                args.preventDefault();
+            };
+
+            weekView.onEventClicked = function (args) {
+                if (args.e.data.id !== "temp-selected") {
+                    console.log(args.e.data.id);
+                    alert('You cannot select unavailable time slots');  
+                }
+            };
+
+            weekView.onTimeRangeSelected = function (args) {
+                weekView.events.list = weekView.events.list.filter(e => e.id !== "temp-selected");
+                weekView.events.add({
+                    id: "temp-selected",
+                    start: args.start,
+                    end: args.end,
+                    backColor: "#d4edda",
+                    barHidden: true,
+                    borderColor: "#c3e6cb",
+                });
+                weekView.update();
+
+                schedule_btn.disabled = false;
+                schedule_btn.style.backgroundColor = "green";
+                schedule_btn.style.color = "white";            
+                schedule_btn.style.cursor = "pointer";   
+            };
+        });
+    </script>
+
+    <div id="dpWeek"></div>
+    <button id="set-schedule-btn" disabled=true style="background-color: gray; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: not-allowed;">
+        Set schedule
+    </button>
+
+
+</html>

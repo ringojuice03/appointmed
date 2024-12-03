@@ -150,6 +150,35 @@ def patient_reschedule_api(request):
 
 
 
+
+
+def patient_calendar(request):
+    return render(request, 'patient_calendar.html')
+
+
+
+@login_required
+def patient_appointment_json_api(request):
+    appointments = Appointment.objects.all().order_by('-appointment_date')
+
+    events = []
+    for appointment in appointments:
+        if appointment.status in ['scheduled', 'pending']: 
+            local_start = localtime(appointment.appointment_date).replace(tzinfo=None)
+            local_end = (local_start + timedelta(minutes=30)).replace(tzinfo=None)
+
+            events.append({
+                "start": local_start.isoformat(),
+                "end": local_end.isoformat(),
+            })
+    
+    return JsonResponse(events, safe=False)
+
+
+
+
+
+
 def doctor_home(request):
     if isinstance(request.user, AnonymousUser):
         return redirect('login')
