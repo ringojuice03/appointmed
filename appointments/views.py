@@ -190,7 +190,10 @@ def doctor_home(request):
             apt.save()
 
     pending_appointments = Appointment.objects.filter(doctor=doctor, status='pending').order_by('appointment_date')
-    notifications = Notification.objects.filter(appointment__doctor=doctor).order_by('-appointment__appointment_date')
+    notifications = Notification.objects.filter(
+        appointment__doctor=doctor, 
+        notification_type__in=['set', 'canceled', 'reschedule_accepted', 'reschedule_rejected']
+        ).order_by('-appointment__appointment_date')
 
     calendar_view = request.session.get('calendar_view', 'Week')
     request.session['calendar_view'] = ''

@@ -8,12 +8,15 @@
     <meta name="viewport"
     content="width=device-width, initial-scale=1.0">
     <title>Appointmed</title>
-    <link rel="stylesheet" type="text/css"
-    href="{% static "css/patient_home1.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/patient_home1.css" %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    
+    <script src="{% static 'js/daypilot-all.min.js' %}" async></script>
+    <script src="{% static 'js/patient_home.js' %}" async></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const specialtyList = document.querySelectorAll("#specialization-list li a");
@@ -47,7 +50,6 @@
                     }
                 });
             }
-
         });
     </script>
     
@@ -56,64 +58,155 @@
         <aside class="sidebar">
             <div class="doctor"><b>DOCTOR</b></div>
             <div class="bodyparts">
-                    <ul id="specialization-list">
-                        {% for specialization in specializations %}
-                            <li><a href="" style="color: white; text-decoration: none;">{{ specialization }}</a></li>
-                        {% endfor %}
-                    </ul>
+                <ul id="specialization-list">
+                    {% for specialization in specializations %}
+                        <li><a href="" style="color: white; text-decoration: none;">{{ specialization }}</a></li>
+                    {% endfor %}
+                </ul>
             </div>
-            
         </aside>
     
-    <header>
-        <div class="navbar">
-            <div class="logo">LOGO</div>
-            <div class="menu">
-                <a href="Appointmed.html">Home</a>
-                <a href="{% url "patient about" %}">About</a>
-                <a href="{% url "patient appointments" %}">Appointments</a>
-                <a href="{% url "patient profile" %}"><i><b>Hi, User!</i></b></a>
-            </div>
-        </div>
-    </header>
+        <header>
+            <div class="navbar">
+                <div class="logo">LOGO</div>
+                <div class="menu">
+                    <a href="Appointmed.html">Home</a>
+                    <a href="{% url "patient about" %}">About</a>
+                    <a href="{% url "patient appointments" %}">Appointments</a>
 
-
-    <main class="doctor-cards">
-        {% for doctor in doctors %}
-            <div class="doctor-link" doctor-specialty="{{doctor.specialty}}">
-                <div class="doctorprofile">
-                    <div class="doctorname">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</div>
-                    <div class="doctortitle">Specialization: {{ doctor.specialty }}</div>
-                    <div class="address">Address: {{ doctor.clinic_address }}</div>
-                </div>
-                
-                <!-- Upon clicking a doctor card, it should expand. May ginawa ng doctor details si Jorge,
-                 http://127.0.0.1:8000/patient/home/doctor/details/
-                 Yung gawa ni Jorge, lumilipat sa other pages upon clicking a doctor card.
-                 Gawin mo same page lang ang expansion with javascript.
-                 Lagyan mo narin calendar. Ako na sa functionalities.
-
-                <div class="doctorcard hidden">
-                    <div class="left">
-                        <img src="doctor-profile-image.jpg">
-                        <p><strong>Specialization:</strong> {{ doctor.specialty }}</p>
-                        <p><strong>Experience:</strong> 15+ years in neurosurgery</p>
-                        <p><strong>Education:</strong> University of ABC Medical School</p>
-                    </div>
-                    <div class="middle">
-                        <p>"Stop screaming, I'm scared too."</p>
-                        <a href="#">View Patient Reviews</a>
-                    </div>
-                    <div class="right">
-                        <p>Office Hours: 9:00 AM - 4:30 PM</p>
-                    </div>
-                </div>
-                -->
-            </div>
-        {% endfor %}
-    </main>
+                    <div class="navbarMenus">
+                        <a id="notification-button" onclick="showNotificationMenu()">Notifications</a>
+                        
+                        <div id="notification-menu" class="hideMenu">
+                            <!--change to proper logo-->
+                            <h1 id="notification-menu-label">Notifications</h1>
+                            <hr>
+                            
+                            <div id="user-notifications">
+                                {% for notification in notifications %}
+                                    <div class="notificationItem">
+                                        <div class="notificationDetails">
+                                            <div class="notificationLeft">
+                                                <!--change to proper picture-->
+                                                <div class="notificationPicture"></div>
+                                            </div>
+                                            
+                                            {% if notification.notification_type == "set" %}
+                                                <div class="notificationRight">
+                                                    <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
+                                                    has requested a new appointment scheduled on {{ notification.appointment.appointment_date }}.</h1>
+                                                    <p>{{ notification.time_ago }}</p>
+                                                </div>
+                                            {% elif notification.notification_type == "canceled" %}
+                                                <div class="notificationRight">
+                                                    <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
+                                                    has canceled their appointment previously scheduled on {{ notification.appointment.appointment_date }}.</h1>
+                                                    <p>{{ notification.time_ago }}</p>
+                                                </div>
+                                            {% elif notification.notification_type == "reschedule_accepted" %}
+                                                <div class="notificationRight">
+                                                    <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
+                                                    has confirmed the rescheduled appointment on {{ notification.appointment.appointment_date }}.</h1>
+                                                    <p>{{ notification.time_ago }}</p>
+                                                </div>
+                                            {% elif notification.notification_type == "reschedule_rejected" %}
+                                                <div class="notificationRight">
+                                                    <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
+                                                    has declined the proposed rescheduled appointment on {{ notification.appointment.appointment_date }}.</h1>
+                                                    <p>{{ notification.time_ago }}</p>
+                                                </div>
+                                            {% endif %}
         
-        </aside> 
+        
+                                            
+                                        </div>
+                    
+                                        <hr>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navbarMenus">
+                        <!--change to proper user picture-->
+                        <button type="button" id="user-menu-button" onclick="showUserMenu()"></button>
+                        
+                        <div id="user-menu" class="hideMenu">
+                            <!--change to proper logo-->
+                            <h1 id="user-menu-logo">AppointMed</h1>
+                
+                            <div id="user-profile">
+                                <!--change to proper picture-->
+                                <div id="user-picture"></div>
+                                <h1 id="user-name">Hi, <i>{{ patient.user.first_name }} {{ patient.user.last_name }}</i>!</h1>
+                                <!--pwede naman username or pwede naman tanggalin nalang-->
+                                <h1 id="patient-email">{Patient Email}</h1>
+                                <i id="personal-address">{Personal Address}</i>
+                                <!--add log out icon-->
+                                <button type="button" id="log-out-button">Log out</button>
+                                <p id="appointmed-2024">© AppointMed 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            {% for doctor in doctors %}
+                <div class="doctor-link" name="{{ doctor.id }}" doctor-specialty="{{doctor.specialty}}" data-doctor-id="{{ doctor.id }}">
+                    <div class="doctorprofile" onclick="cardExpansion({{ doctor.id }})">
+                        <div class="doctorname">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</div>
+                        <div class="doctortitle">{{ doctor.specialty }}</div>
+                        <div class="address">{{ doctor.clinic_address }}</div>
+                    </div>
+                    <div class="doctorcard hidden">
+                        <div class="left" onclick="cardExpansion({{ doctor.id }})">
+                            <img src="doctor-profile-image.jpg">
+                            <div class="doctor-name">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</div>
+                            <div class="doctor-title">{{ doctor.specialty }}</div>
+                            <div class="doctor-address">{{ doctor.clinic_address }}</div>
+                        </div>
+
+                        <div class="middle">
+                            <!-- Doctor Name and Rating -->
+                            <div class="title">
+                                <span>{{ doctor.user.first_name }} {{ doctor.user.last_name }}</span>
+                                <div class="rating"><span>{x}</span> ★</div>
+                            </div>
+                        
+                            <!-- General Information -->
+                            <div class="info">
+                                <p><strong>{{ doctor.specialty }}</strong></p>
+                                <p>{{ doctor.clinic_address }}</p>
+                                <p>Over 15 years of experience in neurosurgery</p>
+                                <p><strong>Doctor of Medicine</strong><br>University of ABC Medical School</p>
+                                <p><strong>Residency Training in Neurosurgery</strong><br>ABC Teaching Hospital</p>
+                                <p><strong>Board Certification in Neurosurgery</strong><br>ABC Board of Neurological Surgeons</p>
+                                <p>Office hours: 9:00 AM - 4:30 PM</p>
+                            </div>
+
+                            <!-- Highlighted Quote -->
+                            <div class="highlight">
+                                "Stop screaming, I'm scared too."
+                            </div>
+                        
+                            <!-- Link to Reviews -->
+                            <a href="#">View Patient Reviews</a>
+                        </div>
+
+                        <div class="right">
+                            <div id="{{ doctor.id }}"></div>
+                            <div class="scheduleDisplay">
+                                <h1>*display date*</h1>
+                                <h1>*display time*</h1>
+                            </div>
+                            <button class="bookButton">Book appointment <i>*icon*</i></button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </main>
     </div>
 </body>
             
