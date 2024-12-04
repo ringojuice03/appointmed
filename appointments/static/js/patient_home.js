@@ -134,9 +134,9 @@ function initializeCalendar(doctor_id)
 
         weekView.events.list = unavailable_slot;
 
-        weekView.width = "100%";
-        weekView.cellHeight = 50;
-        weekView.headerHeight = 25;
+        weekView.width = "90%";
+        weekView.cellHeight = 25;
+        weekView.headerHeight = 40;
 
         weekView.init();
     });
