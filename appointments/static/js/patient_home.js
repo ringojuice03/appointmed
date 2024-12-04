@@ -60,7 +60,7 @@ function cardExpansion(doctorId)
 
 /*----------calendar js----------*/
 var weekView = null;
-csrfToken = document.querySelector("meta[name='csrf-token']").content;
+var csrfToken = document.querySelector("meta[name='csrf-token']").content;
 var has_selected = false;
 // const schedule_btn = document.getElementById("set-schedule-btn");
 
@@ -154,7 +154,15 @@ function initializeCalendar(doctor_id)
     
     function handleBookButton() {
         if (has_selected) {
+            let chosenDate = weekView.events.list.find(e => e.id === "temp-selected");
+            chosenDate = chosenDate.start.toString("yyyy-MM-ddTHH:mm:ss");
+
+            console.log("args start: ", chosenDate);
+
             alert("Booking successful.");
+
+            patientBookingAPI += `?date=${encodeURIComponent(chosenDate)}`;
+            patientBookingAPI += `&doctorID=${encodeURIComponent(doctor_id)}`;
             window.location.href = patientBookingAPI;
         } else {
             alert("You haven't selected a time slot yet.");

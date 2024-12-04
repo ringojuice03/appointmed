@@ -10,6 +10,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.http import JsonResponse
 from django.utils.timezone import make_aware, now, get_current_timezone, localtime
+from django.utils.dateparse import parse_date
 from datetime import timedelta, datetime as dt
 import datetime
 import json
@@ -166,7 +167,21 @@ def patient_appointment_json_api(request):
 
 @login_required
 def patient_booking_api(request):
-    return render(request, 'patient_appointments.html')
+    date_str = request.GET.get('date')
+    formattedDate = dt.fromisoformat(date_str)
+
+    doctorID = request.GET.get('doctorID')
+    doctor = get_object_or_404(Doctor, id=doctorID)
+
+    patient = get_object_or_404(Patient, user=request.user)
+
+    Appointment.objects.create(
+        patient = patient,
+        doctor = doctor,
+        appointment_date = formattedDate,
+        status = 'pending',
+    )
+    return redirect('patient appointments')
 
 
 
