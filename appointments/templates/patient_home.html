@@ -16,43 +16,19 @@
 
 <body>
     <script src="{% static 'js/daypilot-all.min.js' %}" async></script>
-    <script src="{% static 'js/patient_home.js' %}" async></script>
+    <script src="{% static 'js/patient_home.js' defer %}" async></script>
     <script>
+        patientCalendarAPI = "{% url 'patient calendar api' %}";
+        patientBookingAPI = "{% url 'patient booking api' %}";
+        selectedDate = null;
+        selectedTime = null;
+
         document.addEventListener("DOMContentLoaded", function() {
-            const specialtyList = document.querySelectorAll("#specialization-list li a");
-            const doctorList = document.querySelectorAll(".doctor-link");
-            
-            if (specialtyList.length > 0) {
-                specialtyList[0].classList.add("selected");
-                displaySpecialty(specialtyList[0].textContent.trim());
-            }
-
-            specialtyList.forEach(specialty => {
-                specialty.addEventListener("click", function(event) {
-                    event.preventDefault();
-                    
-                    specialtyList.forEach(item => item.classList.remove("selected"));
-                    this.classList.add("selected");
-
-                    displaySpecialty(this.textContent.trim());
-
-                    console.log(this.textContent);
-                });
-            });
-
-            function displaySpecialty(selected_specialty) {
-                doctorList.forEach(card => {
-                    const specialty = card.getAttribute("doctor-specialty");
-                    if (specialty === selected_specialty) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            }
+            selectedDate = document.querySelector(".selected-date");
+            selectedTime = document.querySelector(".selected-time");
         });
+
     </script>
-    
 
     <div class="main">
         <aside class="sidebar">
@@ -153,6 +129,7 @@
         </header>
 
         <main>
+            <meta name="csrf-token" content="{{ csrf_token }}">
             {% for doctor in doctors %}
                 <div class="doctor-link" name="{{ doctor.id }}" doctor-specialty="{{doctor.specialty}}" data-doctor-id="{{ doctor.id }}">
                     <div class="doctorprofile" onclick="cardExpansion({{ doctor.id }})">
@@ -198,10 +175,10 @@
                         <div class="right">
                             <div id="{{ doctor.id }}"></div>
                             <div class="scheduleDisplay">
-                                <h1>*display date*</h1>
-                                <h1>*display time*</h1>
+                                <h1 id="selected-date{{ doctor.id }}">Select date</h1>
+                                <h1 id="selected-time{{ doctor.id }}">Select time</h1>
                             </div>
-                            <button class="bookButton">Book appointment <i>*icon*</i></button>
+                            <button class="bookButton" id="bookButton{{ doctor.id }}">Book appointment <i>*icon*</i></button>
                         </div>
                     </div>
                 </div>

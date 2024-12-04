@@ -102,6 +102,10 @@ def PatientHome_DoctorDetails(request):
     return render(request, 'patient_home_doctor_details.html', {'patient': patient})
 
 @login_required
+def patient_appointment(request):
+    return render(request, 'patient_appointments.html')
+
+@login_required
 def patient_about(request):
     return render(request, 'patient_about.html')
 
@@ -160,7 +164,9 @@ def patient_appointment_json_api(request):
         return JsonResponse(events, safe=False)
     return JsonResponse([{"Fail": "post fail"}], safe=False)
 
-
+@login_required
+def patient_booking_api(request):
+    return render(request, 'patient_appointments.html')
 
 
 

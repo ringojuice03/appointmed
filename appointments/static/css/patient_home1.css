@@ -672,6 +672,22 @@ main {
 
 .bookButton
 {
+    cursor: not-allowed;
+    width: auto;
+    height: 25px;
+    padding: 5px 10px;
+    border-style: none;
+    border-radius: 0px 0px 11px 11px;
+    background-color: #003249;
+    font-size: 6;
+    font-weight: 700;
+    text-align: right;
+    color: #fff;
+    opacity: 0.6;
+}
+
+.bookButton.active
+{
     cursor: pointer;
     width: auto;
     height: 25px;
@@ -683,4 +699,5 @@ main {
     font-weight: 700;
     text-align: right;
     color: #fff;
+    opacity: 1.0;
 }
