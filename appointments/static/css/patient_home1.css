@@ -25,61 +25,61 @@ body {
 }
 
 /*----------HEADER----------*/
-header {
+/*header {
     background: white;
     padding: 3em 0 1em 0;
     top: 0;
-    left: 20%; /* Leave space for the .left section */
-    width: 80%; /* Header takes the remaining width */
-    z-index: 1; /* Ensure it appears above other elements */
+    left: 20%; /* Leave space for the .left section 
+    width: 80%; /* Header takes the remaining width 
+    z-index: 1; /* Ensure it appears above other elements 
     align-items: center;
-}
+}*/
 
 .navbar {
-    width: 100%;
-    height: 60px;
+    grid-column: 2/3;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    padding: 0px 55px;
+    box-sizing: border-box;
     background-color: #FFFFFF;
     color:#003249;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 41px 400px;
-    position: fixed;
-    top: 0;
-    left: 250px;
-    box-sizing: border-box;
 }
 
 .navbar .logo {
-    font-size: 20px;
+    font-size: 32px;
+    font-weight: 900;
+    text-align: left;
     color: #003249;
-    position: absolute; /* Absolute positioning to anchor the logo */
-    left: 33px; /* Adjust as needed to position it within the header */
-    top: 50%; /* Center it vertically */
-    transform: translateY(-50%); /* Correct vertical alignment */
 }
 
 .navbar .menu { 
     display: flex;
-    font: bold;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
     color: #003249;
-    margin-left: auto;
 }
 
-.navbar .menu a {
-    color: #003249;
+.menu a {
+    margin-left: 40px;
     text-decoration: none; /* Remove default underline */
-    padding: 10px;
-    margin-left: 10px;
     position: relative; /* Required for the pseudo-element */
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    color: #003249;
     transition: color 0.3s ease; /* Smooth color transition */
 }
 
-.navbar .menu a:hover {
+.menu a:hover {
     color: #21769C; /* Change text color on hover */
 }
 
-.navbar .menu a:hover::after {
+.menu a:hover::after {
     width: 100%; /* Expand the underline to full width */
 }
 
@@ -126,12 +126,8 @@ header {
     background-color: #21769c;
 
     position: absolute;
-    /*
-    margin-top: -60px;
-    margin-left: 118px;
-    */
     margin-top: 615px;
-    margin-left: -250px;
+    margin-left: -170px;
 }
 
 #user-menu
@@ -143,10 +139,6 @@ header {
     background-color: #21769c;
 
     position: absolute;
-    /*
-    margin-top: -60px;
-    margin-left: 198px;
-    */
     margin-top: 615px;
     margin-left: -350px;
 }
@@ -333,45 +325,43 @@ header {
 
 /*-----------SIDEBAR----------*/
 .sidebar {
-    background: #21769C;
-    padding: 3em 0 2em 0;
-    width: 17%; /* Fixed width for the left section */
+    grid-column: 1/2;
+    grid-row: 1/3;
     height: 100vh; /* Full height of the viewport */
-    position: fixed; /* Keep it in place */
-    top: 0;
-    left: 0;
+    padding: 46px 30px 0 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: #21769C;
     overflow-y: auto; /* Enables vertical scrolling */
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
-.sidebar .doctor{
-    position: absolute;
-    top: 46px;  
-    left: 40px; 
+.sidebar > .doctor{
     font-size: 32px; 
-    color: white;
+    font-weight: 700;
     text-align: center;
+    color: white;
+    margin-bottom: 19px;
 }
 
 .sidebar .bodyparts{
-    position: absolute;
-    top: 104px;  
-    left: 50px; 
     font-size: 20px;
-    color: white;
+    font-weight: 700;
     text-align: left;
+    color: white;
 }
+
 .bodyparts ul {
     list-style-type: none; 
     padding-left: 0; 
-    margin: 0; 
-    margin-left: 0px;
+    margin: 0;
+    margin-left: 35px;
 }
+
 .bodyparts li {
     margin-bottom: 7px; 
 }
-
-
 
 .bodyparts a {
     color: white;
@@ -434,56 +424,72 @@ header {
 }
 
 /*----------MAIN----------*/
-main {
-    display: grid; /* Use grid layout */
-    margin-top: 0.01em; /* Push the main content below the header */
-    margin-left: 21%; /* Push the container from the left */
-    width: 1220px; /* Fixed width */
-    height: 900px; /* Fixed height */
-    background: white;
-    padding: 20px; /* Adjust padding */
-    gap: 20px; /* Set gap between grid items */
-    grid-template-columns: repeat(4, 1fr); /* Divide into 4 equal columns */
-    grid-template-rows: repeat(4, 1fr); /* Divide into 4 equal rows */
+
+/*container of whole page*/
+.main
+{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    grid-template-rows: 92.5px 1fr;
 }
 
-.main .doctorprofile {
-    background-color: #21769C; /* Keep the background color */
-    background-image: url('your-image-url.png'); /* Add background logo/image */
-    background-size: cover; /* Ensure the image fills the box */
-    background-position: center; /* Center the image */
-    border-radius: 15px; /* Rounded corners */
-    font-size: 24px;
-    color: white;
-    height: 400px;
-    width: 280px;
-    /*border: 1px solid black;*/
+/*container of main content*/
+main {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    padding: 27.5px 55px; /* Adjust padding */
+    display: grid; /* Use grid layout */
+    grid-template-columns: repeat(4, 1fr); /* Divide into 4 equal columns */
+    grid-template-rows: repeat(4, 1fr); /* Divide into 4 equal rows */
+    gap: 30px; /* Set gap between grid items */
+    background-color: white;
+    overflow-y: auto;
+}
+
+.doctorprofile {
+    cursor: pointer; /* Show a pointer cursor on hover */
+    height: 474px;
+    width: 352px;
+    border-radius: 11px; /* Rounded corners */
+    padding: 0px 0px 26px 0px; /* Add padding for spacing */
     display: flex;
     flex-direction: column; /* Arrange content vertically */
     justify-content: flex-end; /* Align content to the bottom */
     align-items: center;
-    padding: 20px; /* Add padding for spacing */
-    text-align: center; /* Center text */
-    gap: 10px; /* Space between text elements */
+    /*gap: 10px; /* Space between text elements */
+    background-color: #21769C; /* Keep the background color */
+    background-image: url('your-image-url.png'); /* Add background logo/image */
+    background-size: cover; /* Ensure the image fills the box */
+    background-position: center; /* Center the image */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.main .doctorprofile .doctorname {
-    font-size: 20px; /* Larger font for the name */
-    font-weight: bold;
+.doctorprofile .doctorname {
+    font-size: 24px; /* Larger font for the name */
+    font-weight: 600;
+    text-align: center;
     color: white; /* Keep white color for contrast */
+    margin-top: 17px; /* Add space between name and picture */
 }
 
-.main .doctorprofile .doctortitle {
+.doctorprofile .doctortitle {
     font-size: 16px; /* Slightly smaller font for the title */
-    font-style: italic;
+    font-weight: 400;
+    text-align: center;
     color: white; /* Keep white color for consistency */
+    margin-top: 1px; /* Add space above the specialty */
 }
 
-.main .doctorprofile .address {
+.doctorprofile .address {
     font-size: 14px; /* Smaller font for the address */
+    font-weight: 300;
+    text-align: center;
     color: white; /* Keep white for readability */
-    margin-top: 10px; /* Add space above the address */
+    margin-top: 12px; /* Add space above the address */
 }
 
 .doctor-link {
@@ -498,20 +504,16 @@ main {
     grid-template-columns: 1fr 2fr 1fr;
     gap: 16px;
     
-    /* puts card on top of header when scrolling down
+    /*puts card on top of header when scrolling down
     transform: scale(1.01);
     */
-}
-
-.doctorprofile {
-    cursor: pointer; /* Show a pointer cursor on hover */
 }
 
 .doctorcard {
     display: flex; 
     background: #21769C; 
-    width: 1175px;
-    min-height: 400px; 
+    width: 1496px;
+    height: 678px; 
     border-radius: 15px; 
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -529,9 +531,10 @@ main {
 
 /* LEFT */
 .doctorcard .left {
-    flex: 1; 
+    cursor: pointer;
+    flex: 1;
     background: #21769C; 
-    border-radius: 15px; 
+    border-radius: 11px; 
     display: flex; 
     flex-direction: column; 
     align-items: center; 
@@ -541,59 +544,69 @@ main {
     box-sizing: border-box; 
 }
 
-.doctorcard .left .doctor-name {
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-.doctorcard .left .doctor-title {
-    font-size: 18px;
-    font-style: italic;
-    margin-top: 5px;
-}
-
-
-.doctorcard .left .doctor-address {
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-.doctorcard .left img {
+.left img {
     object-fit: cover; 
     margin-top: 10px;
 }
 
+.left .doctor-name {
+    font-size: 32.9px;
+    font-weight: 600;
+    margin-top: 28px;
+}
+
+.left .doctor-title {
+    font-size: 21.94px;
+    font-weight: 400;
+    margin-top: 2px;
+}
+
+.left .doctor-address {
+    font-size: 19.19px;
+    font-weight: 300;
+    margin-top: 16px;
+}
 
 /* MIDDLE */
 .doctorcard .middle {
     flex: 1; 
-    padding: 4px 23px ; 
-    color: white;
-    font-size: 13px; 
-    text-align: left;
-    line-height: 1.6; 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     margin-bottom: 35px;
     margin-top: 10px;
+    padding: 38px 0px; 
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    color: white;
+    display: flex;
 }
 
-
-.middle .title {
+.title{
+    margin: 0px 0px 16px 0px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: bold;
-    color: #ffffff; 
+    font-size: 20px;
+    font-weight: 700;
 }
 
+.title .rating
+{
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    text-align: right;
+    align-items: center;
+}
+
+/*
 .middle .info p,
 .middle .highlight,
 .middle a {
     font-size: inherit; 
 }
+
 
 .middle .title .rating {
     font-size: 20px; 
@@ -604,28 +617,24 @@ main {
 .middle .title .rating span {
     margin-left: 5px; 
 }
+*/
 
-.middle .info p {
-    margin: 0 0 10px; 
-    line-height: 1.6; 
-    color: #d1e7ef; 
+.info p, .highlight {
+    margin-bottom: 19px;
+}
+
+.info i
+{
+    font-size: 10px;
+    font-weight: 500;
 }
 
 
-.middle .highlight {
-    font-style: italic; 
-    font-size: 16px;
-    margin: 20px 0 0; 
-    color: #b0d9e7; 
-}
-
-
-.middle a {
-    color: #ffffff; 
-    text-decoration: underline; 
-    font-weight: bold;
-    font-size: 16px; 
-    margin-top: 15px; 
+.middle a { 
+    font-weight: 700;
+    text-align: right;
+    text-decoration: underline;
+    color: #fff;
     display: inline-block; 
 }
 
@@ -636,50 +645,126 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center; 
-    padding: 50px; 
-    border-radius: 0 15px 15px 0; 
-    background: #21769C; 
-    color: white; 
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); 
+    align-items: center;
+    padding: auto 51px;
+    /*padding: 38px 51px auto 51px;*//*if with month label*/
+    border-radius: 0 11px 11px 0; 
+    background: #21769C;
 }
 
 /*----------calendar css----------*/
 
-/*month calendar css*/
-.month_default_main
+/*week calendar css*/
+.calendar_default_main
 {
-    
+    border-color: #e0e0e0;
+    border-radius: 11px 11px 0px 0px;
+    background-color: #fff;
+}
+
+div.calendar_default_corner_inner
+{
+    border-color: #e0e0e0;
+    border-radius: 11px 0px 0px 0px;
+    background-color: transparent;
+}
+
+div.calendar_default_cornerright_inner
+{
+    border-color: #e0e0e0;
+    border-radius: 0px 11px 0px 0px;
+    background-color: transparent;
+}
+
+
+div.calendar_default_colheader_inner
+{
+    border-color: #e0e0e0;
+    background-color: transparent;
+    font-size: 11px;
+    font-weight: 400;
+    text-align: center;
+    color: #002a3d;
+}
+
+div.calendar_default_rowheader_inner, span.calendar_default_rowheader_minutes
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-color: #e0e0e0;
+    background-color: #fff;
+}
+
+div.calendar_default_rowheader_inner > div
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 20.04px;
+    font-weight: 400;
+    text-align: center;
+    color: #002a3d;
+}
+
+div.calendar_default_cell_inner
+{
+    background-color: #f3f3f3;
+}
+
+div.calendar_default_cell_business
+{
+    background-color: #fff;
+}
+
+/*not working*/
+div.calendar_default_event_inner
+{
+    background-color: #002a3d;
+}
+
+div.calendar_default_shadow_inner
+{
+    border-top: 1px solid #337af7;
+    background-color: #e6f4ff;
+    opacity: 0.5;
 }
 
 /*other calendar parts css*/
 .scheduleDisplay
 {
+    width: 448.8px;
+    height: 40px;
     display: flex;
     flex-direction: row;
+    align-items: center;
     background-color: #fff;
-    border: 1px solid #bcbcbc;
-    border-right: none;
     font-size: 10px;
     font-weight: 700;
+    text-align: center;
     color: #003249;
 }
 
 .scheduleDisplay > h1
 {
     flex: 1;
+}
+
+.scheduleDisplay > h1:first-child
+{
     border-right: 1px solid #bcbcbc;
 }
 
 .bookButton
 {
     cursor: not-allowed;
-    width: auto;
-    height: 25px;
+    width: 448.8px;
+    height: 55px;
     padding: 5px 10px;
     border-style: none;
     border-radius: 0px 0px 11px 11px;
     background-color: #003249;
-    font-size: 6;
+    font-size: 16px;
     font-weight: 700;
     text-align: right;
     color: #fff;
@@ -689,15 +774,5 @@ main {
 .bookButton.active
 {
     cursor: pointer;
-    width: auto;
-    height: 25px;
-    padding: 5px 10px;
-    border-style: none;
-    border-radius: 0px 0px 11px 11px;
-    background-color: #003249;
-    font-size: 6;
-    font-weight: 700;
-    text-align: right;
-    color: #fff;
     opacity: 1.0;
 }
