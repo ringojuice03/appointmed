@@ -80,7 +80,7 @@ def signup(request):
     dictionary = {'user_form': user_form, 'profile_form': profile_form}
     return render(request, 'signup.html', dictionary)
 
-
+@login_required
 def PatientHome(request):
     if isinstance(request.user, AnonymousUser):
         return redirect('login')
@@ -96,37 +96,24 @@ def PatientHome(request):
         'specializations': specializations,
     })
 
+@login_required
 def PatientHome_DoctorDetails(request):
     patient = get_object_or_404(Patient, user=request.user)
     return render(request, 'patient_home_doctor_details.html', {'patient': patient})
 
+@login_required
+def patient_appointment(request):
+    return render(request, 'patient_appointments.html')
 
-# class PatientHomeView(generic.ListView):
-#     template_name = 'patient_home.html'
-#     context_object_name = 'doctor_list'
-
-#     def get_queryset(self):
-#         return Doctor.objects.all()
-    
-    
-def patient_home(request):
-    return render(request, 'patient_home.html')
-
-# nonfunctional yet, need user login to get current user instance
-class PatientAppointmentView(generic.ListView):
-    template_name = 'patient_appointments.html'
-    context_object_name = 'patient_appointment_list'
-
-    def get_queryset(self):
-        patient = get_object_or_404(Patient, user=self.request.user)
-        return patient.appointment_set.all()
-
+@login_required
 def patient_about(request):
     return render(request, 'patient_about.html')
 
+@login_required
 def patient_profile(request):
     return render(request, 'patient_profile.html')
 
+@login_required
 def patient_reschedule_api(request):
     if request.method == "POST":
         action = request.POST.get('action')
@@ -149,7 +136,41 @@ def patient_reschedule_api(request):
     return render(request, 'patient home')
 
 
+def patient_calendar(request):
+    doctors = Doctor.objects.all()
+    return render(request, 'patient_calendar.html', {"doctors": doctors})
 
+@login_required
+def patient_appointment_json_api(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        doctor_id = data.get('doctorID')
+
+        appointments = Appointment.objects.filter(doctor__id=doctor_id)
+        if not appointments.exists():
+            return JsonResponse([], safe=False)
+
+        events = []
+        for appointment in appointments:
+            if appointment.status in ['scheduled', 'pending']: 
+                local_start = localtime(appointment.appointment_date).replace(tzinfo=None)
+                local_end = (local_start + timedelta(minutes=30)).replace(tzinfo=None)
+
+                events.append({
+                    "start": local_start.isoformat(),
+                    "end": local_end.isoformat(),
+                })
+    
+        return JsonResponse(events, safe=False)
+    return JsonResponse([{"Fail": "post fail"}], safe=False)
+
+@login_required
+def patient_booking_api(request):
+    return render(request, 'patient_appointments.html')
+
+
+
+@login_required
 def doctor_home(request):
     if isinstance(request.user, AnonymousUser):
         return redirect('login')
@@ -258,7 +279,7 @@ def doctor_reschedule_api(request):
 
     return JsonResponse({"success": False, "error": "Request is not POST."})
 
-
+@login_required
 def process_appointment(request):
     if request.method == "POST":
         appointment_id = request.POST.get('appointment-id')

@@ -11,9 +11,15 @@ urlpatterns = [
     # path('patient/home/', views.PatientHomeView.as_view(), name="patient home"),
     path("patient/home/", views.PatientHome, name="patient home"),
     path("patient/home/doctor/details/", views.PatientHome_DoctorDetails, name="patient home doctor details"),
-    path("patient/appointments/", views.PatientAppointmentView.as_view(), name="patient appointments"),
+    path("patient/appointments/", views.patient_appointment, name="patient appointments"),
     path('patient/about/', views.patient_about, name="patient about"),
     path('patient/profile/', views.patient_profile, name="patient profile"),
+
+
+    path("patient/home/calendar", views.patient_calendar, name="patient calendar"),
+    path("patient/home/booking/api", views.patient_booking_api, name="patient booking api"),
+    path("patient/home/calendar/api", views.patient_appointment_json_api, name="patient calendar api"),
+
 
     path('doctor/home/', views.doctor_home, name="doctor home"),
 
