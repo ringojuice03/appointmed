@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible"
+    content="IE=edge">
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+    <title>Appointmed</title>
+    <link rel="stylesheet" type="text/css"
+    href="appointment-page.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">LOGO</div>
+            <div class="menu">
+                <a href="Appointmed.html">Home</a>
+                <a href="{% url 'patient about' %}">About</a>
+                <a href="{% url 'patient appointments' %}">Appointments</a>
+                <a href="{% url 'patient profile' %}"><i><b>Hi, User!</i></b></a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <h1>Your appointments</h1>
+        <div class="main-filters">
+            <button class="filter-button active">All</button>
+            <button class="filter-button">Upcoming</button>
+            <button class="filter-button">Completed</button>
+            <button class="filter-button">Canceled</button>
+        </div>
+
+        <!-- Existing Appointment Row -->
+        <div class="appointment">
+          <div class="appointment-summary">
+              <img src="path-to-doctor-image.jpg" alt="Dr. Jose Rizal">
+              <div class="appointment-info">
+                  <h2>Dr. Jose Rizal</h2>
+                  <p>123 Mockingbird Lane, Anytown, USA 12345</p>
+              </div>
+              <div class="appointment-time">
+                  <div class="date-time">
+                      <p>April 1, 2024</p>
+                      <p>03:00 AM - 04:00 AM</p>
+                  </div>
+                  <button class="expand-btn">▼</button>
+              </div>
+          </div>
+          <div class="appointment-details">
+              <p>Details: Lorem ipsum dolor sit amet...</p>
+              <p>Appointment fee: $420.00</p>
+              <button class="cancel-btn">Cancel</button>
+          </div>
+      </div>
+      
+
+        <!-- New Appointment Row -->
+        <div class="appointment">
+          <div class="appointment-summary">
+              <img src="path-to-doctor-image.jpg" alt="Dr. Jose Rizal">
+              <div class="appointment-info">
+                  <h2>Dr. Jose Rizal</h2>
+                  <p>123 Mockingbird Lane, Anytown, USA 12345</p>
+              </div>
+              <div class="appointment-time">
+                  <div class="date-time">
+                      <p>April 1, 2024</p>
+                      <p>03:00 AM - 04:00 AM</p>
+                  </div>
+                  <button class="expand-btn">▼</button>
+              </div>
+          </div>
+          <div class="appointment-details">
+              <p>Details: Lorem ipsum dolor sit amet...</p>
+              <p>Appointment fee: $420.00</p>
+              <button class="cancel-btn">Cancel</button>
+          </div>
+      </div>
+
+      <div class="appointment">
+        <div class="appointment-summary">
+            <img src="path-to-doctor-image.jpg" alt="Dr. Jose Rizal">
+            <div class="appointment-info">
+                <h2>Dr. Jose Rizal</h2>
+                <p>123 Mockingbird Lane, Anytown, USA 12345</p>
+            </div>
+            <div class="appointment-time">
+                <div class="date-time">
+                    <p>April 1, 2024</p>
+                    <p>03:00 AM - 04:00 AM</p>
+                </div>
+                <button class="expand-btn">▼</button>
+            </div>
+        </div>
+        <div class="appointment-details">
+            <p>Details: Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...
+              Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...
+              Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...
+              Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...
+              Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...
+
+            </p>
+            <p>Appointment fee: $420.00</p>
+            <button class="cancel-btn">Cancel</button>
+        </div>
+    </div>
+
+      
+    </main>
+    <script src="appointment-page.js"></script>
+</body>
+</html>
