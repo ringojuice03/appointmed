@@ -91,10 +91,17 @@ def PatientHome(request):
 
     specializations = doctors.values_list('specialty' ,flat=True).distinct()
 
+    notifications = Notification.objects.filter(
+        appointment__patient=patient,
+        notification_type__in = ['accepted', 'rejected', 'rescheduled', 
+                                 'reschedule_accepted', 'reschedule_rejected'],
+    )
+
     return render(request, 'patient_home.html', {
         'patient': patient, 
         'doctors': doctors,
         'specializations': specializations,
+        'notifications': notifications,
     })
 
 @login_required
@@ -135,17 +142,18 @@ def patient_reschedule_api(request):
         appointment = Appointment.objects.get(id=notification.appointment.id)
 
         if action == 'accept':
-            appointment = 'scheduled'
+            appointment.status = 'scheduled'
             notification.notification_type = 'reschedule_accepted'
             
         elif action == 'reject':
-            appointment = 'rejected'
+            appointment.status = 'rejected'
             notification.notification_type = 'reschedule_rejected'
 
+        notification.created_at = now
         appointment.save()
         notification.save()
 
-    return render(request, 'patient home')
+    return redirect('patient home')
 
 
 def patient_calendar(request):
@@ -199,6 +207,24 @@ def patient_booking_api(request):
     )
     return redirect('patient appointments')
 
+@login_required
+def patient_cancel_api(request):
+    if request.method == "POST":
+        action = request.GET.get('action')
+        appointmentID = request.GET.get('appointment-id')
+
+        appointment = get_object_or_404(Appointment, id=appointmentID)
+        appointment.status = 'trash'
+        appointment.save()
+
+        Notification.objects.create(
+            appointment = appointment,
+            notification_type = 'canceled',
+        )
+        return redirect('patient appointments')
+    
+    return redirect('patient appointments')
+
 
 
 @login_required
@@ -226,7 +252,11 @@ def doctor_home(request):
             apt.status = 'completed'
             apt.save()
 
-    pending_appointments = Appointment.objects.filter(doctor=doctor, status='pending').order_by('appointment_date')
+    appointments = Appointment.objects.filter(doctor=doctor, status__in=['pending', 'scheduled', 'rejected']).order_by('appointment_date')
+    pending_length = Appointment.objects.filter(doctor=doctor, status='pending').count()
+    scheduled_length = Appointment.objects.filter(doctor=doctor, status='scheduled').count()
+    rejected_length = Appointment.objects.filter(doctor=doctor, status='rejected').count()    
+
     notifications = Notification.objects.filter(
         appointment__doctor=doctor, 
         notification_type__in=['set', 'canceled', 'reschedule_accepted', 'reschedule_rejected']
@@ -237,9 +267,12 @@ def doctor_home(request):
 
     return render(request, 'doctor_home.html', {
             'doctor': doctor, 
-            'appointments': pending_appointments, 
+            'appointments': appointments, 
             'notifications': notifications,
             'current_view': calendar_view,
+            'pending_length': pending_length,
+            'scheduled_length': scheduled_length,
+            'rejected_length': rejected_length,
     })
 
 
@@ -328,13 +361,16 @@ def process_appointment(request):
             elif action == 'reject':
                 action = 'rejected'
                 apt.status = 'rejected'
+            elif action == 'delete':
+                apt.status = 'trash'
 
             apt.save()
 
-            Notification.objects.create(
-                appointment = apt,
-                notification_type = action
-            )
+            if (action != 'delete'):
+                Notification.objects.create(
+                    appointment = apt,
+                    notification_type = action
+                )
 
             return redirect('doctor home')
 

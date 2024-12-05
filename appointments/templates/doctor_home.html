@@ -388,8 +388,9 @@
                 <h1>APPOINTMENTS</h1>
 
                 <div id="appointments-filters">
-                    <button type="button" id="pending-filter" onclick="pendingSelected()">Pending ({x})</button>
-                    <button type="button" id="rejected-filter" class="appointmentsFilterUnselected" onclick="rejectedSelected()">Rejected ({x})</button>
+                    <button type="button" id="pending-filter" onclick="pendingSelected()">Pending ({{ pending_length }}) </button>
+                    <button type="button" id="scheduled-filter" class="appointmentsFilterUnselected" onclick="scheduledSelected()">Scheduled ({{ scheduled_length }}) </button>
+                    <button type="button" id="rejected-filter" class="appointmentsFilterUnselected" onclick="rejectedSelected()">Rejected ({{ rejected_length }})</button>
                 </div>
 
                 <div id="appointments-list">
@@ -403,7 +404,7 @@
                     </form>
 
                     {% for appointment in appointments %}
-                        <div class="appointmentItem">
+                        <div class="appointmentItem {{ appointment.status }}">
                             <div class="appointmentDetails">
                                 <div class="appointmentLeft">
                                     <h1>{{ appointment.patient.user.first_name }} {{ appointment.patient.user.last_name }}</h1>
@@ -415,8 +416,13 @@
                                         {% csrf_token %}
                                         <input type="hidden" name="appointment-id" value="{{ appointment.id }}">
                                         <input type="hidden" name="current-view" class="current-view-input" value="">
-                                        <button type="submit" class="acceptButton" name="action" value="accept">Accept</button>
-                                        <button type="submit" class="rejectButton" name="action" value="reject">Reject</button>
+
+                                        {% if appointment.status == 'pending' %}
+                                            <button type="submit" class="acceptButton" name="action" value="accept">Accept</button>
+                                            <button type="submit" class="rejectButton" name="action" value="reject">Reject</button>
+                                        {% elif appointment.status == 'rejected' %}
+                                            <button type="submit" class="rejectButton" name="action" value="delete">Delete</button>
+                                        {% endif %}
                                     </form>
                                 </div>
                             </div>

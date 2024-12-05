@@ -18,6 +18,8 @@ urlpatterns = [
 
     path("patient/home/calendar", views.patient_calendar, name="patient calendar"),
     path("patient/home/booking/api", views.patient_booking_api, name="patient booking api"),
+    path("patient/home/reschedule/api", views.patient_reschedule_api, name="patient reschedule api"),
+    path("patient/home/cancel/api", views.patient_cancel_api, name="patient cancel api"),
     path("patient/home/calendar/api", views.patient_appointment_json_api, name="patient calendar api"),
 
 
