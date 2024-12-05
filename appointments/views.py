@@ -10,6 +10,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.http import JsonResponse
 from django.utils.timezone import make_aware, now, get_current_timezone, localtime
+from django.utils.dateparse import parse_date
 from datetime import timedelta, datetime as dt
 import datetime
 import json
@@ -103,7 +104,18 @@ def PatientHome_DoctorDetails(request):
 
 @login_required
 def patient_appointment(request):
-    return render(request, 'patient_appointments.html')
+    patient = get_object_or_404(Patient, user=request.user)
+    appointments = Appointment.objects.filter(patient=patient).order_by('-appointment_date')
+    notifications = Notification.objects.filter(appointment__patient=patient)
+
+    for appointment in appointments:
+        appointment.appointment_end = appointment.appointment_date + timedelta(minutes=30)
+
+    return render(request, 'patient_appointments.html', {
+        "patient": patient,
+        "appointments": appointments,
+        "notifications": notifications,
+    })
 
 @login_required
 def patient_about(request):
@@ -166,7 +178,26 @@ def patient_appointment_json_api(request):
 
 @login_required
 def patient_booking_api(request):
-    return render(request, 'patient_appointments.html')
+    date_str = request.GET.get('date')
+    formattedDate = dt.fromisoformat(date_str)
+
+    doctorID = request.GET.get('doctorID')
+    doctor = get_object_or_404(Doctor, id=doctorID)
+
+    patient = get_object_or_404(Patient, user=request.user)
+
+    apt = Appointment.objects.create(
+        patient = patient,
+        doctor = doctor,
+        appointment_date = formattedDate,
+        status = 'pending',
+    )
+
+    Notification.objects.create(
+        appointment = apt,
+        notification_type = 'set',
+    )
+    return redirect('patient appointments')
 
 
 
