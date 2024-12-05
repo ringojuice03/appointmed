@@ -51,18 +51,61 @@ function showNotifications()
 
 /*appointments filter*/
 const pendingFilter = document.getElementById("pending-filter");
+const scheduledFilter = document.getElementById("scheduled-filter");
 const rejectedFilter = document.getElementById("rejected-filter");
+const appointmentList = document.querySelectorAll(".appointmentItem");
+
+appointmentList.forEach(e => {
+  if (e.classList.contains('pending')) {
+    e.style.display = "block";
+  } else {
+    e.style.display = "none";
+  }
+});
 
 function pendingSelected()
 {
   pendingFilter.classList.remove('appointmentsFilterUnselected');
+  scheduledFilter.classList.add('appointmentsFilterUnselected');
   rejectedFilter.classList.add('appointmentsFilterUnselected');
+
+  appointmentList.forEach(e => {
+    if (e.classList.contains('pending')) {
+      e.style.display = "block";
+    } else {
+      e.style.display = "none";
+    }
+  });
+}
+
+function scheduledSelected()
+{
+  pendingFilter.classList.add('appointmentsFilterUnselected');
+  scheduledFilter.classList.remove('appointmentsFilterUnselected');
+  rejectedFilter.classList.add('appointmentsFilterUnselected');
+
+  appointmentList.forEach(e => {
+    if (e.classList.contains('scheduled')) {
+      e.style.display = "block";
+    } else {
+      e.style.display = "none";
+    }
+  });
 }
 
 function rejectedSelected()
 {
-  rejectedFilter.classList.remove('appointmentsFilterUnselected');
   pendingFilter.classList.add('appointmentsFilterUnselected');
+  scheduledFilter.classList.add('appointmentsFilterUnselected');
+  rejectedFilter.classList.remove('appointmentsFilterUnselected');
+
+  appointmentList.forEach(e => {
+    if (e.classList.contains('rejected')) {
+      e.style.display = "block";
+    } else {
+      e.style.display = "none";
+    }
+  });
 }
 
 /*----------calendar js----------*/

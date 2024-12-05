@@ -32,6 +32,7 @@ class Appointment(models.Model):
                                   ('pending', 'Pending'),
                                   ('completed', 'Completed'),
                                   ('rejected', 'Rejected'),
+                                  ('trash', 'Trash'),
                                 ],
                               null=False, blank=False)
     
