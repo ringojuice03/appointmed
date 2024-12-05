@@ -56,28 +56,41 @@
                                             <div class="notificationPicture"></div>
                                         </div>
                                         
-                                        {% if notification.notification_type == "set" %}
+                                        {% if notification.notification_type == "accepted" %}
                                             <div class="notificationRight">
-                                                <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
-                                                has requested a new appointment scheduled on {{ notification.appointment.appointment_date }}.</h1>
+                                                <h1><b>Dr. {{ notification.appointment.doctor.user.first_name }} {{ notification.appointment.doctor.user.last_name }}</b> 
+                                                has accepted your appointment request on {{ notification.appointment.appointment_date }}.</h1>
                                                 <p>{{ notification.time_ago }}</p>
                                             </div>
-                                        {% elif notification.notification_type == "canceled" %}
+                                        {% elif notification.notification_type == "rejected" %}
                                             <div class="notificationRight">
-                                                <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
-                                                has canceled their appointment previously scheduled on {{ notification.appointment.appointment_date }}.</h1>
+                                                <h1><b>Unfortunately, Dr. {{ notification.appointment.doctor.user.first_name }} {{ notification.appointment.doctor.user.last_name }}</b> 
+                                                rejected your appointment request on {{ notification.appointment.appointment_date }}.</h1>
                                                 <p>{{ notification.time_ago }}</p>
                                             </div>
+                                        {% elif notification.notification_type == "rescheduled" %}
+                                        <div class="notificationRight">
+                                            <h1><b>Dr. {{ notification.appointment.doctor.user.first_name }} {{ notification.appointment.doctor.user.last_name }}</b> 
+                                            requested to reschedule your appointment to {{ notification.appointment.appointment_date }}.</h1>
+                                            <form action="{% url 'patient reschedule api' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                                                <button name="action" value="accept">Accept</button>
+                                                <button name="action" value="reject">Reject</button>
+                                            </form>
+                                            <h1>Note: Rejecting would cancel your appointment request.</h1>
+                                            <p>{{ notification.time_ago }}</p>
+                                        </div>
                                         {% elif notification.notification_type == "reschedule_accepted" %}
                                             <div class="notificationRight">
-                                                <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
-                                                has confirmed the rescheduled appointment on {{ notification.appointment.appointment_date }}.</h1>
+                                                <h1><b>Your appointment with Dr. {{ notification.appointment.doctor.user.first_name }} {{ notification.appointment.doctor.user.last_name }}</b> 
+                                                has been rescheduled to {{ notification.appointment.appointment_date }}.</h1>
                                                 <p>{{ notification.time_ago }}</p>
                                             </div>
                                         {% elif notification.notification_type == "reschedule_rejected" %}
                                             <div class="notificationRight">
-                                                <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
-                                                has declined the proposed rescheduled appointment on {{ notification.appointment.appointment_date }}.</h1>
+                                                <h1><b>You canceled your appointment with Dr. {{ notification.appointment.doctor.user.first_name }} {{ notification.appointment.doctor.user.last_name }}</b> 
+                                                on {{ notification.appointment.appointment_date }}.</h1>
                                                 <p>{{ notification.time_ago }}</p>
                                             </div>
                                         {% endif %}

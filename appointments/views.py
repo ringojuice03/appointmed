@@ -91,10 +91,17 @@ def PatientHome(request):
 
     specializations = doctors.values_list('specialty' ,flat=True).distinct()
 
+    notifications = Notification.objects.filter(
+        appointment__patient=patient,
+        notification_type__in = ['accepted', 'rejected', 'rescheduled', 
+                                 'reschedule_accepted', 'reschedule_rejected'],
+    )
+
     return render(request, 'patient_home.html', {
         'patient': patient, 
         'doctors': doctors,
         'specializations': specializations,
+        'notifications': notifications,
     })
 
 @login_required
@@ -135,17 +142,18 @@ def patient_reschedule_api(request):
         appointment = Appointment.objects.get(id=notification.appointment.id)
 
         if action == 'accept':
-            appointment = 'scheduled'
+            appointment.status = 'scheduled'
             notification.notification_type = 'reschedule_accepted'
             
         elif action == 'reject':
-            appointment = 'rejected'
+            appointment.status = 'rejected'
             notification.notification_type = 'reschedule_rejected'
 
+        notification.created_at = now
         appointment.save()
         notification.save()
 
-    return render(request, 'patient home')
+    return redirect('patient home')
 
 
 def patient_calendar(request):
@@ -197,6 +205,24 @@ def patient_booking_api(request):
         appointment = apt,
         notification_type = 'set',
     )
+    return redirect('patient appointments')
+
+@login_required
+def patient_cancel_api(request):
+    if request.method == "POST":
+        action = request.GET.get('action')
+        appointmentID = request.GET.get('appointment-id')
+
+        appointment = get_object_or_404(Appointment, id=appointmentID)
+        appointment.status = 'trash'
+        appointment.save()
+
+        Notification.objects.create(
+            appointment = appointment,
+            notification_type = 'canceled',
+        )
+        return redirect('patient appointments')
+    
     return redirect('patient appointments')
 
 

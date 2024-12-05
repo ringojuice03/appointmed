@@ -55,8 +55,10 @@
                 <div class="appointment-details">
                     <p>Details: Lorem ipsum dolor sit amet...</p>
                     <p>Appointment fee: $420.00</p>
-                    {% if appointment.status == 'pending' %}
-                        <button class="cancel-btn">Cancel</button>
+                    {% if appointment.status == 'scheduled' or appointment.status == 'pending' %}
+                        <form action="{% url 'patient cancel api' %}" method="POST">
+                            <button name="action" class="cancel-btn" appointment-id="{{ appointment.id }}">Cancel</button>
+                        </form>
                     {% endif %}
                 </div>
             </div>
