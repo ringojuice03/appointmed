@@ -106,7 +106,8 @@ body {
 {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: flex-end;
 }
 
 /*user and notif menu*/
@@ -126,8 +127,10 @@ body {
     background-color: #21769c;
 
     position: absolute;
-    margin-top: 615px;
-    margin-left: -170px;
+    margin-top: 64.5px;
+    z-index: 1;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #user-menu
@@ -139,8 +142,10 @@ body {
     background-color: #21769c;
 
     position: absolute;
-    margin-top: 615px;
-    margin-left: -350px;
+    margin-top: 70px;
+    z-index: 1;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #user-profile
@@ -504,9 +509,7 @@ main {
     grid-template-columns: 1fr 2fr 1fr;
     gap: 16px;
     
-    /*puts card on top of header when scrolling down
     transform: scale(1.01);
-    */
 }
 
 .doctorcard {
