@@ -159,7 +159,7 @@ function initializeCalendar(doctor_id)
 
             console.log("args start: ", chosenDate);
 
-            alert("Booking successful.");
+            alert("Booking successful. Redirecting to appointments page.");
 
             patientBookingAPI += `?date=${encodeURIComponent(chosenDate)}`;
             patientBookingAPI += `&doctorID=${encodeURIComponent(doctor_id)}`;

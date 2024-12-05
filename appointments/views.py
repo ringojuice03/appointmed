@@ -207,6 +207,24 @@ def patient_booking_api(request):
     )
     return redirect('patient appointments')
 
+@login_required
+def patient_cancel_api(request):
+    if request.method == "POST":
+        action = request.GET.get('action')
+        appointmentID = request.GET.get('appointment-id')
+
+        appointment = get_object_or_404(Appointment, id=appointmentID)
+        appointment.status = 'trash'
+        appointment.save()
+
+        Notification.objects.create(
+            appointment = appointment,
+            notification_type = 'canceled',
+        )
+        return redirect('patient appointments')
+    
+    return redirect('patient appointments')
+
 
 
 @login_required
