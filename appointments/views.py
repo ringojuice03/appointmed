@@ -226,7 +226,11 @@ def doctor_home(request):
             apt.status = 'completed'
             apt.save()
 
-    pending_appointments = Appointment.objects.filter(doctor=doctor, status='pending').order_by('appointment_date')
+    appointments = Appointment.objects.filter(doctor=doctor, status__in=['pending', 'scheduled', 'rejected']).order_by('appointment_date')
+    pending_length = Appointment.objects.filter(doctor=doctor, status='pending').count()
+    scheduled_length = Appointment.objects.filter(doctor=doctor, status='scheduled').count()
+    rejected_length = Appointment.objects.filter(doctor=doctor, status='rejected').count()    
+
     notifications = Notification.objects.filter(
         appointment__doctor=doctor, 
         notification_type__in=['set', 'canceled', 'reschedule_accepted', 'reschedule_rejected']
@@ -237,9 +241,12 @@ def doctor_home(request):
 
     return render(request, 'doctor_home.html', {
             'doctor': doctor, 
-            'appointments': pending_appointments, 
+            'appointments': appointments, 
             'notifications': notifications,
             'current_view': calendar_view,
+            'pending_length': pending_length,
+            'scheduled_length': scheduled_length,
+            'rejected_length': rejected_length,
     })
 
 
@@ -328,13 +335,16 @@ def process_appointment(request):
             elif action == 'reject':
                 action = 'rejected'
                 apt.status = 'rejected'
+            elif action == 'delete':
+                apt.status = 'trash'
 
             apt.save()
 
-            Notification.objects.create(
-                appointment = apt,
-                notification_type = action
-            )
+            if (action != 'delete'):
+                Notification.objects.create(
+                    appointment = apt,
+                    notification_type = action
+                )
 
             return redirect('doctor home')
 
