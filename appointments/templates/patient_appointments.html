@@ -1,14 +1,96 @@
 {% load static %}
-<link rel="stylesheet" href="{% static "css/patient_appointments.css" %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible"
+    content="IE=edge">
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+    <title>Appointmed</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/patient_appointments.css" %}">
+    <script src="{% static 'js/patient_appointments.js' defer%}" async></script>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">LOGO</div>
+            <div class="menu">
+                <a href="{% url 'patient home' %}">Home</a>
+                <a href="{% url 'patient about' %}">About</a>
+                <a href="{% url 'patient appointments' %}">Appointments</a>
+                <a href="{% url 'patient profile' %}"><i><b>Hi, User!</i></b></a>
+            </div>
+        </div>
+    </header>
 
-<div class="navbar">
-    <div class="brand">Appointmed</div>
-    <div class="menu">
-        <a href="{% url "patient home" %}">Home</a>
-        <a href="{% url "patient about" %}">About</a>
-        <a href="{% url "patient appointments" %}">Appointments</a>
-        <a href="{% url "patient profile" %}"><i>Hi, User</i></a>
-    </div>
-</div>
+    <main>
+        <h1>Your appointments</h1>
+        <div class="main-filters">
+            <button class="filter-button active" id="scheduled">Scheduled</button>
+            <button class="filter-button" id="pending">Pending</button>
+            <button class="filter-button" id="completed">Completed</button>
+            <button class="filter-button" id="rejected">Rejected</button>
+            <button class="filter-button" id="all">All</button>
+        </div>
 
-<h1>appointments</h1>
+        <!-- Existing Appointment Row -->
+        {% for appointment in appointments %}
+            <div class="appointment {{appointment.status}}">
+                <div class="appointment-summary">
+                    <img src="path-to-doctor-image.jpg" alt="Dr. Jose Rizal">
+                    <div class="appointment-info">
+                        <h2>Dr. {{ appointment.doctor.user.first_name }} {{ appointment.doctor.user.last_name }}</h2>
+                        <p>{{ appointment.doctor.clinic_address }}</p>
+                    </div>
+                    <div class="appointment-time">
+                        <div class="date-time">
+                            <p>{{ appointment.appointment_date|date:"F j, Y" }}</p>
+                            <p>{{ appointment.appointment_date|date:"g:i - " }} 
+                            {{ appointment.appointment_end|date:"g:i A" }}</p>
+                        </div>
+                        <button class="expand-btn">▼</button>
+                    </div>
+                </div>
+                <div class="appointment-details">
+                    <p>Details: Lorem ipsum dolor sit amet...</p>
+                    <p>Appointment fee: $420.00</p>
+                    {% if appointment.status == 'pending' %}
+                        <button class="cancel-btn">Cancel</button>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        
+        
+    </main>
+
+</body>
+    {% comment %} <div class="appointment">
+            <div class="appointment-summary">
+                <img src="path-to-doctor-image.jpg" alt="Dr. Jose Rizal">
+                <div class="appointment-info">
+                    <h2>Dr. Jose Rizal</h2>
+                    <p>123 Mockingbird Lane, Anytown, USA 12345</p>
+                </div>
+                <div class="appointment-time">
+                    <div class="date-time">
+                        <p>April 1, 2024</p>
+                        <p>03:00 AM - 04:00 AM</p>
+                    </div>
+                    <button class="expand-btn">▼</button>
+                </div>
+            </div>
+            <div class="appointment-details">
+                <p>Details: Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...
+                Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...
+                Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...
+                Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...
+                Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...
+                </p>
+                <p>Appointment fee: $420.00</p>
+                <button class="cancel-btn">Cancel</button>
+            </div>
+        </div> {% endcomment %}
+
+</html>

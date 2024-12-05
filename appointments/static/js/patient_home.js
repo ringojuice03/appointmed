@@ -229,6 +229,13 @@ function initializeCalendar(doctor_id)
         console.log("Args end: ", args.end);
     };
 
+    weekView.onEventResize = function (args) {
+        args.preventDefault();
+    }
+
+    weekView.onEventResized = function (args) {
+        args.allowed = false;
+    }
 }
 
 
