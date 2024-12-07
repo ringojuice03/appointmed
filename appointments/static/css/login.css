@@ -107,6 +107,7 @@ body
     font-weight: 600;
     text-align: center;
     color: #fff;
+    transition: color 0.25s ease;
 }
 
 /*log in form css*/

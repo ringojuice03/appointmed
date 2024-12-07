@@ -271,10 +271,80 @@
                     <p>{% now "g:i A" %}</p>
                 </div>
                 
-                <!--change to proper notif icon-->
-                <button type="button" id="notification-button" onclick="showNotificationMenu()"></button>
-                <!--change to proper user picture-->
-                <button type="button" id="user-menu-button" onclick="showUserMenu()"></button>
+                <div class="navbarMenus">
+                    <!--change to proper notif icon-->
+                    <button type="button" id="notification-button" onclick="showNotificationMenu()"></button>
+
+                    <div id="notification-menu" class="hideMenu">
+                        <!--change to proper logo-->
+                        <h1 id="notification-menu-label">Notifications</h1>
+                        <hr>
+                        
+                        <div id="user-notifications">
+                            {% for notification in notifications %}
+                                <div class="notificationItem">
+                                    <div class="notificationDetails">
+                                        <div class="notificationLeft">
+                                            <!--change to proper picture-->
+                                            <div class="notificationPicture"></div>
+                                        </div>
+                                        
+                                        {% if notification.notification_type == "set" %}
+                                            <div class="notificationRight">
+                                                <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
+                                                has requested a new appointment scheduled on {{ notification.appointment.appointment_date }}.</h1>
+                                                <p>{{ notification.time_ago }}</p>
+                                            </div>
+                                        {% elif notification.notification_type == "canceled" %}
+                                            <div class="notificationRight">
+                                                <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
+                                                has canceled their appointment previously scheduled on {{ notification.appointment.appointment_date }}.</h1>
+                                                <p>{{ notification.time_ago }}</p>
+                                            </div>
+                                        {% elif notification.notification_type == "reschedule_accepted" %}
+                                            <div class="notificationRight">
+                                                <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
+                                                has confirmed the rescheduled appointment on {{ notification.appointment.appointment_date }}.</h1>
+                                                <p>{{ notification.time_ago }}</p>
+                                            </div>
+                                        {% elif notification.notification_type == "reschedule_rejected" %}
+                                            <div class="notificationRight">
+                                                <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
+                                                has declined the proposed rescheduled appointment on {{ notification.appointment.appointment_date }}.</h1>
+                                                <p>{{ notification.time_ago }}</p>
+                                            </div>
+                                        {% endif %}
+    
+    
+                                        
+                                    </div>
+                
+                                    <hr>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="navbarMenus">
+                    <!--change to proper user picture-->
+                    <button type="button" id="user-menu-button" onclick="showUserMenu()"></button>
+
+                    <div id="user-menu" class="hideMenu">
+                        <!--change to proper logo-->
+                        <h1 id="user-menu-logo">AppointMed</h1>
+            
+                        <div id="user-profile">
+                            <!--change to proper picture-->
+                            <div id="user-picture"></div>
+                            <h1 id="user-name">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</h1>
+                            <h1 id="doctor-specialty">{Specialty}</h1>
+                            <i id="clinic-address">{Clinic Address}</i>
+                            <p id="clinic-status">Status: <b>{Status}</b></p>
+                            <!--add log out icon-->
+                            <button type="button" id="log-out-button">Log out</button>
+                            <p id="appointmed-2024">© AppointMed 2024</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -315,131 +385,6 @@
             </div>
 
             <div id="appointments-container">
-                <!-- backup
-                <div id="user-menu" class="hideMenu">
-                    //change to proper logo
-                    <h1 id="user-menu-logo">AppointMed</h1>
-        
-                    <div id="user-menu-filter">
-                        <button type="button" id="profile-filter" onclick="showProfile()">Profile</button>
-                        <button type="button" id="notifications-filter" class="filterUnselected" onclick="showNotifications()">Notifications</button>
-                    </div>
-        
-                    <div id="user-profile">
-                        //change to proper picture
-                        <div id="user-picture"></div>
-                        <h1 id="user-name">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</h1>
-                        <h1 id="doctor-specialty">{Specialty}</h1>
-                        <i id="clinic-address">{Clinic Address}</i>
-                        <p id="clinic-status">Status: <b>{Status}</b></p>
-                        //add log out icon
-                        <button type="button" id="log-out-button">Log out</button>
-                        <p id="appointmed-2024">© AppointMed 2024</p>
-                    </div>
-                    
-                    <div id="user-notifications" class="hideFilter">
-                        <div class="notificationItem">
-                            <div class="notificationDetails">
-                                <div class="notificationLeft">
-                                    //change to proper picture
-                                    <div class="notificationPicture"></div>
-                                </div>
-
-                                <div class="notificationRight">
-                                    <h1><b>{Patient Name}</b> has sent an appointment request</h1>
-                                    <p>{Appointment Date}</p>
-                                </div>
-                            </div>
-        
-                            <hr>
-                        </div>
-
-                        <div class="notificationItem">
-                            <div class="notificationDetails">
-                                <div class="notificationLeft">
-                                    //change to proper picture
-                                    <div class="notificationPicture"></div>
-                                </div>
-
-                                <div class="notificationRight">
-                                    <h1><b>{Patient Name}</b> has cancelled an appointment request</h1>
-                                    <p>{Appointment Date}</p>
-                                </div>
-                            </div>
-        
-                            <hr>
-                        </div>
-                    </div>
-                </div>
-                -->
-
-                <div id="notification-menu" class="hideMenu">
-                    <!--change to proper logo-->
-                    <h1 id="notification-menu-label">Notifications</h1>
-                    <hr>
-                    
-                    <div id="user-notifications">
-                        {% for notification in notifications %}
-                            <div class="notificationItem">
-                                <div class="notificationDetails">
-                                    <div class="notificationLeft">
-                                        <!--change to proper picture-->
-                                        <div class="notificationPicture"></div>
-                                    </div>
-                                    
-                                    {% if notification.notification_type == "set" %}
-                                        <div class="notificationRight">
-                                            <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
-                                            has requested a new appointment scheduled on {{ notification.appointment.appointment_date }}.</h1>
-                                            <p>{{ notification.time_ago }}</p>
-                                        </div>
-                                    {% elif notification.notification_type == "canceled" %}
-                                        <div class="notificationRight">
-                                            <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
-                                            has canceled their appointment previously scheduled on {{ notification.appointment.appointment_date }}.</h1>
-                                            <p>{{ notification.time_ago }}</p>
-                                        </div>
-                                    {% elif notification.notification_type == "reschedule_accepted" %}
-                                        <div class="notificationRight">
-                                            <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
-                                            has confirmed the rescheduled appointment on {{ notification.appointment.appointment_date }}.</h1>
-                                            <p>{{ notification.time_ago }}</p>
-                                        </div>
-                                    {% elif notification.notification_type == "reschedule_rejected" %}
-                                        <div class="notificationRight">
-                                            <h1><b>{{ notification.appointment.patient.user.first_name }} {{ notification.appointment.patient.user.last_name }}</b> 
-                                            has declined the proposed rescheduled appointment on {{ notification.appointment.appointment_date }}.</h1>
-                                            <p>{{ notification.time_ago }}</p>
-                                        </div>
-                                    {% endif %}
-
-
-                                    
-                                </div>
-            
-                                <hr>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div id="user-menu" class="hideMenu">
-                    <!--change to proper logo-->
-                    <h1 id="user-menu-logo">AppointMed</h1>
-        
-                    <div id="user-profile">
-                        <!--change to proper picture-->
-                        <div id="user-picture"></div>
-                        <h1 id="user-name">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</h1>
-                        <h1 id="doctor-specialty">{{ doctor.specialty }}</h1>
-                        <i id="clinic-address">{{ doctor.clinic_address }}</i>
-                        <p id="clinic-status">Status: <b>{Status}</b></p>
-                        <!--add log out icon-->
-                        <button type="button" id="log-out-button">Log out</button>
-                        <p id="appointmed-2024">© AppointMed 2024</p>
-                    </div>
-                </div>
-
                 <h1>APPOINTMENTS</h1>
 
                 <div id="appointments-filters">

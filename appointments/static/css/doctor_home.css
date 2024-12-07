@@ -48,13 +48,14 @@ body
     height: 50px;
 }
 
-#icon-bar *
+#date-n-time, .navbarMenus
 {
     margin-left: 30px;
 }
 
 #user-menu-button, #notification-button
 {
+    margin: 0;
     cursor: pointer;
     width: 50px;
     height: 50px;
@@ -81,6 +82,14 @@ body
     color: #003249;
 }
 
+.navbarMenus
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
 /*user menu*/
 #notification-menu, #user-menu, #user-profile, #user-notifications
 {
@@ -98,8 +107,10 @@ body
     background-color: #21769c;
 
     position: absolute;
-    margin-top: -60px;
-    margin-left: 118px;
+    margin-top: 70px;
+    z-index: 1;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #user-menu
@@ -111,8 +122,10 @@ body
     background-color: #21769c;
 
     position: absolute;
-    margin-top: -60px;
-    margin-left: 198px;
+    margin-top: 70px;
+    z-index: 1;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #user-profile
@@ -143,52 +156,6 @@ body
     margin: 5px 35px;
     border: 1px solid #fff;
 }
-
-/* backup
-#user-menu-filter
-{
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-
-#user-menu-filter button
-{
-    width: 175px;
-    height: 35px;
-    border: solid 1px #fff;
-    font-size: 15px;
-    font-weight: 600;
-
-    background-color: #fff;
-    color: #003249;
-    cursor: pointer;
-}
-
-.filterUnselected
-{
-    background-color: transparent !important;
-    color: #fff !important;
-    cursor: pointer !important;
-}
-
-#profile-filter
-{
-    border-radius: 25px 0px 0px 25px;
-}
-
-#notifications-filter
-{
-    border-radius: 0px 25px 25px 0px;
-}
-
-.hideFilter
-{
-    display: none !important;
-}
-*/
 
 /*profile menu*/
 #user-picture
@@ -596,7 +563,7 @@ body
     display: flex;
     flex-direction: column;
     width: 150px;
-    margin-bottom: -150.18px;
+    margin-bottom: -150px;
     background-color: transparent;
     border-radius: 10.11px 10.11px 10.11px 10.11px;
     box-shadow: 0px 0px 10px#aaaaaa;
