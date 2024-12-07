@@ -172,7 +172,7 @@ def patient_appointment_json_api(request):
 
         events = []
         for appointment in appointments:
-            if appointment.status in ['scheduled', 'pending']: 
+            if appointment.status in ['scheduled', 'pending', 'rescheduled']: 
                 local_start = localtime(appointment.appointment_date).replace(tzinfo=None)
                 local_end = (local_start + timedelta(minutes=30)).replace(tzinfo=None)
 
@@ -233,7 +233,6 @@ def doctor_home(request):
 
     doctor = get_object_or_404(Doctor, user=request.user)
     appointments = Appointment.objects.filter(doctor=doctor)
-
     
     for apt in appointments:
         if apt.appointment_date >= now(): continue
@@ -282,7 +281,7 @@ def doctor_appointment_json_api(request):
 
     events = []
     for appointment in appointments:
-        if appointment.status in ['rejected', 'rescheduled']: 
+        if appointment.status == 'rejected': 
             continue
 
         local_start = localtime(appointment.appointment_date).replace(tzinfo=None)
@@ -311,30 +310,28 @@ def doctor_reschedule_api(request):
             resched_datetime = dt.strptime(new_start, '%Y-%m-%dT%H:%M:%S')
             resched_datetime = make_aware(resched_datetime)
 
-            appointment = Appointment.objects.get(id=apt_id)
-
             if resched_datetime < now():
                 return JsonResponse({"success": False, "error": "You cannot reschedule an appointment to the past.", })
             
             if Appointment.objects.filter(appointment_date=new_start).exists():
                 return JsonResponse({"success": False, "error": "Only one appointment per slot is allowed."})
+            
+            appointment = Appointment.objects.get(id=apt_id)
+            appointment.appointment_date = resched_datetime
+            
+            notification = Notification.objects.get(appointment=appointment)
 
-            if Notification.objects.filter(appointment=appointment).exists():
-                notification = Notification.objects.get(appointment=appointment)
-                appointment.appointment_date = resched_datetime
-                appointment.status = 'rescheduled'
-                appointment.save()
+            if appointment.status == 'rescheduled':
                 notification.appointment = appointment
                 notification.save()
             else:
-                appointment.appointment_date = resched_datetime
                 appointment.status = 'rescheduled'
-                appointment.save()
                 Notification.objects.create(
                     appointment = appointment,
                     notification_type = 'rescheduled',
                 )
 
+            appointment.save()
             return JsonResponse({"success": True, "minjitime": (resched_datetime).isoformat()})
 
         except Appointment.DoesNotExist:

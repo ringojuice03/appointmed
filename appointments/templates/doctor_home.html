@@ -54,7 +54,7 @@
                                 barHidden: true,
                                 barColor: "#6aa84f",
                                 borderColor: "transparent",
-                                toolTip: "shy shy shy", //works by hovering on an appointment
+                                toolTip: "Scheduled appointment", //works by hovering on an appointment
                                 // fontSize: "20px",             
                                 // fontFamily: "Arial, sans-serif", 
                                 // toolTip: "Scheduled Appointment",
@@ -66,6 +66,7 @@
                                 barHidden: false,
                                 barColor: "#00b31d",
                                 borderColor: "transparent",
+                                toolTip: "Canceled appointment",
                             };      
                         case "pending": 
                             return {
@@ -74,7 +75,17 @@
                                 barHidden: false,
                                 barColor: "#00b31d",
                                 borderColor: "transparent",
-                            };    
+                                toolTip: "Pending appointment",
+                            };
+                        case "rescheduled": 
+                        return {
+                            backColor: "#faff004d",          
+                            fontColor: "#002a3d",           
+                            barHidden: false,
+                            barColor: "#00b31d",
+                            borderColor: "transparent",
+                            toolTip: "Rescheduled appointment. Waiting for patient approval.",
+                        };  
                         case "completed": 
                             return {
                                 backColor: "transparent",     
@@ -82,6 +93,7 @@
                                 barHidden: false,
                                 barColor: "#00b31d",
                                 borderColor: "#003249",
+                                toolTip: "Completed appointment",
                             };      
                         default:
                             return {
@@ -112,8 +124,16 @@
                         dayView = new DayPilot.Calendar("dpDay", { viewType: "Day" });
                         dayView.events.list = placeholder;
 
+                        dayView.onEventResize = function (args) {
+                            args.preventDefault();
+                        }
+                    
+                        dayView.onEventResized = function (args) {
+                            args.allowed = false;
+                        }
+
                         dayView.onEventMove = function (args) {
-                            if (args.e.data.status !== "pending") {
+                            if (args.e.data.status !== "pending" || args.e.data.status !== "rescheduled") {
                                 args.preventDefault();
                                 alert("Only pending appointments can be rescheduled.");
                                 return;
@@ -169,10 +189,18 @@
                         weekView = new DayPilot.Calendar("dpWeek", { viewType: "Week" });
                         weekView.events.list = placeholder;
                         
+                        weekView.onEventResize = function (args) {
+                            args.preventDefault();
+                        }
+                    
+                        weekView.onEventResized = function (args) {
+                            args.allowed = false;
+                        }
+
                         weekView.onEventMove = function (args) {
-                            if (args.e.data.status !== "pending") {
+                            if (args.e.data.status !== "pending" || args.e.data.status !== "rescheduled") {
                                 args.preventDefault();
-                                alert("Only pending appointments can be rescheduled.");
+                                alert("Only pending or rescheduled appointments can be rescheduled.");
                                 return;
                             }
                         };
@@ -314,9 +342,6 @@
                                                 <p>{{ notification.time_ago }}</p>
                                             </div>
                                         {% endif %}
-    
-    
-                                        
                                     </div>
                 
                                     <hr>
@@ -402,7 +427,7 @@
                         {% csrf_token %}
                         <input type="hidden" name="current-view" id="global-current-view" value="Week">
                     </form>
-
+                    
                     {% for appointment in appointments %}
                         <div class="appointmentItem {{ appointment.status }}">
                             <div class="appointmentDetails">

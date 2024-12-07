@@ -34,7 +34,16 @@
             <button class="filter-button" id="all">All</button>
         </div>
 
-        <!-- Existing Appointment Row -->
+        <!-- Empty message -->
+        <div id="empty-message">
+            <div class="appointment-summary">
+                <div class="appointment-info">
+                    <p>No appointments here.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Appointment Row -->
         {% for appointment in appointments %}
             <div class="appointment {{appointment.status}}">
                 <div class="appointment-summary">
@@ -58,7 +67,8 @@
                     {% if appointment.status == 'scheduled' or appointment.status == 'pending' %}
                         <form action="{% url 'patient cancel api' %}" method="POST">
                             {% csrf_token %}
-                            <button name="action" class="cancel-btn" appointment-id="{{ appointment.id }}">Cancel</button>
+                            <input type="hidden" name="appointment-id" value="{{ appointment.id }}">
+                            <button name="action" class="cancel-btn">Cancel</button>
                         </form>
                     {% endif %}
                 </div>
@@ -69,31 +79,4 @@
     </main>
 
 </body>
-    {% comment %} <div class="appointment">
-            <div class="appointment-summary">
-                <img src="path-to-doctor-image.jpg" alt="Dr. Jose Rizal">
-                <div class="appointment-info">
-                    <h2>Dr. Jose Rizal</h2>
-                    <p>123 Mockingbird Lane, Anytown, USA 12345</p>
-                </div>
-                <div class="appointment-time">
-                    <div class="date-time">
-                        <p>April 1, 2024</p>
-                        <p>03:00 AM - 04:00 AM</p>
-                    </div>
-                    <button class="expand-btn">▼</button>
-                </div>
-            </div>
-            <div class="appointment-details">
-                <p>Details: Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...
-                Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...
-                Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...
-                Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...
-                Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...Lorem ipsum dolor sit amet...
-                </p>
-                <p>Appointment fee: $420.00</p>
-                <button class="cancel-btn">Cancel</button>
-            </div>
-        </div> {% endcomment %}
-
 </html>
