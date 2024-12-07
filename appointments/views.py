@@ -149,7 +149,7 @@ def patient_reschedule_api(request):
             appointment.status = 'rejected'
             notification.notification_type = 'reschedule_rejected'
 
-        notification.created_at = now
+        notification.created_at = now()
         appointment.save()
         notification.save()
 
@@ -210,7 +210,6 @@ def patient_booking_api(request):
 @login_required
 def patient_cancel_api(request):
     if request.method == "POST":
-        action = request.GET.get('action')
         appointmentID = request.GET.get('appointment-id')
 
         appointment = get_object_or_404(Appointment, id=appointmentID)
@@ -283,7 +282,7 @@ def doctor_appointment_json_api(request):
 
     events = []
     for appointment in appointments:
-        if appointment.status == 'rejected': 
+        if appointment.status in ['rejected', 'rescheduled']: 
             continue
 
         local_start = localtime(appointment.appointment_date).replace(tzinfo=None)
@@ -323,11 +322,13 @@ def doctor_reschedule_api(request):
             if Notification.objects.filter(appointment=appointment).exists():
                 notification = Notification.objects.get(appointment=appointment)
                 appointment.appointment_date = resched_datetime
+                appointment.status = 'rescheduled'
                 appointment.save()
                 notification.appointment = appointment
                 notification.save()
             else:
                 appointment.appointment_date = resched_datetime
+                appointment.status = 'rescheduled'
                 appointment.save()
                 Notification.objects.create(
                     appointment = appointment,

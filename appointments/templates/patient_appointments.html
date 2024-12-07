@@ -57,6 +57,7 @@
                     <p>Appointment fee: $420.00</p>
                     {% if appointment.status == 'scheduled' or appointment.status == 'pending' %}
                         <form action="{% url 'patient cancel api' %}" method="POST">
+                            {% csrf_token %}
                             <button name="action" class="cancel-btn" appointment-id="{{ appointment.id }}">Cancel</button>
                         </form>
                     {% endif %}

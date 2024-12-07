@@ -48,6 +48,11 @@
                         <hr>
                         
                         <div id="user-notifications">
+                            {% if notification|length == 0 %}
+                                <div class="notificationRight">
+                                    <h1>Nothing to see here.</h1>
+                                </div>
+                            {% endif %}
                             {% for notification in notifications %}
                                 <div class="notificationItem">
                                     <div class="notificationDetails">
