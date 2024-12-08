@@ -227,7 +227,7 @@ def patient_booking_api(request):
 @login_required
 def patient_cancel_api(request):
     if request.method == "POST":
-        appointmentID = request.GET.get('appointment-id')
+        appointmentID = request.POST.get('appointment-id')
 
         appointment = get_object_or_404(Appointment, id=appointmentID)
         appointment.status = 'trash'
@@ -294,7 +294,10 @@ def doctor_home(request):
 @login_required
 def doctor_appointment_json_api(request):
     doctor = get_object_or_404(Doctor, user=request.user)
-    appointments = Appointment.objects.filter(doctor=doctor).order_by('appointment_date')
+    appointments = Appointment.objects.filter(
+        doctor=doctor,
+        status__in = ['pending', 'rescheduled', 'scheduled', 'completed']
+    ).order_by('appointment_date')
 
     events = []
     for appointment in appointments:
