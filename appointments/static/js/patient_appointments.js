@@ -58,8 +58,10 @@ filterButtons.forEach(button => {
       if (item.classList.contains(filterID)) {
         item.style.display = "block";
         isAppointmentEmpty = false;
-      } else if (filterID === 'all') {
+      } 
+      if (filterID === 'all' && appointmentList.length > 0) {
         item.style.display = "block";
+        isAppointmentEmpty = false;
       } 
     });
     displayEmptyMessage(isAppointmentEmpty);
@@ -69,7 +71,7 @@ filterButtons.forEach(button => {
 appointmentList.forEach(item => {
   appointmentList.forEach(item => item.style.display="none");
   appointmentList.forEach(item => {
-    if (item.classList.contains('scheduled')) {
+    if (item.classList.contains('pending')) {
       item.style.display = "block";
       isAppointmentEmpty = false;
     }

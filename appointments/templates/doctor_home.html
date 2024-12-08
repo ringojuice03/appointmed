@@ -133,9 +133,11 @@
                         }
 
                         dayView.onEventMove = function (args) {
-                            if (args.e.data.status !== "pending" || args.e.data.status !== "rescheduled") {
+                            if (args.e.data.status === "pending" || args.e.data.status === "rescheduled") {
+                            }
+                            else {
                                 args.preventDefault();
-                                alert("Only pending appointments can be rescheduled.");
+                                alert("Only pending or rescheduled appointments can be rescheduled.");
                                 return;
                             }
                         };
@@ -198,7 +200,9 @@
                         }
 
                         weekView.onEventMove = function (args) {
-                            if (args.e.data.status !== "pending" || args.e.data.status !== "rescheduled") {
+                            if (args.e.data.status === "pending" || args.e.data.status === "rescheduled") {
+                            }
+                            else {
                                 args.preventDefault();
                                 alert("Only pending or rescheduled appointments can be rescheduled.");
                                 return;
@@ -309,6 +313,9 @@
                         <hr>
                         
                         <div id="user-notifications">
+                            {% if notifications|length == 0 %}
+                                <h1>Nothing to see here.</h1>
+                            {% endif %}
                             {% for notification in notifications %}
                                 <div class="notificationItem">
                                     <div class="notificationDetails">
@@ -366,7 +373,7 @@
                             <i id="clinic-address">{Clinic Address}</i>
                             <p id="clinic-status">Status: <b>{Status}</b></p>
                             <!--add log out icon-->
-                            <button type="button" id="log-out-button">Log out</button>
+                            <button type="button" id="log-out-button" onclick="window.location.href={% url "logout" %}">Log out</button>
                             <p id="appointmed-2024">© AppointMed 2024</p>
                         </div>
                     </div>

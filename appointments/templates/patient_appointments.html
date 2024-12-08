@@ -27,8 +27,8 @@
     <main>
         <h1>Your appointments</h1>
         <div class="main-filters">
-            <button class="filter-button active" id="scheduled">Scheduled</button>
-            <button class="filter-button" id="pending">Pending</button>
+            <button class="filter-button active" id="pending">Pending</button>
+            <button class="filter-button" id="scheduled">Scheduled</button>
             <button class="filter-button" id="completed">Completed</button>
             <button class="filter-button" id="rejected">Rejected</button>
             <button class="filter-button" id="all">All</button>
@@ -49,6 +49,7 @@
                 <div class="appointment-summary">
                     <img src="path-to-doctor-image.jpg" alt="Dr. Jose Rizal">
                     <div class="appointment-info">
+                        
                         <h2>Dr. {{ appointment.doctor.user.first_name }} {{ appointment.doctor.user.last_name }}</h2>
                         <p>{{ appointment.doctor.clinic_address }}</p>
                     </div>
@@ -62,7 +63,7 @@
                     </div>
                 </div>
                 <div class="appointment-details">
-                    <p>Details: Lorem ipsum dolor sit amet...</p>
+                    <p>Details: {{ appointment.status }}</p>
                     <p>Appointment fee: $420.00</p>
                     {% if appointment.status == 'scheduled' or appointment.status == 'pending' %}
                         <form action="{% url 'patient cancel api' %}" method="POST">
