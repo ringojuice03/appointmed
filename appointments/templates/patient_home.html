@@ -27,7 +27,6 @@
             selectedDate = document.querySelector(".selected-date");
             selectedTime = document.querySelector(".selected-time");
         });
-
     </script>
 
     <div class="main">
@@ -35,7 +34,7 @@
             <!--insert proper logo nalang-->
             <div class="logo">AppointMed</div>
             <div class="menu">
-                <a href="Appointmed.html">Home</a>
+                <a href="{% url "patient home" %}">Home</a>
                 <a href="{% url "patient about" %}">About</a>
                 <a href="{% url "patient appointments" %}">Appointments</a>
 
@@ -48,6 +47,11 @@
                         <hr>
                         
                         <div id="user-notifications">
+                            {% if notifications|length == 0 %}
+                                <div class="notificationRight">
+                                    <h1>Nothing to see here.</h1>
+                                </div>
+                            {% endif %}
                             {% for notification in notifications %}
                                 <div class="notificationItem">
                                     <div class="notificationDetails">
@@ -121,7 +125,7 @@
                             <h1 id="patient-email">{Patient Email}</h1>
                             <i id="personal-address">{Personal Address}</i>
                             <!--add log out icon-->
-                            <button type="button" id="log-out-button">Log out</button>
+                            <button type="button" id="log-out-button" onclick="window.location.href={% url "logout" %}">Log out</button>
                             <p id="appointmed-2024">© AppointMed 2024</p>
                         </div>
                     </div>

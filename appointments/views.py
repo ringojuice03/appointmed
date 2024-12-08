@@ -95,7 +95,7 @@ def PatientHome(request):
         appointment__patient=patient,
         notification_type__in = ['accepted', 'rejected', 'rescheduled', 
                                  'reschedule_accepted', 'reschedule_rejected'],
-    )
+    ).order_by('-created_at')
 
     return render(request, 'patient_home.html', {
         'patient': patient, 
@@ -112,8 +112,12 @@ def PatientHome_DoctorDetails(request):
 @login_required
 def patient_appointment(request):
     patient = get_object_or_404(Patient, user=request.user)
-    appointments = Appointment.objects.filter(patient=patient).order_by('-appointment_date')
-    notifications = Notification.objects.filter(appointment__patient=patient)
+    appointments = Appointment.objects.filter(patient=patient).order_by('appointment_date')
+    notifications = Notification.objects.filter(
+        appointment__patient=patient,
+        notification_type__in = ['accepted', 'rejected', 'rescheduled', 
+                                 'reschedule_accepted', 'reschedule_rejected'],
+    ).order_by('-created_at')
 
     for appointment in appointments:
         appointment.appointment_end = appointment.appointment_date + timedelta(minutes=30)
@@ -126,7 +130,20 @@ def patient_appointment(request):
 
 @login_required
 def patient_about(request):
-    return render(request, 'patient_about.html')
+    patient = get_object_or_404(Patient, user=request.user)
+    doctors = Doctor.objects.all()
+
+    notifications = Notification.objects.filter(
+        appointment__patient=patient,
+        notification_type__in = ['accepted', 'rejected', 'rescheduled', 
+                                 'reschedule_accepted', 'reschedule_rejected'],
+    ).order_by('-created_at')
+
+    return render(request, 'patient_about.html', {
+        'patient': patient, 
+        'doctors': doctors,
+        'notifications': notifications,
+    })
 
 @login_required
 def patient_profile(request):
@@ -149,7 +166,7 @@ def patient_reschedule_api(request):
             appointment.status = 'rejected'
             notification.notification_type = 'reschedule_rejected'
 
-        notification.created_at = now
+        notification.created_at = now()
         appointment.save()
         notification.save()
 
@@ -172,7 +189,7 @@ def patient_appointment_json_api(request):
 
         events = []
         for appointment in appointments:
-            if appointment.status in ['scheduled', 'pending']: 
+            if appointment.status in ['scheduled', 'pending', 'rescheduled']: 
                 local_start = localtime(appointment.appointment_date).replace(tzinfo=None)
                 local_end = (local_start + timedelta(minutes=30)).replace(tzinfo=None)
 
@@ -210,8 +227,7 @@ def patient_booking_api(request):
 @login_required
 def patient_cancel_api(request):
     if request.method == "POST":
-        action = request.GET.get('action')
-        appointmentID = request.GET.get('appointment-id')
+        appointmentID = request.POST.get('appointment-id')
 
         appointment = get_object_or_404(Appointment, id=appointmentID)
         appointment.status = 'trash'
@@ -234,7 +250,6 @@ def doctor_home(request):
 
     doctor = get_object_or_404(Doctor, user=request.user)
     appointments = Appointment.objects.filter(doctor=doctor)
-
     
     for apt in appointments:
         if apt.appointment_date >= now(): continue
@@ -260,7 +275,7 @@ def doctor_home(request):
     notifications = Notification.objects.filter(
         appointment__doctor=doctor, 
         notification_type__in=['set', 'canceled', 'reschedule_accepted', 'reschedule_rejected']
-        ).order_by('-appointment__appointment_date')
+        ).order_by('-created_at')
 
     calendar_view = request.session.get('calendar_view', 'Week')
     request.session['calendar_view'] = ''
@@ -279,7 +294,10 @@ def doctor_home(request):
 @login_required
 def doctor_appointment_json_api(request):
     doctor = get_object_or_404(Doctor, user=request.user)
-    appointments = Appointment.objects.filter(doctor=doctor).order_by('appointment_date')
+    appointments = Appointment.objects.filter(
+        doctor=doctor,
+        status__in = ['pending', 'rescheduled', 'scheduled', 'completed']
+    ).order_by('appointment_date')
 
     events = []
     for appointment in appointments:
@@ -312,28 +330,29 @@ def doctor_reschedule_api(request):
             resched_datetime = dt.strptime(new_start, '%Y-%m-%dT%H:%M:%S')
             resched_datetime = make_aware(resched_datetime)
 
-            appointment = Appointment.objects.get(id=apt_id)
-
             if resched_datetime < now():
                 return JsonResponse({"success": False, "error": "You cannot reschedule an appointment to the past.", })
             
             if Appointment.objects.filter(appointment_date=new_start).exists():
                 return JsonResponse({"success": False, "error": "Only one appointment per slot is allowed."})
+            
+            appointment = Appointment.objects.get(id=apt_id)
+            appointment.appointment_date = resched_datetime
+            
+            notification = Notification.objects.get(appointment=appointment, notification_type='rescheduled')
 
-            if Notification.objects.filter(appointment=appointment).exists():
-                notification = Notification.objects.get(appointment=appointment)
-                appointment.appointment_date = resched_datetime
-                appointment.save()
+            if appointment.status == 'rescheduled':
                 notification.appointment = appointment
+                notification.created_at = now()
                 notification.save()
             else:
-                appointment.appointment_date = resched_datetime
-                appointment.save()
+                appointment.status = 'rescheduled'
                 Notification.objects.create(
                     appointment = appointment,
                     notification_type = 'rescheduled',
                 )
 
+            appointment.save()
             return JsonResponse({"success": True, "minjitime": (resched_datetime).isoformat()})
 
         except Appointment.DoesNotExist:
