@@ -30,9 +30,10 @@ class Appointment(models.Model):
                               choices=[
                                   ('scheduled', 'Scheduled'),
                                   ('pending', 'Pending'),
+                                  ('rescheduled', 'Rescheduled'),
                                   ('completed', 'Completed'),
                                   ('rejected', 'Rejected'),
-                                  ('trash', 'Trash'),
+                                  ('trash', 'Trash'),   # canceled apts.
                                 ],
                               null=False, blank=False)
     

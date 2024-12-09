@@ -28,7 +28,7 @@ expandButtons.forEach((button) => {
             this.classList.add('open');
             
             // Show the cancel button after expansion
-            if (status === 'pending') {
+            if (status === 'pending' || status === 'scheduled') {
               const cancelButton = appointment.querySelector('.cancel-btn');
               cancelButton.style.opacity = 1;
               cancelButton.style.pointerEvents = 'auto';
@@ -40,9 +40,13 @@ expandButtons.forEach((button) => {
 
 const filterButtons = document.querySelectorAll('.filter-button');
 const appointmentList = document.querySelectorAll('.appointment');
+const emptyMessage = document.querySelector('#empty-message');
+var isAppointmentEmpty = true;
+displayEmptyMessage(isAppointmentEmpty);
 
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
+    isAppointmentEmpty = true;
     filterButtons.forEach(btn => btn.classList.remove('active'));
     button.classList.add('active');
 
@@ -51,21 +55,37 @@ filterButtons.forEach(button => {
 
     appointmentList.forEach(item => item.style.display="none");
     appointmentList.forEach(item => {
-      if (filterID === 'all') {
+      if (item.classList.contains(filterID)) {
         item.style.display = "block";
-      } else if (item.classList.contains(filterID)) {
+        isAppointmentEmpty = false;
+      } 
+      if (filterID === 'all' && appointmentList.length > 0) {
         item.style.display = "block";
-      }
+        isAppointmentEmpty = false;
+      } 
     });
-
+    displayEmptyMessage(isAppointmentEmpty);
   }); 
 });
 
 appointmentList.forEach(item => {
   appointmentList.forEach(item => item.style.display="none");
   appointmentList.forEach(item => {
-    if (item.classList.contains('scheduled')) {
+    if (item.classList.contains('pending')) {
       item.style.display = "block";
+      isAppointmentEmpty = false;
     }
   });
+  
+  displayEmptyMessage(isAppointmentEmpty);
 });
+
+function displayEmptyMessage(isEmpty) {
+  if (isEmpty) {
+    emptyMessage.style.display = "block";
+    console.log("Empty");
+  } else {
+    emptyMessage.style.display = "none";
+    console.log("Not empty");
+  }
+}
