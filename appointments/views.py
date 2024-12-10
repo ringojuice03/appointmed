@@ -324,6 +324,7 @@ def doctor_reschedule_api(request):
         try:
             data = json.loads(request.body)
             apt_id = data.get('id')
+            apt_status = data.get('status')
             new_start = data.get('newStart')
             
             # dt is origin: from datetime import timedelta, datetime as dt
@@ -337,22 +338,23 @@ def doctor_reschedule_api(request):
                 return JsonResponse({"success": False, "error": "Only one appointment per slot is allowed."})
             
             appointment = Appointment.objects.get(id=apt_id)
-            appointment.appointment_date = resched_datetime
             
-            notification = Notification.objects.get(appointment=appointment, notification_type='rescheduled')
-
             if appointment.status == 'rescheduled':
+                notification = get_object_or_404(Notification, appointment=appointment, notification_type='rescheduled')
+                appointment.appointment_date = resched_datetime
                 notification.appointment = appointment
                 notification.created_at = now()
                 notification.save()
             else:
                 appointment.status = 'rescheduled'
+                appointment.appointment_date = resched_datetime
                 Notification.objects.create(
                     appointment = appointment,
                     notification_type = 'rescheduled',
                 )
-
+                 
             appointment.save()
+
             return JsonResponse({"success": True, "minjitime": (resched_datetime).isoformat()})
 
         except Appointment.DoesNotExist:

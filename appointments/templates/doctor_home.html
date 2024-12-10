@@ -214,6 +214,7 @@
                                 id: args.e.data.id,
                                 newStart: args.newStart.toString(),
                                 newEnd: args.newEnd.toString(),
+                                status: args.e.data.status,
                             };
 
                             fetch("{% url 'doctor reschedule api' %}", {
