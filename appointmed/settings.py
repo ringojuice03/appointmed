@@ -140,7 +140,7 @@ STATICFILES_DIRS = [
     "appointments/static"
 ]
 
-MEDIA_URL = '/media/'
+MEDIA_URL = os.environ.get("MEDIA_URL")
 MEDIA_ROOT = BASE_DIR / 'media/'
 
 AUTHENTICATION_BACKENDS = [
