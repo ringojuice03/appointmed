@@ -21,6 +21,7 @@ const medicalLicenseButton = document.getElementById("medical-license-button");
 const medicalLicenseField = document.getElementById("medical-license-field");
 const fileUpload = document.getElementById("file-upload");
 const changeButton = document.getElementById("change-button");
+const attachFileIcon = document.getElementById("attach-file-icon");
 
 medicalLicenseField.addEventListener('change', function()
 {
@@ -33,4 +34,7 @@ function showChangeButton()
     changeButton.classList.remove("hideMenu");
     medicalLicenseButton.style.cursor = "default";
     medicalLicenseButton.style.fontWeight = "500";
+
+    attachFileIcon.src = "/static/images/file_attached_icon.png";
+    attachFileIcon.style.backgroundColor = "#003249";
 }
