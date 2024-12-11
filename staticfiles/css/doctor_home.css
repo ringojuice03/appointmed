@@ -1,0 +1,788 @@
+/*----------page css----------*/
+
+*
+{
+    font-family: "Montserrat", sans-serif;
+    
+    /*
+    border-style: dashed;
+    border-color: gray;
+    */
+}
+
+body
+{
+    padding: 40px 0px 40px 0px;
+}
+
+.hideMenu
+{
+    visibility: hidden;
+}
+
+#header-container
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 1748px;
+    height: 50px;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+#header-message
+{
+    font-size: 32px;
+    font-weight: 600;
+    color: #003249;
+}
+
+#icon-bar
+{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    width: auto;
+    height: 50px;
+}
+
+#date-n-time, .navbarMenus
+{
+    margin-left: 30px;
+}
+
+#user-menu-button, #notification-button
+{
+    margin: 0;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: solid 1px #003249;
+    border-radius: 100px;
+    background-color: transparent;
+}
+
+#date-n-time
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50px;
+
+    font-size: 20px;
+    font-weight: 600;
+    text-align: right;
+}
+
+#date-n-time > p
+{
+    margin: 0;
+    color: #003249;
+}
+
+.navbarMenus
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+/*user menu*/
+#notification-menu, #user-menu, #user-profile, #user-notifications
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#notification-menu
+{
+    width: 420px;
+    height: 545px;
+    border-style: none;
+    border-radius: 25px;
+    background-color: #21769c;
+
+    position: absolute;
+    margin-top: 70px;
+    z-index: 1;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#user-menu
+{
+    width: 420px;
+    height: 545px;
+    border-style: none;
+    border-radius: 25px;
+    background-color: #21769c;
+
+    position: absolute;
+    margin-top: 70px;
+    z-index: 1;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#user-profile
+{
+    margin-top: 20px;
+}
+
+#user-menu-logo
+{
+    margin: 20px 0px 0px 0px;
+    font-size: 32px;
+    font-weight: 900;
+    text-align: center;
+    color: #fff;
+}
+
+#notification-menu-label
+{
+    margin: 20px 0px 10px 35px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: left;
+    color: #fff;
+}
+
+#notification-menu > hr
+{
+    margin: 5px 35px;
+    border: 1px solid #fff;
+}
+
+/*profile menu*/
+#user-picture
+{
+    cursor: pointer;
+    width: 200px;
+    height: 200px;
+    margin: 0px auto 0px auto;
+    border: solid 1px #fff;
+    border-radius: 100%;
+}
+
+#user-name
+{
+    margin: 10px 0px 0px 0px;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    color: #fff;
+}
+
+#doctor-specialty
+{
+    margin: 10px 0px 0px 0px;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+    color: #fff;
+}
+
+#clinic-address
+{
+    margin: 10px 0px 0px 0px;
+    font-size: 15px;
+    font-weight: 300;
+    text-align: center;
+    color: #fff;
+}
+
+#log-out-button
+{
+    cursor: pointer;
+    width: 150px;
+    height: 66px;
+    margin: 18px auto 0px auto;
+    border-style: none;
+    border-radius: 90px;
+    background-color: #fff;
+
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #003249;
+}
+
+#clinic-status
+{
+    margin: 10px 0px 0px 0px;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+}
+
+#appointmed-2024
+{
+    margin: 20px 0px 0px 0px;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    color: #fff;
+}
+
+/*notifications menu*/
+#user-notifications
+{
+    height: 455px;
+    overflow: auto;
+}
+
+.notificationItem
+{
+    width: 350px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px auto;
+}
+
+.notificationDetails
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0px auto;
+    padding: 10px 15px;
+
+    border-style: none;
+    border-radius: 10px;
+}
+
+.notificationDetails:hover
+{
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.notificationDetails:hover *
+{
+    color: #003249;
+}
+
+.notificationLeft
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.notificationPicture
+{
+    width: 50px;
+    height: 50px;
+    border: solid 1px #fff;
+    border-radius: 100%;
+}
+
+.notificationRight
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 15px;
+}
+
+.notificationRight > h1
+{
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    color: #fff;
+}
+
+.notificationRight > p
+{
+    margin: 5px 0px 0px 0px;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: left;
+    color: #fff;
+}
+
+.notificationItem > hr
+{
+    margin: 5px 0px;
+    border: 1px solid #fff;
+}
+
+/*page body*/
+#body-container
+{
+    display: flex;
+    flex-direction: row;
+    width: 1748px;
+    margin: auto;
+}
+
+#calendar-container
+{
+    width: 1030px;
+}
+
+#calendar-legends
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#calendar-legends > p
+{
+    margin: 12px 53px 0px 0px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    color: #003249;
+}
+
+#calendar-legends > div
+{
+    width: 23px;
+    height: 23px;
+    margin: 10px 12px 0px 0px;   
+    box-sizing: border-box;
+}
+
+#calendar-legends > #scheduled-icon
+{
+    background-color: #2fea004d;
+}
+
+#calendar-legends > #pending-icon
+{
+    background-color: #faff004d;
+}
+
+#calendar-legends > #rejected-icon
+{
+    background-color: #ff00004d;
+}
+
+#calendar-legends > #completed-icon
+{
+    background-color: transparent;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #003249;
+}
+
+#appointments-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: flex-start;
+    width: 519px;
+    margin: 50px 0px 0px 100px;
+}
+
+#appointments-container > h1
+{
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+    margin-bottom: 32px;
+    color: #003249;
+}
+
+#appointments-filters
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+}
+
+#pending-filter, #scheduled-filter, #rejected-filter
+{
+    cursor: pointer;
+    margin-right: 10px;
+    width: 140px;
+    height: 30px;
+    border-style: solid;
+    border-radius: 90px;
+    border-color: #003249;
+    background-color: #003249;
+
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    color: #fff;
+}
+
+.appointmentsFilterUnselected
+{
+    background-color: #fff !important;
+    color: #003249 !important;
+}
+
+#appointments-list
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-height: 490px;
+    padding-right: 5px;
+
+    overflow: auto;
+}
+
+.appointmentItem
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.appointmentDetails
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 56px;
+    margin: 0;
+}
+
+.appointmentLeft
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: auto;
+    height: 53px;
+}
+
+.appointmentLeft > h1
+{
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: 10px;
+    color: #003249;
+}
+
+.appointmentLeft > p
+{
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+    color: #003249;
+}
+
+.appointmentRight
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 158px;
+    height: 30px;
+}
+
+.appointmentItem > hr
+{
+    margin: 20px 0px;
+    border: 1px solid #002a3d4d;
+}
+
+.acceptButton, .rejectButton
+{
+    width: 73.5px;
+    height: 30px;
+    border-style: none;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    color: #fff;
+}
+
+.acceptButton:hover, .rejectButton:hover
+{
+    cursor: pointer;
+}
+
+.acceptButton
+{
+    background-color: #00b31d;
+}
+
+.rejectButton
+{
+    background-color: #FF0000;
+}
+
+#slots-counter
+{
+    text-align: left;
+    font-size: 16;
+    font-weight: 500;
+    margin: 0;
+    color: #003249;
+}
+
+#slots-counter > b
+{
+    font-weight: 600;
+}
+
+/*----------calendar css----------*/
+
+/*format indicator*/
+#buttonLabel
+{
+    cursor: pointer;
+    margin: 0;
+    padding-left: 18px;
+    width: 150px;
+    background-color: #003249;
+    border-radius: 10.11px 10.11px 0px 0px;
+    border: transparent;
+    height: 50;
+
+    font-size: 18.38px;
+    font-weight: 700;
+    text-align: left;
+    color: #fff;
+}
+
+/*format buttons container*/
+.buttons
+{
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    margin-bottom: -150px;
+    background-color: transparent;
+    border-radius: 10.11px 10.11px 10.11px 10.11px;
+    box-shadow: 0px 0px 10px#aaaaaa;
+}
+
+/*format buttons*/
+#buttonMonth, #buttonWeek, #buttonDay
+{
+    cursor: pointer;
+    padding-left: 18px;
+    background-color: #fff;
+    border: transparent;
+    border-bottom: 1px solid #e7e7e7;
+    height: 50px;
+
+    font-size: 18.38px;
+    font-weight: 500;
+    text-align: left;
+    color: #003249;
+}
+
+#buttonMonth
+{
+    border-bottom: transparent;
+    border-radius: 0px 0px 10.11px 10.11px;
+}
+
+#buttonMonth:hover, #buttonWeek:hover, #buttonDay:hover
+{
+    background-color: #003249;
+    color: #fff;
+}
+
+/*month calendar*/
+div.month_default_main
+{
+    border-color: transparent;
+    border-left: 1px solid #e0e0e0;
+}
+
+div.month_default_header_inner
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-right: 15px;
+    border: transparent;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    background-color: #fff;
+    font-size: 18px;
+    font-weight: 800;
+    text-align: right;
+    color: #002a3d;
+}
+
+div.month_default_cell_inner
+{
+    background-color: #f3f3f3;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: right;
+    color: #002a3d;
+}
+
+div.month_default_cell_header
+{
+    padding: 5px;
+}
+
+div.month_default_cell_business
+{
+    background-color: #fff;
+}
+
+div.month_default_event_inner
+{
+    padding: 5px 0px 5px 10px;
+    border: 1px solid #002a3d;
+    border-radius: 0px 100px 100px 0px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+div.month_default_shadow
+{
+    border-top: 1px solid #337af7;
+    background-color: #e6f4ff;
+    opacity: 0.5;
+}
+
+/*week calendar and day calendar css*/
+div.calendar_default_main
+{
+    border-color: transparent;
+    border-top: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+}
+
+div.calendar_default_corner_inner
+{
+    background-color: transparent;
+    border-color: #e0e0e0;
+}
+
+div.calendar_default_cornerright_inner
+{
+    background-color: transparent;
+    border-bottom: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+}
+
+div.calendar_default_colheader_inner
+{
+    border-color: #e0e0e0;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #fff;
+    color: #002a3d;
+}
+
+div.calendar_default_rowheader_inner, span.calendar_default_rowheader_minutes
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-color: #e0e0e0;
+    background-color: #fff;
+}
+
+div.calendar_default_rowheader_inner > div
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    color: #002a3d;
+}
+
+div.calendar_default_cell_inner
+{
+    background-color: #f3f3f3;
+}
+
+div.calendar_default_cell_business
+{
+    background-color: #fff;
+}
+
+div.calendar_default_event_inner
+{
+    padding: 5px 0px 5px 10px;
+    border: 1px solid #002a3d;
+    border-radius: 0px 100px 100px 0px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+div.calendar_default_shadow_inner
+{
+    border-top: 1px solid #337af7;
+    background-color: #e6f4ff;
+    opacity: 0.5;
+}
+
+/*
+.buttons button.selected {
+    background-color: #e5e5e5;
+    border-color: #cccccc;
+}
+
+.buttons button:active {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+*/
+
+/* context menu icons */
+/*
+.icon:before
+{
+    position: absolute;
+    margin-left: 0px;
+    margin-top: 3px;
+    width: 14px;
+    height: 14px;
+    content: '';
+}
+*/
+
+/*
+.icon-blue:before { background-color: #3d85c6; }
+.icon-green:before { background-color: #6aa84f; }
+.icon-orange:before { background-color: #e69138; }
+.icon-red:before { background-color: #cc4125; }
+
+body .calendar_default_event_inner
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    border-radius: 0px 100px 100px 0px;
+}
+
+body .month_default_event_inner
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    border-radius: 0px 100px 100px 0px;
+}
+*/
+
+/* appointments in calendar */
+/*
+.event-scheduled { background-color: green; }
+.event-canceled { background-color: red; }
+.event-pending { background-color: yellow; }
+.event-completed { background-color: transparent; }
+*/

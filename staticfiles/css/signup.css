@@ -1,0 +1,287 @@
+*
+{
+    font-family: "Montserrat", sans-serif;
+    /*
+    border-style: dashed;
+    border-color: gray;
+    */
+}
+
+body
+{
+    background-color: rgba(33, 118, 156, 0.025);
+}
+
+#menu-container, .menu
+{
+    border-radius: 25px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+#menu-container
+{
+    width: 1024px;
+    height: 768px;
+    box-shadow: -4px 4px 4px #aaaaaa;
+}
+
+.hideMenu
+{
+    display: none;
+}
+
+/*sign up form css*/
+.signUpFormMenu
+{   
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+    /*left side*/
+    .leftLogInRedirect
+    {
+        width: 384px;
+        height: auto;
+        background-color: 21769c;
+        border-radius: 25px 0px 0px 25px;
+        padding: 25;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    #sign-up-home-button
+    {
+        cursor: pointer;
+        width: 161px;
+        height: 29px;
+
+        /*change*/
+        font-size: 24px;
+        font-weight: 900;
+        color: #fff;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        border: none;
+        overflow: hidden;
+        outline: none;
+        padding: 0px;
+    }
+    
+    .logInMessage
+    {
+        margin: 256px auto 0px auto;
+        font-size: 32;
+        font-weight: 700;
+        text-align: center;
+        color: #fff;
+    }
+
+    .logInButton
+    {
+        cursor: pointer;
+        margin: 30px auto 0px auto;
+        width: 150px;
+        height: 50px;
+        border-style: none;
+        border-radius: 90px;
+        background-color: #fff;
+
+        font-size: 16px;
+        font-weight: 500;
+        color: #003249;
+    }
+
+    /*right side*/
+    .rightSignUpForm
+    {
+        width: 640px;
+        height: auto;
+        background-color: ffffff;
+        border-radius: 0px 25px 25px 0px;
+        padding: 92.5px 25px 90px 25px;
+    
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        overflow: auto;
+    }
+
+    .signUpMessage
+    {
+        margin: 0px auto 0px auto;
+        font-size: 32px;
+        font-weight: 700;
+        text-align: center;
+        color: #003249;
+    }
+
+    .signUpFields
+    {
+        margin: 30px auto 0px auto;
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .fieldClusterX
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    #name-field-cluster
+    {
+        margin-top: 0;
+    }
+
+    .doubleFields
+    {
+        width: 195px;
+        height: 45px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-style: solid;
+        border-width: 1.5px;
+        border-radius: 10px;
+        border-color: #003249;
+
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .singleFields
+    {
+        margin-top: 10px;
+        width: 400px;
+        height: 45px;
+        padding-left: 20px;
+        border-style: solid;
+        border-width: 1.5px;
+        border-radius: 10px;
+        border-color: #003249;
+
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    label
+    {
+        padding-bottom: 6px;
+        font-size: 16px;
+        font-weight: 500;
+        text-align: left;
+        color: #003249;
+    }
+
+    .fieldClusterY
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    /*
+    .dropDownMenu
+    {
+        *code*
+    }
+    */
+
+    #role-check-cluster
+    {
+        margin-left: auto;
+        margin-right: auto;
+        justify-content: flex-start;
+    }
+
+    #role-check-label
+    {
+        padding-top: 3px;
+        padding-bottom: 0;
+    }
+
+    #role-checkbox
+    {
+        cursor: pointer;
+        margin-right: 10px;
+        width: 20px;
+        height: 20px;
+        border-style: solid;
+        border-width: 1.5px;
+        border-radius: 90px;
+        appearance: none;
+        outline: none;
+        background-color: #fff;
+    }
+
+    #role-checkbox:checked
+    {
+        background-color: #003249;
+    }
+
+    #medical-license-field-cluster > .fieldClusterX
+    {
+        justify-content: flex-start;
+        width: 195px;
+        margin-top: 0px;
+
+        overflow: hidden;
+    }
+
+    #medical-license-button
+    {
+        padding-bottom: 0px;
+        margin-left: 10px;
+        border-style: none;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        color: #003249;
+
+        text-overflow: ellipsis;
+        max-width: 165px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    #medical-license-field
+    {
+        display: none;
+    }
+
+    #change-button
+    {
+        padding-bottom: 0px;
+        margin-left: 30px;
+        border-style: none;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        color: #003249;
+    }
+
+    #sign-up-button
+    {
+        cursor: pointer;
+        margin: 30px auto 0px auto;
+        width: 150px;
+        height: 50px;
+        border-style: none;
+        border-radius: 90px;
+        background-color: #003249;
+
+        font-size: 16px;
+        font-weight: 500;
+        color: #fff;
+    }
