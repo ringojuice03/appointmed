@@ -1,107 +1,442 @@
 * {
-  margin: 0;
-  box-sizing: border-box;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+
+    /*
+    border: 1px solid grey;
+    */
 }
 
 body {
-  height: 95vh;
-  background-color: white;
-  font-family: sans-serif;
-  text-align: center;
-  color: white;
-  font-size: 24px;
-  display: flex;
-  flex-direction: row; 
+    height: 95vh;
+    background-color: white;
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    display: flex;
+    flex-direction: row; /* Align content horizontally */
+}
+
+.hideMenu
+{
+    visibility: hidden;
 }
 
 
-header {
-  background: white;
-  z-index: 1; 
-  align-items: center;
-}
+/*----------HEADER----------*/
+/*header {
+    background: white;
+    padding: 3em 0 1em 0;
+    top: 0;
+    left: 20%; /* Leave space for the .left section 
+    width: 80%; /* Header takes the remaining width 
+    z-index: 1; /* Ensure it appears above other elements 
+    align-items: center;
+}*/
 
 .navbar {
-  width: 100%;
-  height: 60px;
+  grid-row: 1/2;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  padding: 0px 55px;
+  box-sizing: border-box;
   background-color: #FFFFFF;
   color:#003249;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 41px 400px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  box-sizing: border-box;
-  margin-left: 250px;
 }
 
 .navbar .logo {
-  font-family: Helvetica;
-  font-size: 20px;
+  font-size: 32px;
+  font-weight: 900;
+  text-align: left;
   color: #003249;
-  position: absolute; 
-  left: 1px; 
-  top: 50%; 
-  transform: translateY(-50%); 
 }
 
 .navbar .menu { 
   display: flex;
-  font-family: Helvetica;
-  font: bold;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
   color: #003249;
-  margin-left: auto;
 }
 
-.navbar .menu a {
+.menu a {
+  margin-left: 40px;
+  text-decoration: none; /* Remove default underline */
+  position: relative; /* Required for the pseudo-element */
+  font-size: 32px;
+  font-weight: 600;
+  text-align: center;
   color: #003249;
-  font-family: Helvetica;
-  text-decoration: none; 
-  padding: 10px;
-  margin-left: 10px;
-  position: relative; 
-  transition: color 0.3s ease; 
+  transition: color 0.3s ease; /* Smooth color transition */
 }
 
-.navbar .menu a:hover {
-  color: #21769C; 
+.menu a:hover {
+  color: #21769C; /* Change text color on hover */
 }
 
-.navbar .menu a:hover::after {
-  width: 100%; 
+.menu a:hover::after {
+  width: 100%; /* Expand the underline to full width */
 }
 
+/*----------user and notification menu css----------*/
 
+/*user and notification buttons*/
+#user-menu-button
+{
+  margin-left: 20px;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border: solid 1px #003249;
+  border-radius: 100px;
+  background-color: transparent;
+}
+
+#notification-button
+{
+  cursor: pointer;
+}
+
+.navbarMenus
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+/*user and notif menu*/
+#notification-menu, #user-menu, #user-profile, #user-notifications
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#notification-menu
+{
+  width: 420px;
+  height: 545px;
+  border-style: none;
+  border-radius: 25px;
+  background-color: #21769c;
+
+  position: absolute;
+  margin-top: 64.5px;
+  z-index: 1;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#user-menu
+{
+  width: 420px;
+  height: 520px;
+  border-style: none;
+  border-radius: 25px;
+  background-color: #21769c;
+
+  position: absolute;
+  margin-top: 70px;
+  z-index: 1;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#user-profile
+{
+  margin-top: 20px;
+}
+
+#user-menu-logo
+{
+  margin: 20px 0px 0px 0px;
+  font-size: 32px;
+  font-weight: 900;
+  text-align: center;
+  color: #fff;
+}
+
+#notification-menu-label
+{
+  margin: 20px 0px 10px 35px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: left;
+  color: #fff;
+}
+
+#notification-menu > hr
+{
+  margin: 5px 35px;
+  border: 1px solid #fff;
+}
+
+/*profile menu*/
+#user-picture
+{
+  cursor: pointer;
+  width: 200px;
+  height: 200px;
+  margin: 0px auto 0px auto;
+  border: solid 1px #fff;
+  border-radius: 100%;
+}
+
+#user-name
+{
+  margin: 10px 0px 0px 0px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+}
+
+#patient-email
+{
+  margin: 10px 0px 0px 0px;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  color: #fff;
+}
+
+#personal-address
+{
+  margin: 10px 0px 0px 0px;
+  font-size: 15px;
+  font-weight: 300;
+  text-align: center;
+  color: #fff;
+}
+
+#log-out-button
+{
+  cursor: pointer;
+  width: 150px;
+  height: 66px;
+  margin: 18px auto 0px auto;
+  border-style: none;
+  border-radius: 90px;
+  background-color: #fff;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #003249;
+}
+
+#appointmed-2024
+{
+  margin: 20px 0px 0px 0px;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  color: #fff;
+}
+
+/*notifications menu*/
+#user-notifications
+{
+  height: 455px;
+  overflow: auto;
+}
+
+.notificationItem
+{
+  width: 350px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0px auto;
+}
+
+.notificationDetails
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0px auto;
+  padding: 10px 15px;
+
+  border-style: none;
+  border-radius: 10px;
+}
+
+.notificationDetails:hover
+{
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.notificationDetails:hover *
+{
+  color: #003249;
+}
+
+.notificationLeft
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.notificationPicture
+{
+  width: 50px;
+  height: 50px;
+  border: solid 1px #fff;
+  border-radius: 100%;
+}
+
+.notificationRight
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 15px;
+}
+
+.notificationRight > h1
+{
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+  color: #fff;
+}
+
+.notificationRight > p
+{
+  margin: 5px 0px 0px 0px;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: left;
+  color: #fff;
+}
+
+.notificationItem > hr
+{
+  margin: 5px 0px;
+  border: 1px solid #fff;
+}
+
+/*empty notifs*/
+#empty-notification
+{
+  width: 420px;
+  height: 455px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#empty-notification h1
+{
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  color: #fff;
+}
+
+/*accept or reject notif*/
+.notificationRight > form
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 10px 0px 0px 0px;
+}
+
+.acceptButton, .rejectButton
+{
+  width: 73.5px;
+  height: 30px;
+  border-style: none;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  color: #fff;
+}
+
+.acceptButton:hover, .rejectButton:hover
+{
+  cursor: pointer;
+}
+
+.acceptButton
+{
+  background-color: #00b31d;
+}
+
+.rejectButton
+{
+  background-color: #FF0000;
+}
+
+.notificationRight > .note
+{
+  margin: 10px 0px 5px 0px;
+  font-size: 13px;
+}
+
+/*----------MAIN----------*/
+
+/*container of whole page*/
+.main
+{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    margin: 0;
+    display: grid;
+    grid-template-rows: 92.5px 1fr;
+}
+
+/*container of main content*/
 main {
-  margin-top: 30px; 
-  padding: 20px;
-  width: 800px; 
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #fff; 
+    grid-row: 2/3;
+    /*padding: 27.5px 55px; /* Adjust padding */
+    /*background-color: white;
+    overflow-y: auto;*/
+    margin-top: 30px; 
+    padding: 20px;
+    width: 800px; 
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff; 
 }
-
 
 main h1 {
-  font-size: 1.5rem;
+  font-size: 32px;
+  font-weight: 700;
   text-align: left;
   margin-bottom: 20px;
   color: #003249; 
 }
 
-
 .main-filters {
   display: flex;
   justify-content: start;
-  gap: 20px;
+  gap: 25px;
   margin-bottom: 20px;
 }
 
 .main-filters button {
-  padding: 10px 20px;
-  font-size: 0.9rem;
+  width: auto;
+  height: 30px;
+  padding: 0px 20px;
+  font-size: 16px;
+  font-weight: 500;
   border: 1px solid #003249;
   border-radius: 20px;
   background-color: white;
@@ -125,6 +460,13 @@ main h1 {
   position: relative;
 }
 
+.emptyAppointments
+{
+  font-size: 20px;
+  font-weight: 500;
+  text-align: left;
+}
+
 
 .appointment-details {
   display: flex;
@@ -142,7 +484,7 @@ main h1 {
 
 .appointment.open .appointment-details {
   max-height: 300px; 
-  padding-top: 15px; 
+  padding-top: 20px; 
   color: white; 
 }
 
@@ -167,8 +509,8 @@ main h1 {
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  margin-right: 15px;
-  border: solid black 1px;
+  margin-right: 20px;
+  border: solid #003249 1px;
 }
 
 
@@ -178,14 +520,16 @@ main h1 {
 }
 
 .appointment-info h2 {
-  font-size: 1.1rem;
+  font-size: 20px;
+  font-weight: 700;
   color: #003249;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
 }
 
 .appointment-info p {
-  font-size: 0.9rem;
-  color: #555;
+  font-size: 16px;
+  font-weight: 500;
+  color: #003249;
 }
 
 
@@ -194,7 +538,7 @@ main h1 {
   flex-direction: row; 
   align-items: center; 
   justify-content: flex-end; 
-  gap: 10px; 
+  gap: 20px; 
 }
 
 .appointment-time .date-time {
@@ -203,12 +547,27 @@ main h1 {
   align-items: flex-end; 
 }
 
-.appointment-time p {
+.date-time
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+}
+
+.date {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 20px;
+  font-weight: 500;
   color: #003249; 
 }
 
+.time {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #003249; 
+}
 
 .expand-btn {
   border: none;
@@ -223,13 +582,15 @@ main h1 {
   transform: rotate(180deg); 
 }
 
-
 .appointment-details {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  /*gap: 10px;*/
   max-height: 0; 
   overflow: hidden; 
+  padding-left: 70px;
+  padding-right: 45px;
   padding-top: 0; 
   transition: max-height 0.3s ease, padding-top 0.3s ease;
   color: #21769C; 
@@ -237,6 +598,20 @@ main h1 {
   text-align: left;
 }
 
+.detailsLeft
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.detailsRight
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
 
 .appointment.open {
   background-color: #21769C; 
@@ -249,43 +624,66 @@ main h1 {
   color: white; 
 }
 
-
 .appointment-summary {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-
 .appointment-info h2 {
-  font-size: 1.1rem;
-  color: white; 
-  margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 7px;
 }
 
 .appointment-info p {
-  font-size: 0.9rem;
-  color: #e0e0e0; 
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
 }
-
 
 .appointment-time {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: row; 
+  align-items: center; 
+  justify-content: flex-end; 
+  gap: 20px; 
 }
 
-.appointment-time p {
-  font-size: 0.9rem;
-  color: white;
+.appointment-time .date-time {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-end; 
 }
 
+.date-time
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+}
+
+.date {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff; 
+}
+
+.time {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff; 
+}
 
 .expand-btn {
   border: none;
   background: none;
   color: white; 
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -294,11 +692,19 @@ main h1 {
   transform: rotate(180deg); 
 }
 
-
 .appointment-details p {
   margin: 0;
   color: white;
-  font-size: 0.9rem;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.appointment-details b
+{
+  font-size: 16px;
+  font-weight: 700;
+  text-align: left;
+  color: #fff;
 }
 
 .appointment-details strong {
@@ -306,22 +712,23 @@ main h1 {
 }
 
 .appointment-details .cancel-btn {
-  align-self: flex-start;
-  background-color: red;
+  /*align-self: flex-start;*/
+  width: 73.5px;
+  height: 30px;
+  background-color: #ff0000;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 0.9rem;
+  padding: auto 10px;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-left: 600px;
 }
 
 .appointment-details .cancel-btn:hover {
   background-color: darkred;
 }
-
 
 .appointment-details p {
   margin: 0;
