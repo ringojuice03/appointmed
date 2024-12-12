@@ -54,7 +54,8 @@ def signup(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         is_doctor = (request.POST.get('role') == 'doctor')
-
+        print(request.POST.get('address'))
+        
         if is_doctor:
             profile_form = DoctorForm(request.POST, request.FILES)
         else:

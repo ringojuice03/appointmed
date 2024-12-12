@@ -94,6 +94,7 @@ DATABASES = {
     }
 }
 
+# database_url = "postgresql://appointmed_postgresql_user:9sUCKYCXkrSKYuVuE9y13zCZfBhsuxTB@dpg-ctci6u2j1k6c73fgis50-a.oregon-postgres.render.com/appointmed_postgresql"
 database_url = os.environ.get("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
 DATABASES['default'] = dj_database_url.parse(database_url)
 
