@@ -16,51 +16,380 @@
     align-items: center;
 }
 
+.hideMenu
+{
+    visibility: hidden;
+}
+
+/*----------HEADER----------*/
+/*header {
+    background: white;
+    padding: 3em 0 1em 0;
+    top: 0;
+    left: 20%; /* Leave space for the .left section 
+    width: 80%; /* Header takes the remaining width 
+    z-index: 1; /* Ensure it appears above other elements 
+    align-items: center;
+}*/
+
 .navbar {
-    width: 100%;
-    height: 60px;
+    grid-column: 2/3;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    padding: 0px 55px;
+    box-sizing: border-box;
     background-color: #FFFFFF;
     color:#003249;
+}
+
+.navbar .logo {
+    font-size: 32px;
+    font-weight: 900;
+    text-align: left;
+    color: #003249;
+}
+
+.navbar .menu { 
     display: flex;
+    flex-direction: row;
+    justify-content: right;
     align-items: center;
-    justify-content: space-between;
-    padding: 41px 400px;
-    /*position: fixed;*/
-    top: 0;
-    left: 250px;
-    box-sizing: border-box;
-}
-
-.navbar .brand {
-    font-family: Helvetica;
-    font-size: 20px;
     color: #003249;
 }
 
-.navbar .menu {
+.menu a {
+    margin-left: 40px;
+    text-decoration: none; /* Remove default underline */
+    position: relative; /* Required for the pseudo-element */
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    color: #003249;
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.menu a:hover {
+    color: #21769C; /* Change text color on hover */
+}
+
+.menu a:hover::after {
+    width: 100%; /* Expand the underline to full width */
+}
+
+/*----------user and notification menu css----------*/
+
+/*user and notification buttons*/
+#user-menu-button
+{
+    margin-left: 20px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: solid 1px #003249;
+    border-radius: 100px;
+    background-color: transparent;
+}
+
+#notification-button
+{
+    cursor: pointer;
+}
+
+.navbarMenus
+{
     display: flex;
-    font-family: Helvetica;
-    font: bold;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+/*user and notif menu*/
+#notification-menu, #user-menu, #user-profile, #user-notifications
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#notification-menu
+{
+    width: 420px;
+    height: 545px;
+    border-style: none;
+    border-radius: 25px;
+    background-color: #21769c;
+
+    position: absolute;
+    margin-top: 64.5px;
+    z-index: 1;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#user-menu
+{
+    width: 420px;
+    height: 520px;
+    border-style: none;
+    border-radius: 25px;
+    background-color: #21769c;
+
+    position: absolute;
+    margin-top: 70px;
+    z-index: 1;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#user-profile
+{
+    margin-top: 20px;
+}
+
+#user-menu-logo
+{
+    margin: 20px 0px 0px 0px;
+    font-size: 32px;
+    font-weight: 900;
+    text-align: center;
+    color: #fff;
+}
+
+#notification-menu-label
+{
+    margin: 20px 0px 10px 35px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: left;
+    color: #fff;
+}
+
+#notification-menu > hr
+{
+    margin: 5px 35px;
+    border: 1px solid #fff;
+}
+
+/*profile menu*/
+#user-picture
+{
+    cursor: pointer;
+    width: 200px;
+    height: 200px;
+    margin: 0px auto 0px auto;
+    border: solid 1px #fff;
+    border-radius: 100%;
+}
+
+#user-name
+{
+    margin: 10px 0px 0px 0px;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    color: #fff;
+}
+
+#patient-email
+{
+    margin: 10px 0px 0px 0px;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+    color: #fff;
+}
+
+#personal-address
+{
+    margin: 10px 0px 0px 0px;
+    font-size: 15px;
+    font-weight: 300;
+    text-align: center;
+    color: #fff;
+}
+
+#log-out-button
+{
+    cursor: pointer;
+    width: 150px;
+    height: 66px;
+    margin: 18px auto 0px auto;
+    border-style: none;
+    border-radius: 90px;
+    background-color: #fff;
+
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
     color: #003249;
 }
 
-.navbar .menu a {
-    color:#003249;
-    font-family: Helvetica;
-    text-decoration: none;
-    padding: 10px;
-    margin-left: 10px;
-    transition: background 0.3s;
+#appointmed-2024
+{
+    margin: 20px 0px 0px 0px;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    color: #fff;
 }
 
-.navbar .menu a:hover {
-    background-color: #3e8e41;
-    color:#003249;
+/*notifications menu*/
+#user-notifications
+{
+    height: 455px;
+    overflow: auto;
+}
+
+.notificationItem
+{
+    width: 350px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px auto;
+}
+
+.notificationDetails
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0px auto;
+    padding: 10px 15px;
+
+    border-style: none;
+    border-radius: 10px;
+}
+
+.notificationDetails:hover
+{
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.notificationDetails:hover *
+{
+    color: #003249;
+}
+
+.notificationLeft
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.notificationPicture
+{
+    width: 50px;
+    height: 50px;
+    border: solid 1px #fff;
+    border-radius: 100%;
+}
+
+.notificationRight
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 15px;
+}
+
+.notificationRight > h1
+{
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    color: #fff;
+}
+
+.notificationRight > p
+{
+    margin: 5px 0px 0px 0px;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: left;
+    color: #fff;
+}
+
+.notificationItem > hr
+{
+    margin: 5px 0px;
+    border: 1px solid #fff;
+}
+
+/*empty notifs*/
+#empty-notification
+{
+    width: 420px;
+    height: 455px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#empty-notification h1
+{
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    color: #fff;
+}
+
+/*accept or reject notif*/
+.notificationRight > form
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 10px 0px 0px 0px;
+}
+
+.acceptButton, .rejectButton
+{
+    width: 73.5px;
+    height: 30px;
+    border-style: none;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    color: #fff;
+}
+
+.acceptButton:hover, .rejectButton:hover
+{
+    cursor: pointer;
+}
+
+.acceptButton
+{
+    background-color: #00b31d;
+}
+
+.rejectButton
+{
+    background-color: #FF0000;
+}
+
+.notificationRight > .note
+{
+    margin: 10px 0px 5px 0px;
+    font-size: 13px;
 }
 
 main
 {
-    width: 750px;
+    margin-top: 100px;
+    width: 600px;
     height: 50vh;
     display: flex;
     flex-direction: column;
@@ -69,8 +398,16 @@ main
 
 main h1
 {
+    font-size: 32px;
+    font-weight:700;
+    text-align: center;
+    color: #003249
+}
+
+#description
+{
     font-size: 25px;
-    font-weight: 600px;
+    font-weight: 500;
     text-align: center;
     color: #003249;
 }
