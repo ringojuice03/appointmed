@@ -20,11 +20,11 @@
     
                 <div id="select-role-buttons">
                     <div id="patient-button-container" class="roleButtonContainer">
-                        <button type="button" id="patient-button" class="roleButtons" onclick="selectPatientRole()">patient icon</button>
+                        <img id="patient-button" class="roleButtons" onclick="selectPatientRole()" src="{% static 'images/patient_type_icon.png'%}">
                         <h1 id="patient-label">As a patient</h1>
                     </div>
                     <div id="doctor-button-container" class="roleButtonContainer">
-                        <button type="button" id="doctor-button" class="roleButtons" onclick="selectDoctorRole()">doctor icon</button>
+                        <img id="doctor-button" class="roleButtons" onclick="selectDoctorRole()" src="{% static 'images/doctor_type_icon.png'%}">
                         <h1 id="doctor-label">As a doctor</h1>
                     </div>
                 </div>
@@ -45,11 +45,6 @@
                         <input type="password" id="password-field" name="password" placeholder="Password">
 
                         <!--error message-->
-                        <!--
-                        {% if messages %}
-                            <div>{{ messages }}</div>
-                        {% endif %}
-                        -->
                         {% if messages %}
                             {% for message in messages %}
                                 <div>{{ message }}</div>
