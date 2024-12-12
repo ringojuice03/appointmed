@@ -92,6 +92,16 @@ body
     border-radius: 25px;
 }
 
+#patient-button:hover
+{
+    content: url("/static/images/patient_type_icon_selected.png");
+}
+
+#doctor-button:hover
+{
+    content: url("/static/images/doctor_type_icon_selected.png");
+}
+
 .roleButtons
 {
     cursor: pointer;
@@ -107,7 +117,7 @@ body
     font-weight: 600;
     text-align: center;
     color: #fff;
-    transition: color 0.25s ease;
+    /*transition: color 0.25s ease;*/
 }
 
 /*log in form css*/
@@ -222,12 +232,13 @@ body
     {
         width: 384px;
         height: auto;
-        background-color: 21769c;
+        background-color: #21769c;
         border-radius: 0px 25px 25px 0px;
         padding: 25px;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        background-image: url("/static/images/login_signup_background.png");
     }
     
     .signUpMessage
