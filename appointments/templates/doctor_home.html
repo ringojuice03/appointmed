@@ -186,7 +186,7 @@
                         dayView.init();
                         document.getElementById("dpDay").style.display = "block";
                         //put div container inside for label and icon
-                        buttonLabel.innerHTML = "Daily <i>*^*</i>";
+                        buttonLabel.innerHTML = "<h1>Daily</h1> <img src=\"/static/images/calendar_format_icon.png\">";
                     } else if (view === "Week") {
                         weekView = new DayPilot.Calendar("dpWeek", { viewType: "Week" });
                         weekView.events.list = placeholder;
@@ -257,7 +257,7 @@
                         weekView.init();
                         document.getElementById("dpWeek").style.display = "block";
                         //put div container inside for label and icon
-                        buttonLabel.innerHTML = "Weekly <i>*^*</i>";
+                        buttonLabel.innerHTML = "<h1>Weekly</h1> <img src=\"/static/images/calendar_format_icon.png\">";
                     } else if (view === "Month") {
                         monthView = new DayPilot.Month("dpMonth", { eventHeight: 32 });
                         monthView.events.list = placeholder;
@@ -274,7 +274,7 @@
                         monthView.init();
                         document.getElementById("dpMonth").style.display = "block";
                         //put div container inside for label and icon
-                        buttonLabel.innerHTML = "Monthly <i>*^*</i>";
+                        buttonLabel.innerHTML = "<h1>Monthly</h1> <img src=\"/static/images/calendar_format_icon.png\">";
                     }
                 }
 
@@ -306,7 +306,7 @@
                 
                 <div class="navbarMenus">
                     <!--change to proper notif icon-->
-                    <button type="button" id="notification-button" onclick="showNotificationMenu()"></button>
+                    <img id="notification-button" onclick="showNotificationMenu()" src="{% static 'images/doctor_notification_icon.png'%}">
 
                     <div id="notification-menu" class="hideMenu">
                         <!--change to proper logo-->
@@ -322,7 +322,7 @@
                                     <div class="notificationDetails">
                                         <div class="notificationLeft">
                                             <!--change to proper picture-->
-                                            <div class="notificationPicture"></div>
+                                            <img class="notificationPicture" src="{% static 'images/notification_menu_picture_default.png'%}">
                                         </div>
                                         
                                         {% if notification.notification_type == "set" %}
@@ -358,9 +358,10 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="navbarMenus">
                     <!--change to proper user picture-->
-                    <button type="button" id="user-menu-button" onclick="showUserMenu()"></button>
+                    <img id="user-menu-button" onclick="showUserMenu()" src="{% static 'images/user_menu_icon_default.png'%}">
 
                     <div id="user-menu" class="hideMenu">
                         <!--change to proper logo-->
@@ -368,7 +369,7 @@
             
                         <div id="user-profile">
                             <!--change to proper picture-->
-                            <div id="user-picture"></div>
+                            <img id="user-picture" src="{% static 'images/user_menu_picture_default.png'%}">
                             <h1 id="user-name">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</h1>
                             <h1 id="doctor-specialty">{Specialty}</h1>
                             <i id="clinic-address">{Clinic Address}</i>
@@ -454,6 +455,7 @@
                                             <button type="submit" class="acceptButton" name="action" value="accept">Accept</button>
                                             <button type="submit" class="rejectButton" name="action" value="reject">Reject</button>
                                         {% elif appointment.status == 'rejected' %}
+                                            <button type="submit" class="rejectButton hideMenu" name="action" value="delete">Delete</button>
                                             <button type="submit" class="rejectButton" name="action" value="delete">Delete</button>
                                         {% endif %}
                                     </form>

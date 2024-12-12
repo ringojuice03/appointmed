@@ -43,7 +43,8 @@ body
 {
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
+    justify-content: flex-end;
+    align-items: center;
     width: auto;
     height: 50px;
 }
@@ -53,7 +54,13 @@ body
     margin-left: 30px;
 }
 
-#user-menu-button, #notification-button
+#notification-button
+{
+    margin: 0;
+    cursor: pointer;
+}
+
+#user-menu-button
 {
     margin: 0;
     cursor: pointer;
@@ -542,14 +549,21 @@ body
 #buttonLabel
 {
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     margin: 0;
-    padding-left: 18px;
+    padding: 0px 16px 0px 18px;
     width: 150px;
     background-color: #003249;
     border-radius: 10.11px 10.11px 0px 0px;
     border: transparent;
     height: 50;
+}
 
+#buttonLabel > h1
+{
     font-size: 18.38px;
     font-weight: 700;
     text-align: left;
