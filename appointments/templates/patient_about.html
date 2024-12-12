@@ -5,19 +5,114 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 <body>
+    <script src="{% static 'js/patient_about.js' defer %}" async></script>
     <div class="main">
-        <div class="navbar">
-            <div class="brand">Appointmed</div>
+        <header class="navbar">
+            <!--insert proper logo nalang-->
+            <div class="logo">AppointMed</div>
             <div class="menu">
                 <a href="{% url "patient home" %}">Home</a>
                 <a href="{% url "patient about" %}">About</a>
                 <a href="{% url "patient appointments" %}">Appointments</a>
-                <a href="{% url "patient profile" %}"><i>Hi, User</i></a>
+
+                <div class="navbarMenus">
+                    <a id="notification-button" onclick="showNotificationMenu()">Notifications</a>
+                    
+                    <div id="notification-menu" class="hideMenu">
+                        <!--change to proper logo-->
+                        <h1 id="notification-menu-label">Notifications</h1>
+                        <hr>
+                        
+                        <div id="user-notifications">
+                            {% if notifications|length == 0 %}
+                                <div id="empty-notification">
+                                    <h1>Nothing to see here.</h1>
+                                </div>
+                            {% endif %}
+                            {% for notification in notifications %}
+                                <div class="notificationItem">
+                                    <div class="notificationDetails">
+                                        <div class="notificationLeft">
+                                            <!--change to proper picture-->
+                                            <img class="notificationPicture" src="{% static 'images/notification_menu_picture_default.png'%}">
+                                        </div>
+                                        
+                                        {% if notification.notification_type == "accepted" %}
+                                            <div class="notificationRight">
+                                                <h1><b>Dr. {{ notification.appointment.doctor.user.first_name }} {{ notification.appointment.doctor.user.last_name }}</b> 
+                                                has accepted your appointment request on {{ notification.appointment.appointment_date }}.</h1>
+                                                <p>{{ notification.time_ago }}</p>
+                                            </div>
+                                        {% elif notification.notification_type == "rejected" %}
+                                            <div class="notificationRight">
+                                                <h1><b>Unfortunately, Dr. {{ notification.appointment.doctor.user.first_name }} {{ notification.appointment.doctor.user.last_name }}</b> 
+                                                rejected your appointment request on {{ notification.appointment.appointment_date }}.</h1>
+                                                <p>{{ notification.time_ago }}</p>
+                                            </div>
+                                        {% elif notification.notification_type == "rescheduled" %}
+                                        <div class="notificationRight">
+                                            <h1><b>Dr. {{ notification.appointment.doctor.user.first_name }} {{ notification.appointment.doctor.user.last_name }}</b> 
+                                            requested to reschedule your appointment to {{ notification.appointment.appointment_date }}.</h1>
+                                            <form action="{% url 'patient reschedule api' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                                                <button class="acceptButton" name="action" value="accept">Accept</button>
+                                                <button class="rejectButton" name="action" value="reject">Reject</button>
+                                            </form>
+                                            <p class="note">Note: Rejecting would cancel your appointment request.</p>
+                                            <p>{{ notification.time_ago }}</p>
+                                        </div>
+                                        {% elif notification.notification_type == "reschedule_accepted" %}
+                                            <div class="notificationRight">
+                                                <h1><b>Your appointment with Dr. {{ notification.appointment.doctor.user.first_name }} {{ notification.appointment.doctor.user.last_name }}</b> 
+                                                has been rescheduled to {{ notification.appointment.appointment_date }}.</h1>
+                                                <p>{{ notification.time_ago }}</p>
+                                            </div>
+                                        {% elif notification.notification_type == "reschedule_rejected" %}
+                                            <div class="notificationRight">
+                                                <h1><b>You canceled your appointment with Dr. {{ notification.appointment.doctor.user.first_name }} {{ notification.appointment.doctor.user.last_name }}</b> 
+                                                on {{ notification.appointment.appointment_date }}.</h1>
+                                                <p>{{ notification.time_ago }}</p>
+                                            </div>
+                                        {% endif %}
+    
+    
+                                        
+                                    </div>
+                
+                                    <hr>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="navbarMenus">
+                    <!--change to proper user picture-->
+                    <img id="user-menu-button" onclick="showUserMenu()" src="{% static 'images/user_menu_icon_default.png'%}">
+                    
+                    <div id="user-menu" class="hideMenu">
+                        <!--change to proper logo-->
+                        <h1 id="user-menu-logo">AppointMed</h1>
+            
+                        <div id="user-profile">
+                            <!--change to proper picture-->
+                            <img id="user-picture" src="{% static 'images/user_menu_picture_default.png'%}">
+                            <h1 id="user-name">Hi, <i>{{ patient.user.first_name }} {{ patient.user.last_name }}</i>!</h1>
+                            <!--pwede naman username or pwede naman tanggalin nalang-->
+                            <h1 id="patient-email">{Patient Email}</h1>
+                            <i id="personal-address">{Personal Address}</i>
+                            <!--add log out icon-->
+                            <button type="button" id="log-out-button" onclick="window.location.href={% url "logout" %}">Log out</button>
+                            <p id="appointmed-2024">© AppointMed 2024</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </header>
         
         <main>
-            <h1>AppointMed aims to streamline medical appointments by enabling patients to set, cancel, and reschedule check-ups at their convenience. AppointMed seeks to improve medical service through an effective queue management system. Eliminating the ‘wait time’ for patients contributes to greater productivity and customer satisfaction. By streamlining medical appointments, medical staff can maximize their time on patient care by reducing the time required to accommodate patients.</h1>
+            <h1>Your health, your time</h1>
+            <p id="description">AppointMed aims to streamline medical appointments by enabling patients to set, cancel, and reschedule check-ups at their convenience. AppointMed seeks to improve medical service through an effective queue management system. Eliminating the ‘wait time’ for patients contributes to greater productivity and customer satisfaction. By streamlining medical appointments, medical staff can maximize their time on patient care by reducing the time required to accommodate patients.</p>
         </main>
     </div>
 </body>
