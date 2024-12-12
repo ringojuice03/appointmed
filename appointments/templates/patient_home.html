@@ -48,7 +48,7 @@
                         
                         <div id="user-notifications">
                             {% if notifications|length == 0 %}
-                                <div class="notificationRight">
+                                <div id="empty-notification">
                                     <h1>Nothing to see here.</h1>
                                 </div>
                             {% endif %}
@@ -57,7 +57,7 @@
                                     <div class="notificationDetails">
                                         <div class="notificationLeft">
                                             <!--change to proper picture-->
-                                            <div class="notificationPicture"></div>
+                                            <img class="notificationPicture" src="{% static 'images/notification_menu_picture_default.png'%}">
                                         </div>
                                         
                                         {% if notification.notification_type == "accepted" %}
@@ -79,10 +79,10 @@
                                             <form action="{% url 'patient reschedule api' %}" method="POST">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="notification_id" value="{{ notification.id }}">
-                                                <button name="action" value="accept">Accept</button>
-                                                <button name="action" value="reject">Reject</button>
+                                                <button class="acceptButton" name="action" value="accept">Accept</button>
+                                                <button class="rejectButton" name="action" value="reject">Reject</button>
                                             </form>
-                                            <h1>Note: Rejecting would cancel your appointment request.</h1>
+                                            <p class="note">Note: Rejecting would cancel your appointment request.</p>
                                             <p>{{ notification.time_ago }}</p>
                                         </div>
                                         {% elif notification.notification_type == "reschedule_accepted" %}
@@ -111,7 +111,7 @@
                 </div>
                 <div class="navbarMenus">
                     <!--change to proper user picture-->
-                    <button type="button" id="user-menu-button" onclick="showUserMenu()"></button>
+                    <img id="user-menu-button" onclick="showUserMenu()" src="{% static 'images/user_menu_icon_default.png'%}">
                     
                     <div id="user-menu" class="hideMenu">
                         <!--change to proper logo-->
@@ -119,7 +119,7 @@
             
                         <div id="user-profile">
                             <!--change to proper picture-->
-                            <div id="user-picture"></div>
+                            <img id="user-picture" src="{% static 'images/user_menu_picture_default.png'%}">
                             <h1 id="user-name">Hi, <i>{{ patient.user.first_name }} {{ patient.user.last_name }}</i>!</h1>
                             <!--pwede naman username or pwede naman tanggalin nalang-->
                             <h1 id="patient-email">{Patient Email}</h1>
@@ -149,14 +149,18 @@
             {% for doctor in doctors %}
                 <div class="doctor-link" name="{{ doctor.id }}" doctor-specialty="{{doctor.specialty}}" data-doctor-id="{{ doctor.id }}">
                     <div class="doctorprofile" onclick="cardExpansion({{ doctor.id }})">
-                        <img src="doctor-profile-image.jpg">
+                        <div class="doctorCardPicture">
+                            <img src="{% static 'images/doctorcard_user_picture.png'%}">
+                        </div>
                         <div class="doctorname">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</div>
                         <div class="doctortitle">{{ doctor.specialty }}</div>
                         <div class="address"><i>{{ doctor.clinic_address }}</i></div>
                     </div>
                     <div class="doctorcard hidden">
                         <div class="left" onclick="cardExpansion({{ doctor.id }})">
-                            <img src="doctor-profile-image.jpg">
+                            <div class="doctorCardPictureExpanded">
+                                <img src="{% static 'images/doctorcard_user_picture_expanded.png'%}">
+                            </div>
                             <div class="doctor-name">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</div>
                             <div class="doctor-title">{{ doctor.specialty }}</div>
                             <div class="doctor-address"><i>{{ doctor.clinic_address }}</i></div>
@@ -195,7 +199,7 @@
                                 <h1 id="selected-date{{ doctor.id }}">Select date</h1>
                                 <h1 id="selected-time{{ doctor.id }}">Select time</h1>
                             </div>
-                            <button class="bookButton" id="bookButton{{ doctor.id }}">Book appointment <i>*icon*</i></button>
+                            <button class="bookButton" id="bookButton{{ doctor.id }}"><h1>Book appointment</h1> <img src="{% static 'images/book_appointment_icon.png'%}"></button>
                         </div>
                     </div>
                 </div>

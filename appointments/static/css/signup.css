@@ -54,11 +54,11 @@ body
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        background-image: url("/static/images/login_signup_background.png");
     }
 
-    #sign-up-home-button
+    #sign-up-logo
     {
-        cursor: pointer;
         width: 161px;
         height: 29px;
 
@@ -233,10 +233,18 @@ body
     #medical-license-field-cluster > .fieldClusterX
     {
         justify-content: flex-start;
+        align-items: center;
         width: 195px;
         margin-top: 0px;
 
         overflow: hidden;
+    }
+
+    #attach-file-icon
+    {
+        border: 1px solid #003249;
+        border-radius: 100%;
+        background-color: transparent;
     }
 
     #medical-license-button

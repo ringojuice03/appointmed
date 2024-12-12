@@ -134,7 +134,7 @@ function initializeCalendar(doctor_id)
 
         weekView.events.list = unavailable_slot;
 
-        weekView.width = "90%";
+        weekView.width = "91.25%";
         weekView.cellHeight = 25;
         weekView.headerHeight = 40;
 

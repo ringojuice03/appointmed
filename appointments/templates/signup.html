@@ -15,7 +15,7 @@
             <div id="sign-up" class="signUpFormMenu menu">
                 <div class="leftLogInRedirect">
                     <!--change to proper logo-->
-                    <button type="button" id="sign-up-home-button" onclick="">AppointMed</button>
+                    <button type="button" id="sign-up-logo">AppointMed</button>
 
                     <h1 class="logInMessage">Already using AppointMed?</h1>
     
@@ -75,7 +75,7 @@
                                 <div id="medical-license-field-cluster" class="fieldClusterY">
                                     <label>Medical license</label>
                                     <div class="fieldClusterX">
-                                        <i>*+*</i>
+                                        <img id="attach-file-icon" src="{% static 'images/file_unattached_icon.png'%}">
                                         <label id="medical-license-button" for="medical-license-field"><span id="file-upload">Attach file</span></label>
                                     </div>
                                     <input type="file" id="medical-license-field" name="medical_license">
