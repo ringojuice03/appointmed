@@ -40,7 +40,7 @@ class UserForm(forms.ModelForm):
 class PatientForm(forms.ModelForm):
     class Meta:
         model = Patient
-        fields = ("date_of_birth", "gender")
+        fields = ("date_of_birth", "gender", "address")
 
     def clean(self):
         cleaned_data = super().clean()
@@ -53,7 +53,7 @@ class PatientForm(forms.ModelForm):
 class DoctorForm(forms.ModelForm):
     class Meta:
         model = Doctor
-        fields = ("date_of_birth", "gender", "specialty", "clinic_address", "medical_license")
+        fields = ("date_of_birth", "gender", "specialty", "clinic_address", "medical_license", "address")
 
     def clean(self):
         cleaned_data = super().clean()
