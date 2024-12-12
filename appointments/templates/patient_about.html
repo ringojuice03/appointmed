@@ -99,8 +99,8 @@
                             <img id="user-picture" src="{% static 'images/user_menu_picture_default.png'%}">
                             <h1 id="user-name">Hi, <i>{{ patient.user.first_name }} {{ patient.user.last_name }}</i>!</h1>
                             <!--pwede naman username or pwede naman tanggalin nalang-->
-                            <h1 id="patient-email">{Patient Email}</h1>
-                            <i id="personal-address">{Personal Address}</i>
+                            <h1 id="patient-email">{{ patient.user.email }}</h1>
+                            <i id="personal-address">{{ patient.address }}</i>
                             <!--add log out icon-->
                             <button type="button" id="log-out-button" onclick="window.location.href={% url "logout" %}">Log out</button>
                             <p id="appointmed-2024">© AppointMed 2024</p>
