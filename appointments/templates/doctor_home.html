@@ -315,7 +315,9 @@
                         
                         <div id="user-notifications">
                             {% if notifications|length == 0 %}
-                                <h1>Nothing to see here.</h1>
+                                <div id="empty-notification">
+                                    <h1>Nothing to see here.</h1>
+                                </div>
                             {% endif %}
                             {% for notification in notifications %}
                                 <div class="notificationItem">
