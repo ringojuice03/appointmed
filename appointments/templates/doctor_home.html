@@ -369,7 +369,7 @@
                         <div id="user-profile">
                             <!--change to proper picture-->
                             {% comment %} <div id="user-picture"></div> {% endcomment %}
-                            <img id="user-picture" src="{{ MEDIA_URL }}{{ doctor.medical_licensen.url }}" alt="Doctor profile">
+                            <img id="user-picture" src="{{ doctor.medical_licensen.url }}" alt="Doctor profile">
                             <h1 id="user-name">Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</h1>
                             <h1 id="doctor-specialty">{{ doctor.specialty }}</h1>
                             <i id="clinic-address">{{ doctor.clinic_address }}</i>
