@@ -54,6 +54,7 @@ body {
     font-weight: 900;
     text-align: left;
     color: #003249;
+    text-decoration: none;
 }
 
 .navbar .menu { 
@@ -73,10 +74,17 @@ body {
     text-align: center;
     color: #003249;
     transition: color 0.3s ease; /* Smooth color transition */
+    border-style: none;
+}
+
+#navbar-home
+{
+    border-bottom: 2px solid #003249;
 }
 
 .menu a:hover {
     color: #21769C; /* Change text color on hover */
+    border-color: #21769C !important;
 }
 
 .menu a:hover::after {
