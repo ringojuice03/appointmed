@@ -509,7 +509,8 @@ body
 {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
+    gap: ;
     width: 158px;
     height: 30px;
 }
@@ -598,7 +599,7 @@ body
     margin-bottom: -150px;
     background-color: transparent;
     border-radius: 10.11px 10.11px 10.11px 10.11px;
-    box-shadow: 0px 0px 10px#aaaaaa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /*format buttons*/
