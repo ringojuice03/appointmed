@@ -92,6 +92,20 @@ def PatientHome(request):
 
     specializations = doctors.values_list('specialty' ,flat=True).distinct()
 
+    appointments = Appointment.objects.filter(patient=patient, status__in=['pending', 'scheduled', 'rescheduled'])
+
+    for appointment in appointments:
+        if appointment.appointment_date <= now():
+            if appointment.status == 'scheduled':
+                appointment.status = 'completed'
+            else:
+                appointment.status = 'rejected'
+                Notification.objects.create(
+                    appointment = appointment,
+                    notification_type = 'rejected',
+                )
+            appointment.save()
+
     notifications = Notification.objects.filter(
         appointment__patient=patient,
         notification_type__in = ['accepted', 'rejected', 'rescheduled', 
