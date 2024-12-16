@@ -54,6 +54,7 @@ body {
   font-weight: 900;
   text-align: left;
   color: #003249;
+  text-decoration: none;
 }
 
 .navbar .menu { 
@@ -75,8 +76,14 @@ body {
   transition: color 0.3s ease; /* Smooth color transition */
 }
 
+#navbar-appointments
+{
+    border-bottom: 2px solid #003249;
+}
+
 .menu a:hover {
-  color: #21769C; /* Change text color on hover */
+    color: #21769C; /* Change text color on hover */
+    border-color: #21769C !important;
 }
 
 .menu a:hover::after {
@@ -408,9 +415,9 @@ main {
     /*padding: 27.5px 55px; /* Adjust padding */
     /*background-color: white;
     overflow-y: auto;*/
-    margin-top: 30px; 
-    padding: 20px;
-    width: 800px; 
+    margin-top: 20px;
+    padding-bottom: 50px;
+    width: 1000px; 
     margin-left: auto;
     margin-right: auto;
     background-color: #fff; 
@@ -455,8 +462,8 @@ main h1 {
 .appointment {
   overflow: hidden; 
   transition: height 0.3s ease, padding 0.3s ease; 
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
+  padding: 20px;
+  border-bottom: 1px solid #002a4d4d;
   position: relative;
 }
 
@@ -478,21 +485,21 @@ main h1 {
   transition: max-height 0.3s ease, padding-top 0.3s ease; 
   font-size: 0.9rem; 
   text-align: left;
-  color: #21769C; 
+  color: #21769C;
 }
 
 
 .appointment.open .appointment-details {
   max-height: 300px; 
-  padding-top: 20px; 
+  padding-top: 20px;
   color: white; 
 }
 
 
 .appointment {
   overflow: hidden;
-  padding: 20px 15px;
-  border-bottom: 1px solid #ddd;
+  padding: 20px;
+  border-bottom: 1px solid #002a4d4d;
   position: relative;
   transition: height 0.3s ease;
 }
@@ -683,7 +690,7 @@ main h1 {
   border: none;
   background: none;
   color: white; 
-  font-size: 0.9rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: transform 0.3s ease;
 }

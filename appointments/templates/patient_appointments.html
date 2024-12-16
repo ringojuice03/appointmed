@@ -17,11 +17,11 @@
 <body>
     <div class="main">
         <header class="navbar">
-            <div class="logo">AppointMed</div>
+            <a class="logo" href="{% url "patient home" %}">AppointMed</a>
             <div class="menu">
-                <a href="{% url "patient home" %}">Home</a>
-                <a href="{% url "patient about" %}">About</a>
-                <a href="{% url "patient appointments" %}">Appointments</a>
+                <a id="navbar-home" href="{% url "patient home" %}">Home</a>
+                <a id="navbar-about" href="{% url "patient about" %}">About</a>
+                <a id="navbar-appointments" href="{% url "patient appointments" %}">Appointments</a>
                 <div class="navbarMenus">
                     <a id="notification-button" onclick="showNotificationMenu()">Notifications</a>
                     
@@ -120,11 +120,11 @@
         <main>
             <h1>Your appointments</h1>
             <div class="main-filters">
+                <button class="filter-button" id="all">All</button>
                 <button class="filter-button active" id="pending">Pending</button>
                 <button class="filter-button" id="scheduled">Scheduled</button>
                 <button class="filter-button" id="completed">Completed</button>
                 <button class="filter-button" id="rejected">Rejected</button>
-                <button class="filter-button" id="all">All</button>
             </div>
 
             <!-- Empty message -->
@@ -140,7 +140,7 @@
             {% for appointment in appointments %}
                 <div class="appointment {{appointment.status}}">
                     <div class="appointment-summary">
-                        <img src="{% static 'images/user_menu_icon_default.png'%}" alt="Dr. Jose Rizal">
+                        <img src="{% static 'images/appointments_user_picture_default.png'%}" alt="Dr. Jose Rizal">
                         <div class="appointment-info">
                             
                             <h2>Dr. {{ appointment.doctor.user.first_name }} {{ appointment.doctor.user.last_name }}</h2>

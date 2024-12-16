@@ -1,19 +1,21 @@
-*
-{
+* {
+    margin: 0;
+    box-sizing: border-box;
     font-family: "Montserrat", sans-serif;
-    
+
     /*
-    border-style: dashed;
-    border-color: gray;
+    border: 1px solid grey;
     */
 }
 
-.main
-{
+body {
+    height: 95vh;
+    background-color: white;
+    text-align: center;
+    color: white;
+    font-size: 24px;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    flex-direction: row; /* Align content horizontally */
 }
 
 .hideMenu
@@ -33,7 +35,7 @@
 }*/
 
 .navbar {
-    grid-column: 2/3;
+    grid-row: 1/2;
     width: auto;
     display: flex;
     flex-direction: row;
@@ -51,6 +53,7 @@
     font-weight: 900;
     text-align: left;
     color: #003249;
+    text-decoration: none;
 }
 
 .navbar .menu { 
@@ -72,8 +75,14 @@
     transition: color 0.3s ease; /* Smooth color transition */
 }
 
+#navbar-about
+{
+    border-bottom: 2px solid #003249;
+}
+
 .menu a:hover {
     color: #21769C; /* Change text color on hover */
+    border-color: #21769C !important;
 }
 
 .menu a:hover::after {
@@ -386,28 +395,82 @@
     font-size: 13px;
 }
 
-main
+/*----------MAIN----------*/
+
+/*container of whole page*/
+.main
 {
-    margin-top: 100px;
-    width: 600px;
-    height: 50vh;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    margin: 0;
+    display: grid;
+    grid-template-rows: 92.5px 1fr;
+}
+
+/*container of main content*/
+main 
+{
+    grid-row: 2/3;
+    width: 100vw; 
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff; 
+    overflow-y: auto;
+}
+
+#main-top
+{
+    height: 350px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    background-color: #21769C;
+}
+
+#main-top-text
+{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-start;
 }
 
-main h1
+#main-top-text > h1:last-child
 {
-    font-size: 32px;
+    margin-left: 300px;
+}
+
+#main-top h1
+{
+    font-size: 69px;
     font-weight:700;
     text-align: center;
-    color: #003249
+    color: #fff
+}
+
+#main-bottom
+{
+    padding: 35px 50px 50px 50px;
+    display: flex;
+    justify-content: center;
 }
 
 #description
 {
-    font-size: 25px;
+    width: 750px;
+    font-size: 24px;
     font-weight: 500;
-    text-align: center;
+    text-align: justify;
+    color: #003249;
+    line-height: 1.75;
+}
+
+#description > span
+{
+    font-weight: 900;
     color: #003249;
 }
