@@ -160,7 +160,7 @@ body
         padding: 0px;
     }
 
-    .logInMessage
+    #logInMessage
     {
         margin: 180px auto 0px auto;
         font-size: 32px;
