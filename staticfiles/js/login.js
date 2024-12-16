@@ -2,6 +2,7 @@
 const userType = document.getElementById("user-type");
 const logIn = document.getElementById("log-in");
 const select = document.getElementById("select-role");
+const logInMessage = document.getElementById("logInMessage")
 
 /*check if role select should be displayed; 
 role is stored in browser indefinitely*/
@@ -32,6 +33,11 @@ function selectDoctorRole()
 
 function switchToLogIn()
 {
+    if (localStorage.getItem("savedUserType") == "patient")
+        logInMessage.innerHTML = "Log in as patient";
+    else if (localStorage.getItem("savedUserType") == "doctor")
+        logInMessage.innerHTML = "Log in as doctor";
+    
     select.classList.add("hideMenu");
     logIn.classList.remove("hideMenu");
 }

@@ -120,6 +120,22 @@ body
     /*transition: color 0.25s ease;*/
 }
 
+/*
+#select-role-signup
+{
+    cursor: pointer;
+    margin: 65px auto 0px auto;
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+}
+
+#select-role-signup > span
+{
+    font-weight: 600;
+}
+*/
+
 /*log in form css*/
 #log-in
 {   
@@ -160,7 +176,7 @@ body
         padding: 0px;
     }
 
-    .logInMessage
+    #logInMessage
     {
         margin: 180px auto 0px auto;
         font-size: 32px;
