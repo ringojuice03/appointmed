@@ -38,3 +38,12 @@ function showChangeButton()
     attachFileIcon.src = "/static/images/file_attached_icon.png";
     attachFileIcon.style.backgroundColor = "#003249";
 }
+
+/*redirect to correct login user type; only when user clicked signup*/
+function setUserType()
+{
+    if (roleCheckField.checked == true)
+        localStorage.setItem("savedUserType", "doctor");
+    else
+        localStorage.setItem("savedUserType", "patient");
+}
