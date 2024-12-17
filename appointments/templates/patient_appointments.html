@@ -117,64 +117,66 @@
             </div>
         </header>
 
-        <main>
-            <h1>Your appointments</h1>
-            <div class="main-filters">
-                <button class="filter-button" id="all">All</button>
-                <button class="filter-button active" id="pending">Pending</button>
-                <button class="filter-button" id="scheduled">Scheduled</button>
-                <button class="filter-button" id="completed">Completed</button>
-                <button class="filter-button" id="rejected">Rejected</button>
-            </div>
-
-            <!-- Empty message -->
-            <div id="empty-message">
-                <div class="appointment-summary">
-                    <div class="appointment-info">
-                        <h1 class="emptyAppointments">No appointments here.</h1>
-                    </div>
+        <div id="main-container">
+            <main>
+                <h1>Your appointments</h1>
+                <div class="main-filters">
+                    <button class="filter-button" id="all">All</button>
+                    <button class="filter-button active" id="pending">Pending</button>
+                    <button class="filter-button" id="scheduled">Scheduled</button>
+                    <button class="filter-button" id="completed">Completed</button>
+                    <button class="filter-button" id="rejected">Rejected</button>
                 </div>
-            </div>
-
-            <!-- Appointment Row -->
-            {% for appointment in appointments %}
-                <div class="appointment {{appointment.status}}">
+    
+                <!-- Empty message -->
+                <div id="empty-message">
                     <div class="appointment-summary">
-                        <img src="{% static 'images/appointments_user_picture_default.png'%}" alt="Dr. Jose Rizal">
                         <div class="appointment-info">
-                            
-                            <h2>Dr. {{ appointment.doctor.user.first_name }} {{ appointment.doctor.user.last_name }}</h2>
-                            <p>{{ appointment.doctor.clinic_address }}</p>
-                        </div>
-                        <div class="appointment-time">
-                            <div class="date-time">
-                                <p class="date">{{ appointment.appointment_date|date:"F j, Y" }}</p>
-                                <p class="time">{{ appointment.appointment_date|date:"g:i - " }} 
-                                {{ appointment.appointment_end|date:"g:i A" }}</p>
-                            </div>
-                            <button class="expand-btn">▼</button>
-                        </div>
-                    </div>
-                    <div class="appointment-details">
-                        <div class="detailsLeft">
-                            <p><b>Status:</b> {{ appointment.status }}</p>
-                            <p><b>Appointment fee:</b> $420.00</p>
-                        </div>
-                        <div class="detailsRight">
-                            {% if appointment.status == 'scheduled' or appointment.status == 'pending' %}
-                            <form action="{% url 'patient cancel api' %}" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" name="appointment-id" value="{{ appointment.id }}">
-                                <button name="action" class="cancel-btn">Cancel</button>
-                            </form>
-                        {% endif %}
+                            <h1 class="emptyAppointments">No appointments here.</h1>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-            
-            
-        </main>
+    
+                <!-- Appointment Row -->
+                {% for appointment in appointments %}
+                    <div class="appointment {{appointment.status}}">
+                        <div class="appointment-summary">
+                            <img src="{% static 'images/appointments_user_picture_default.png'%}" alt="Dr. Jose Rizal">
+                            <div class="appointment-info">
+                                
+                                <h2>Dr. {{ appointment.doctor.user.first_name }} {{ appointment.doctor.user.last_name }}</h2>
+                                <p>{{ appointment.doctor.clinic_address }}</p>
+                            </div>
+                            <div class="appointment-time">
+                                <div class="date-time">
+                                    <p class="date">{{ appointment.appointment_date|date:"F j, Y" }}</p>
+                                    <p class="time">{{ appointment.appointment_date|date:"g:i - " }} 
+                                    {{ appointment.appointment_end|date:"g:i A" }}</p>
+                                </div>
+                                <button class="expand-btn">▼</button>
+                            </div>
+                        </div>
+                        <div class="appointment-details">
+                            <div class="detailsLeft">
+                                <p><b>Status:</b> {{ appointment.status }}</p>
+                                <p><b>Appointment fee:</b> $420.00</p>
+                            </div>
+                            <div class="detailsRight">
+                                {% if appointment.status == 'scheduled' or appointment.status == 'pending' %}
+                                <form action="{% url 'patient cancel api' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="appointment-id" value="{{ appointment.id }}">
+                                    <button name="action" class="cancel-btn">Cancel</button>
+                                </form>
+                            {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+                
+            </main>
+        </div>
     </div>
 
 </body>
