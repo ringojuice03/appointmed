@@ -409,6 +409,18 @@ body {
     grid-template-rows: 92.5px 1fr;
 }
 
+/*container of container of main content*/
+#main-container
+{
+  width: 100vw;
+  height: auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 /*container of main content*/
 main {
     grid-row: 2/3;
