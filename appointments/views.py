@@ -54,7 +54,8 @@ def signup(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         is_doctor = (request.POST.get('role') == 'doctor')
-
+        print(request.POST.get('address'))
+        
         if is_doctor:
             profile_form = DoctorForm(request.POST, request.FILES)
         else:
@@ -90,6 +91,20 @@ def PatientHome(request):
     doctors = Doctor.objects.all()
 
     specializations = doctors.values_list('specialty' ,flat=True).distinct()
+
+    appointments = Appointment.objects.filter(patient=patient, status__in=['pending', 'scheduled', 'rescheduled'])
+
+    for appointment in appointments:
+        if appointment.appointment_date <= now():
+            if appointment.status == 'scheduled':
+                appointment.status = 'completed'
+            else:
+                appointment.status = 'rejected'
+                Notification.objects.create(
+                    appointment = appointment,
+                    notification_type = 'rejected',
+                )
+            appointment.save()
 
     notifications = Notification.objects.filter(
         appointment__patient=patient,
