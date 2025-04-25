@@ -95,8 +95,9 @@ DATABASES = {
 }
 
 # database_url = "postgresql://appointmed_postgresql_user:9sUCKYCXkrSKYuVuE9y13zCZfBhsuxTB@dpg-ctci6u2j1k6c73fgis50-a.oregon-postgres.render.com/appointmed_postgresql"
-database_url = os.environ.get("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
-DATABASES['default'] = dj_database_url.parse(database_url)
+# database_url = os.environ.get("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
+# DATABASES['default'] = dj_database_url.parse(database_url)
+DATABASES['default'] = dj_database_url.parse('postgresql://appointmed_postgresql_xcal_user:ZvD3Jv3j6jFqMEcYGbPPi9nyaCUFXLno@dpg-d05kijq4d50c73f4c3tg-a.oregon-postgres.render.com/appointmed_postgresql_xcal')
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
